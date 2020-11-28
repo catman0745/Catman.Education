@@ -4,6 +4,7 @@ namespace Catman.Education.WebApi
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Serilog;
 
     public class Startup
     {
@@ -18,6 +19,8 @@ namespace Catman.Education.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
