@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Catman.Education.Application\Catman.Education.Application.csproj" />
+    <ProjectReference Include="..\Catman.Education.Authentication\Catman.Education.Authentication.csproj" />
+    <ProjectReference Include="..\Catman.Education.Persistence\Catman.Education.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
