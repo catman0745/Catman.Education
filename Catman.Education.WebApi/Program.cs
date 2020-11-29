@@ -8,19 +8,21 @@ namespace Catman.Education.WebApi
 
     public class Program
     {
-        private static string AspnetcoreEnvironment =>
-            Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", EnvironmentVariableTarget.Machine);
+        private static IConfiguration EnvironmentVariables =>
+            new ConfigurationBuilder()
+                .AddEnvironmentVariables()
+                .Build();
         
-        private static IConfiguration Configuration =>
+        private static IConfiguration AppSettings =>
             new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{AspnetcoreEnvironment}.json", optional: true)
+                .AddJsonFile($"appsettings.{EnvironmentVariables["ASPNETCORE_ENVIRONMENT"]}.json", optional: true)
                 .Build();
         
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
+                .ReadFrom.Configuration(AppSettings)
                 .CreateLogger();
 
             try

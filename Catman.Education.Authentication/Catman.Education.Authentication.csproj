@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Catman.Education.Application\Catman.Education.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+  </ItemGroup>
+
 </Project>
