@@ -1,10 +1,10 @@
 namespace Catman.Education.Application.Features.User.Queries
 {
     using System.Threading.Tasks;
+    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     public class GenerateTokenQuery : IRequest<ResourceRequestResult<string>>
     {
@@ -26,11 +26,11 @@ namespace Catman.Education.Application.Features.User.Queries
         
         protected override async Task<ResourceRequestResult<string>> HandleAsync(GenerateTokenQuery tokenQuery)
         {
-            if (!await _store.Users.AnyAsync(user => user.Username == tokenQuery.Username))
+            if (!await _store.Users.ExistsWithUsernameAsync(tokenQuery.Username))
             {
                 return NotFound();
             }
-            var user = await _store.Users.SingleAsync(user => user.Username == tokenQuery.Username);
+            var user = await _store.Users.WithUsernameAsync(tokenQuery.Username);
 
             if (user.Password != tokenQuery.Password)
             {

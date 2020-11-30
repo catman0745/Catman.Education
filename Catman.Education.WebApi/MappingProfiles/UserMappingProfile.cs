@@ -12,6 +12,8 @@ namespace Catman.Education.WebApi.MappingProfiles
         {
             CreateMap<RegisterUserDto, RegisterUserCommand>();
             CreateMap<GenerateTokenDto, GenerateTokenQuery>();
+            CreateMap<UpdateUserDto, UpdateUserCommand>();
+            CreateMap<UpdateUserCommand, User>();
             CreateMap<User, UserDto>();
         }
     }
