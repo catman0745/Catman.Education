@@ -1,20 +1,19 @@
 namespace Catman.Education.Application.Features.User.Queries
 {
-    using System;
-    using System.Threading;
     using System.Threading.Tasks;
     using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.RequestResults;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    public class GenerateTokenQuery : IRequest<string>
+    public class GenerateTokenQuery : IRequest<ResourceRequestResult<string>>
     {
         public string Username { get; set; }
         
         public string Password { get; set; }
     }
 
-    internal class GenerateTokenQueryHandler : IRequestHandler<GenerateTokenQuery, string>
+    internal class GenerateTokenQueryHandler : ResourceRequestHandlerBase<GenerateTokenQuery, string>
     {
         private readonly IApplicationStore _store;
         private readonly ITokenService _tokenService;
@@ -25,16 +24,16 @@ namespace Catman.Education.Application.Features.User.Queries
             _tokenService = tokenService;
         }
         
-        public async Task<string> Handle(GenerateTokenQuery query, CancellationToken _)
+        protected override async Task<ResourceRequestResult<string>> HandleAsync(GenerateTokenQuery tokenQuery)
         {
-            var user = await _store.Users.FirstOrDefaultAsync(user => user.Username == query.Username);
-            if (user == null)
+            if (!await _store.Users.AnyAsync(user => user.Username == tokenQuery.Username))
             {
-                throw new Exception("User not found");
+                return NotFound();
             }
+            var user = await _store.Users.SingleAsync(user => user.Username == tokenQuery.Username);
 
             var token = _tokenService.GenerateToken(user);
-            return token;
+            return Success(token);
         }
     }
 }

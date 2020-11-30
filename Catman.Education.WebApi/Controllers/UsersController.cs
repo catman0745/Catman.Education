@@ -1,11 +1,11 @@
 namespace Catman.Education.WebApi.Controllers
 {
-    using System;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.User.Commands;
     using Catman.Education.Application.Features.User.Queries;
     using Catman.Education.WebApi.DataTransferObjects.User;
+    using Catman.Education.WebApi.Extensions;
     using MediatR;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -27,31 +27,20 @@ namespace Catman.Education.WebApi.Controllers
         public async Task<IActionResult> Register(UserAuthorizationDto authorizationDto)
         {
             var registerCommand = _mapper.Map<RegisterUserCommand>(authorizationDto);
-            try
+            var result = await _mediator.Send(registerCommand);
+            return result.ToActionResult(user =>
             {
-                var user = await _mediator.Send(registerCommand);
-                var userDto = _mapper.Map<UserDto>(user);
-                return StatusCode(StatusCodes.Status201Created, userDto);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+                var dto = _mapper.Map<UserDto>(user);
+                return StatusCode(StatusCodes.Status201Created, dto);
+            });
         }
 
         [HttpPost("token")]
         public async Task<IActionResult> GenerateToken(UserAuthorizationDto authorizationDto)
         {
             var tokenQuery = _mapper.Map<GenerateTokenQuery>(authorizationDto);
-            try
-            {
-                var token = await _mediator.Send(tokenQuery);
-                return Ok(token);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            var result = await _mediator.Send(tokenQuery);
+            return result.ToActionResult(Ok);
         }
     }
 }

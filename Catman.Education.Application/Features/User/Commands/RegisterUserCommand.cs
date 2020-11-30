@@ -1,22 +1,21 @@
 namespace Catman.Education.Application.Features.User.Commands
 {
-    using System;
-    using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.RequestResults;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    public class RegisterUserCommand : IRequest<User>
+    public class RegisterUserCommand : IRequest<ResourceRequestResult<User>>
     {
         public string Username { get; set; }
         
         public string Password { get; set; }
     }
 
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, User>
+    internal class RegisterUserCommandHandler : ResourceRequestHandlerBase<RegisterUserCommand, User>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
@@ -27,18 +26,18 @@ namespace Catman.Education.Application.Features.User.Commands
             _mapper = mapper;
         }
         
-        public async Task<User> Handle(RegisterUserCommand command, CancellationToken _)
+        protected override async Task<ResourceRequestResult<User>> HandleAsync(RegisterUserCommand registerCommand)
         {
-            if (await _store.Users.AnyAsync(user => user.Username == command.Username))
+            if (await _store.Users.AnyAsync(user => user.Username == registerCommand.Username))
             {
-                throw new Exception("User with such username already exists");
+                return Duplicate("User with such username already exists");
             }
 
-            var user = _mapper.Map<User>(command);
+            var user = _mapper.Map<User>(registerCommand);
             _store.Users.Add(user);
             await _store.SaveChangesAsync();
 
-            return user;
+            return Success(user);
         }
     }
 }
