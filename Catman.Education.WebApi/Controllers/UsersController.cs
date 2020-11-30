@@ -7,6 +7,7 @@ namespace Catman.Education.WebApi.Controllers
     using Catman.Education.WebApi.DataTransferObjects.User;
     using Catman.Education.WebApi.Extensions;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,12 @@ namespace Catman.Education.WebApi.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserAuthorizationDto authorizationDto)
+        [Authorize]
+        public async Task<IActionResult> Register(RegisterUserDto registerDto)
         {
-            var registerCommand = _mapper.Map<RegisterUserCommand>(authorizationDto);
+            var registerCommand = new RegisterUserCommand(User.Identity?.Name);
+            _mapper.Map(registerDto, registerCommand);
+            
             var result = await _mediator.Send(registerCommand);
             return result.ToActionResult(user =>
             {
@@ -36,9 +40,9 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<IActionResult> GenerateToken(UserAuthorizationDto authorizationDto)
+        public async Task<IActionResult> GenerateToken(GenerateTokenDto tokenDto)
         {
-            var tokenQuery = _mapper.Map<GenerateTokenQuery>(authorizationDto);
+            var tokenQuery = _mapper.Map<GenerateTokenQuery>(tokenDto);
             var result = await _mediator.Send(tokenQuery);
             return result.ToActionResult(Ok);
         }

@@ -11,5 +11,9 @@ namespace Catman.Education.Application.RequestResults
         public sealed record Duplicate(string Message) : Error;
 
         public sealed record Incorrect(string Message) : Error;
+
+        public sealed record Unauthorized : Error;
+
+        public sealed record AccessViolation : Error;
     }
 }

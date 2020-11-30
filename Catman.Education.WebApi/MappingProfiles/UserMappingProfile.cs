@@ -10,8 +10,8 @@ namespace Catman.Education.WebApi.MappingProfiles
     {
         public UserMappingProfile()
         {
-            CreateMap<UserAuthorizationDto, RegisterUserCommand>();
-            CreateMap<UserAuthorizationDto, GenerateTokenQuery>();
+            CreateMap<RegisterUserDto, RegisterUserCommand>();
+            CreateMap<GenerateTokenDto, GenerateTokenQuery>();
             CreateMap<User, UserDto>();
         }
     }

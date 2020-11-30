@@ -23,6 +23,12 @@ namespace Catman.Education.Application.Features
 
         protected static ResourceRequestResult<TResource> Incorrect(string message) =>
             Error(new Error.Incorrect(message));
+
+        protected static ResourceRequestResult<TResource> Unauthorized() =>
+            Error(new Error.Unauthorized());
+
+        protected static ResourceRequestResult<TResource> AccessViolation() =>
+            Error(new Error.AccessViolation());
         
         public Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _)
         {

@@ -29,6 +29,13 @@ namespace Catman.Education.Persistence.EntityConfigurations
                 .HasColumnName("password")
                 .HasMaxLength(10)
                 .IsRequired();
+
+            builder
+                .Property(user => user.Role)
+                .HasColumnName("role")
+                .HasMaxLength(5)
+                .HasDefaultValue(Roles.Student)
+                .IsRequired();
         }
     }
 }

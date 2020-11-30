@@ -3,6 +3,7 @@ namespace Catman.Education.Application.Features.User.Commands
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
     using MediatR;
@@ -13,6 +14,15 @@ namespace Catman.Education.Application.Features.User.Commands
         public string Username { get; set; }
         
         public string Password { get; set; }
+        
+        public string Role { get; set; }
+        
+        public string RequestorUsername { get; }
+
+        public RegisterUserCommand(string requestorUsername)
+        {
+            RequestorUsername = requestorUsername;
+        }
     }
 
     internal class RegisterUserCommandHandler : ResourceRequestHandlerBase<RegisterUserCommand, User>
@@ -31,6 +41,24 @@ namespace Catman.Education.Application.Features.User.Commands
             if (await _store.Users.AnyAsync(user => user.Username == registerCommand.Username))
             {
                 return Duplicate("User with such username already exists");
+            }
+
+            if (!registerCommand.Role.ValidRole())
+            {
+                return Incorrect($"Unsupported role \"{registerCommand.Role}\"");
+            }
+            
+            // unauthorized user cannot register other users
+            if (!await _store.Users.AnyAsync(user => user.Username == registerCommand.RequestorUsername))
+            {
+                return Unauthorized();
+            }
+            var requestor = await _store.Users.SingleAsync(user => user.Username == registerCommand.RequestorUsername);
+            
+            // only admins can register other users
+            if (!requestor.IsAdmin())
+            {
+                return AccessViolation();
             }
 
             var user = _mapper.Map<User>(registerCommand);

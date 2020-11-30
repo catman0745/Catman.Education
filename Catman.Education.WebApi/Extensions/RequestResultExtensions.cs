@@ -31,6 +31,8 @@ namespace Catman.Education.WebApi.Extensions
                 Error.NotFound => new NotFoundResult(),
                 Error.Duplicate duplicateError => new BadRequestObjectResult(duplicateError.Message),
                 Error.Incorrect incorrectError => new BadRequestObjectResult(incorrectError.Message),
+                Error.Unauthorized => new UnauthorizedResult(),
+                Error.AccessViolation => new ForbidResult(),
                 object unmatched => throw new SwitchExpressionException(unmatched)
             };
     }
