@@ -12,9 +12,7 @@ namespace Catman.Education.WebApi.Controllers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    [Route("api/users")]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
@@ -32,12 +30,12 @@ namespace Catman.Education.WebApi.Controllers
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(user => Ok(_mapper.Map<UserDto>(user)));
         }
-        
+
         [HttpPost("register")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
         {
-            var registerCommand = new RegisterUserCommand(User.Identity?.Name);
+            var registerCommand = new RegisterUserCommand(UserId);
             _mapper.Map(registerDto, registerCommand);
             
             var result = await _mediator.Send(registerCommand);
@@ -60,7 +58,7 @@ namespace Catman.Education.WebApi.Controllers
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Update([FromRoute] string username, [FromBody] UpdateUserDto updateDto)
         {
-            var updateCommand = new UpdateUserCommand(username, User.Identity?.Name);
+            var updateCommand = new UpdateUserCommand(username, UserId);
             _mapper.Map(updateDto, updateCommand);
 
             var result = await _mediator.Send(updateCommand);
@@ -71,7 +69,7 @@ namespace Catman.Education.WebApi.Controllers
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Remove([FromRoute] string username)
         {
-            var removeCommand = new RemoveUserCommand(username, User.Identity?.Name);
+            var removeCommand = new RemoveUserCommand(username, UserId);
             var result = await _mediator.Send(removeCommand);
             return result.ToActionResult(Ok);
         }

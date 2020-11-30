@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.User.Commands
 {
+    using System;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
@@ -16,11 +17,11 @@ namespace Catman.Education.Application.Features.User.Commands
         
         public string Role { get; set; }
         
-        public string RequestorUsername { get; }
+        public Guid RequestorId { get; }
 
-        public RegisterUserCommand(string requestorUsername)
+        public RegisterUserCommand(Guid requestorId)
         {
-            RequestorUsername = requestorUsername;
+            RequestorId = requestorId;
         }
     }
 
@@ -48,11 +49,11 @@ namespace Catman.Education.Application.Features.User.Commands
             }
             
             // unauthorized user cannot register other users
-            if (!await _store.Users.ExistsWithUsernameAsync(registerCommand.RequestorUsername))
+            if (!await _store.Users.ExistsWithIdAsync(registerCommand.RequestorId))
             {
                 return Unauthorized();
             }
-            var requestor = await _store.Users.WithUsernameAsync(registerCommand.RequestorUsername);
+            var requestor = await _store.Users.WithIdAsync(registerCommand.RequestorId);
             
             // only admins can register other users
             if (!requestor.IsAdmin())

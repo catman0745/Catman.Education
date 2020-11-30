@@ -1,6 +1,8 @@
 namespace Catman.Education.Authentication.Extensions
 {
     using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Authentication.Configuration;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,6 +25,7 @@ namespace Catman.Education.Authentication.Extensions
                 {
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = ValidationParameters(authConfiguration);
+                    ConfigureTokenHandler(options.SecurityTokenValidators.OfType<JwtSecurityTokenHandler>().Single());
                 });
 
             services.AddSingleton<ITokenService, TokenService>();
@@ -59,5 +62,14 @@ namespace Catman.Education.Authentication.Extensions
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero
             };
+
+        /// <summary> Turns off default claim types mappings </summary>
+        private static void ConfigureTokenHandler(JwtSecurityTokenHandler handler)
+        {
+            // Deals with "sub" -> "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" and others
+            
+            handler.InboundClaimTypeMap.Clear();
+            handler.OutboundClaimTypeMap.Clear();
+        }
     }
 }

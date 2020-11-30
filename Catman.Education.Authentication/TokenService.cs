@@ -13,7 +13,7 @@ namespace Catman.Education.Authentication
     {
         private static IEnumerable<Claim> UserClaims(User user)
         {
-            yield return new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username);
+            yield return new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString());
             yield return new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role);
         }
         
