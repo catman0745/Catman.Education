@@ -20,6 +20,9 @@ namespace Catman.Education.Application.Features
         
         protected static RequestResult Duplicate(string message) =>
             Error(new Error.Duplicate(message));
+
+        protected static RequestResult Incorrect(string message) =>
+            Error(new Error.Incorrect(message));
         
         public Task<RequestResult> Handle(TRequest request, CancellationToken _)
         {

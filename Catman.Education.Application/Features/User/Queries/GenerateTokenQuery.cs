@@ -32,6 +32,11 @@ namespace Catman.Education.Application.Features.User.Queries
             }
             var user = await _store.Users.SingleAsync(user => user.Username == tokenQuery.Username);
 
+            if (user.Password != tokenQuery.Password)
+            {
+                return Incorrect("Incorrect password provided");
+            }
+
             var token = _tokenService.GenerateToken(user);
             return Success(token);
         }

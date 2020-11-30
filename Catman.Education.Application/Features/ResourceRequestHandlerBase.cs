@@ -20,6 +20,9 @@ namespace Catman.Education.Application.Features
         
         protected static ResourceRequestResult<TResource> Duplicate(string message) =>
             Error(new Error.Duplicate(message));
+
+        protected static ResourceRequestResult<TResource> Incorrect(string message) =>
+            Error(new Error.Incorrect(message));
         
         public Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _)
         {

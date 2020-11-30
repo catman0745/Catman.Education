@@ -9,5 +9,7 @@ namespace Catman.Education.Application.RequestResults
         public sealed record NotFound : Error;
 
         public sealed record Duplicate(string Message) : Error;
+
+        public sealed record Incorrect(string Message) : Error;
     }
 }
