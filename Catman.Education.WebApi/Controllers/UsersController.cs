@@ -3,8 +3,11 @@ namespace Catman.Education.WebApi.Controllers
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.Features.User.Commands;
-    using Catman.Education.Application.Features.User.Queries;
+    using Catman.Education.Application.Features.User.Commands.RegisterUser;
+    using Catman.Education.Application.Features.User.Commands.RemoveUser;
+    using Catman.Education.Application.Features.User.Commands.UpdateUser;
+    using Catman.Education.Application.Features.User.Queries.GenerateToken;
+    using Catman.Education.Application.Features.User.Queries.GetUser;
     using Catman.Education.WebApi.DataTransferObjects.User;
     using Catman.Education.WebApi.Extensions;
     using MediatR;

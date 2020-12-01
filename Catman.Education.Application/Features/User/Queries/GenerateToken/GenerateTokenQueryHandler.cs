@@ -1,22 +1,17 @@
-namespace Catman.Education.Application.Features.User.Queries
+namespace Catman.Education.Application.Features.User.Queries.GenerateToken
 {
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using MediatR;
-
-    public class GenerateTokenQuery : IRequest<ResourceRequestResult<string>>
-    {
-        public string Username { get; set; }
-        
-        public string Password { get; set; }
-    }
+    using FluentValidation;
 
     internal class GenerateTokenQueryHandler : ResourceRequestHandlerBase<GenerateTokenQuery, string>
     {
         private readonly IApplicationStore _store;
         private readonly ITokenService _tokenService;
+
+        protected override IValidator<GenerateTokenQuery> Validator => new GenerateTokenQueryValidator();
 
         public GenerateTokenQueryHandler(IApplicationStore store, ITokenService tokenService)
         {
@@ -34,7 +29,7 @@ namespace Catman.Education.Application.Features.User.Queries
 
             if (user.Password != tokenQuery.Password)
             {
-                return Incorrect("Incorrect password provided");
+                return Incorrect("Password", "Incorrect password provided");
             }
 
             var token = _tokenService.GenerateToken(user);

@@ -1,21 +1,11 @@
-namespace Catman.Education.Application.Features.User.Queries
+namespace Catman.Education.Application.Features.User.Queries.GetUser
 {
     using System.Threading.Tasks;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using MediatR;
-
-    public class GetUserQuery : IRequest<ResourceRequestResult<User>>
-    {
-        public string Username { get; }
-
-        public GetUserQuery(string username)
-        {
-            Username = username;
-        }
-    }
+    using FluentValidation;
 
     internal class GetUserQueryHandler : ResourceRequestHandlerBase<GetUserQuery, User>
     {
@@ -25,7 +15,9 @@ namespace Catman.Education.Application.Features.User.Queries
         {
             _store = store;
         }
-        
+
+        protected override IValidator<GetUserQuery> Validator => new GetUserQueryValidator();
+
         protected override async Task<ResourceRequestResult<User>> HandleAsync(GetUserQuery getQuery)
         {
             if (!await _store.Users.ExistsWithUsernameAsync(getQuery.Username))

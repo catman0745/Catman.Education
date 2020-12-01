@@ -1,34 +1,19 @@
-namespace Catman.Education.Application.Features.User.Commands
+namespace Catman.Education.Application.Features.User.Commands.RegisterUser
 {
-    using System;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using MediatR;
-
-    public class RegisterUserCommand : IRequest<ResourceRequestResult<User>>
-    {
-        public string Username { get; set; }
-        
-        public string Password { get; set; }
-        
-        public string Role { get; set; }
-        
-        public Guid RequestorId { get; }
-
-        public RegisterUserCommand(Guid requestorId)
-        {
-            RequestorId = requestorId;
-        }
-    }
+    using FluentValidation;
 
     internal class RegisterUserCommandHandler : ResourceRequestHandlerBase<RegisterUserCommand, User>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+
+        protected override IValidator<RegisterUserCommand> Validator => new RegisterUserCommandValidator();
 
         public RegisterUserCommandHandler(IApplicationStore store, IMapper mapper)
         {
@@ -41,11 +26,6 @@ namespace Catman.Education.Application.Features.User.Commands
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
                 return Duplicate("User with such username already exists");
-            }
-
-            if (!registerCommand.Role.ValidRole())
-            {
-                return Incorrect($"Unsupported role \"{registerCommand.Role}\"");
             }
             
             // unauthorized user cannot register other users

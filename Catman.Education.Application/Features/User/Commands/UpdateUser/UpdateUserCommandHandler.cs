@@ -1,36 +1,18 @@
-namespace Catman.Education.Application.Features.User.Commands
+namespace Catman.Education.Application.Features.User.Commands.UpdateUser
 {
-    using System;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using MediatR;
-
-    public class UpdateUserCommand : IRequest<RequestResult>
-    {
-        public string OldUsername { get; set; }
-        
-        public string Username { get; set; }
-        
-        public string Password { get; set; }
-        
-        public string Role { get; set; }
-        
-        public Guid RequestorId { get; }
-
-        public UpdateUserCommand(string username, Guid requestorId)
-        {
-            OldUsername = username;
-            RequestorId = requestorId;
-        }
-    }
+    using FluentValidation;
 
     internal class UpdateUserCommandHandler : RequestHandlerBase<UpdateUserCommand>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+
+        protected override IValidator<UpdateUserCommand> Validator => new UpdateUserCommandValidator();
 
         public UpdateUserCommandHandler(IApplicationStore store, IMapper mapper)
         {
@@ -57,11 +39,6 @@ namespace Catman.Education.Application.Features.User.Commands
             if (!requestor.IsAdmin())
             {
                 return AccessViolation();
-            }
-            
-            if (!updateCommand.Role.ValidRole())
-            {
-                return Incorrect($"Unsupported role \"{updateCommand.Role}\"");
             }
 
             if (await _store.Users.OtherThan(user).ExistsWithUsernameAsync(updateCommand.Username))

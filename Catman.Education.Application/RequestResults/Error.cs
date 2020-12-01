@@ -1,5 +1,7 @@
 namespace Catman.Education.Application.RequestResults
 {
+    using System.Collections.Generic;
+
     /// <summary> Request error result </summary>
     /// <remarks> All error result types </remarks>
     public abstract record Error
@@ -10,7 +12,7 @@ namespace Catman.Education.Application.RequestResults
 
         public sealed record Duplicate(string Message) : Error;
 
-        public sealed record Incorrect(string Message) : Error;
+        public sealed record Incorrect(IDictionary<string, string> Errors) : Error;
 
         public sealed record Unauthorized : Error;
 

@@ -1,28 +1,16 @@
-namespace Catman.Education.Application.Features.User.Commands
+namespace Catman.Education.Application.Features.User.Commands.RemoveUser
 {
-    using System;
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using MediatR;
-
-    public class RemoveUserCommand : IRequest<RequestResult>
-    {
-        public string Username { get; }
-        
-        public Guid RequestorId { get; }
-
-        public RemoveUserCommand(string username, Guid requestorId)
-        {
-            Username = username;
-            RequestorId = requestorId;
-        }
-    }
+    using FluentValidation;
 
     internal class RemoveUserCommandHandler : RequestHandlerBase<RemoveUserCommand>
     {
         private readonly IApplicationStore _store;
+
+        protected override IValidator<RemoveUserCommand> Validator => new RemoveUserCommandValidator();
 
         public RemoveUserCommandHandler(IApplicationStore store)
         {
