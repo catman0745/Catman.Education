@@ -1,12 +1,9 @@
 namespace Catman.Education.Application.Features
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
     using MediatR;
 
     internal abstract class RequestHandlerBase<TRequest>
@@ -37,25 +34,8 @@ namespace Catman.Education.Application.Features
         protected static RequestResult AccessViolation() =>
             Error(new Error.AccessViolation());
 
-        /// <inheritdoc cref="EmptyValidator"/>
-        protected static IValidator<TRequest> EmptyValidator => new EmptyValidator<TRequest>();
-
-        /// <summary> Request validator </summary>
-        /// <remarks>
-        ///     Enforces explicit validator declaration. Use <see cref="EmptyValidator"/> if validation is not required
-        /// </remarks>
-        protected abstract IValidator<TRequest> Validator { get; }
-
-        public async Task<RequestResult> Handle(TRequest request, CancellationToken _)
-        {
-            var validationErrors = Validator.Validate(request).Errors();
-            if (validationErrors.Any())
-            {
-                return Incorrect(validationErrors);
-            }
-            
-            return await HandleAsync(request);
-        }
+        public Task<RequestResult> Handle(TRequest request, CancellationToken _) =>
+            HandleAsync(request);
 
         protected abstract Task<RequestResult> HandleAsync(TRequest request);
     }

@@ -4,13 +4,10 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
 
     internal class RemoveUserCommandHandler : RequestHandlerBase<RemoveUserCommand>
     {
         private readonly IApplicationStore _store;
-
-        protected override IValidator<RemoveUserCommand> Validator => new RemoveUserCommandValidator();
 
         public RemoveUserCommandHandler(IApplicationStore store)
         {

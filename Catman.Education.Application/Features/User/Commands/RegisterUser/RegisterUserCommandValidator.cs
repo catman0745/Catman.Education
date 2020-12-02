@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
     using Catman.Education.Application.Extensions;
     using FluentValidation;
 
-    internal class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserCommandValidator()
         {

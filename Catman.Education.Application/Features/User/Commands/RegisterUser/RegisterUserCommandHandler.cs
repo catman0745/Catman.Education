@@ -6,14 +6,11 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
 
     internal class RegisterUserCommandHandler : ResourceRequestHandlerBase<RegisterUserCommand, User>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
-
-        protected override IValidator<RegisterUserCommand> Validator => new RegisterUserCommandValidator();
 
         public RegisterUserCommandHandler(IApplicationStore store, IMapper mapper)
         {

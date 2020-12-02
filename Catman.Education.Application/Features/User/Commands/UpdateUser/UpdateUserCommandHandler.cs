@@ -5,14 +5,11 @@ namespace Catman.Education.Application.Features.User.Commands.UpdateUser
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
 
     internal class UpdateUserCommandHandler : RequestHandlerBase<UpdateUserCommand>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
-
-        protected override IValidator<UpdateUserCommand> Validator => new UpdateUserCommandValidator();
 
         public UpdateUserCommandHandler(IApplicationStore store, IMapper mapper)
         {

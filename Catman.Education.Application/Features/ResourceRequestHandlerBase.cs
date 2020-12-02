@@ -1,12 +1,9 @@
 namespace Catman.Education.Application.Features
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
     using MediatR;
 
     internal abstract class ResourceRequestHandlerBase<TResourceRequest, TResource>
@@ -37,25 +34,8 @@ namespace Catman.Education.Application.Features
         protected static ResourceRequestResult<TResource> AccessViolation() =>
             Error(new Error.AccessViolation());
 
-        /// <inheritdoc cref="EmptyValidator{TResourceRequest}"/>
-        protected static IValidator<TResourceRequest> EmptyValidator => new EmptyValidator<TResourceRequest>();
-
-        /// <summary> Request validator </summary>
-        /// <remarks>
-        ///     Enforces explicit validator declaration. Use <see cref="EmptyValidator"/> if validation is not required
-        /// </remarks>
-        protected abstract IValidator<TResourceRequest> Validator { get; }
-
-        public async Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _)
-        {
-            var validationErrors = Validator.Validate(request).Errors();
-            if (validationErrors.Any())
-            {
-                return Incorrect(validationErrors);
-            }
-            
-            return await HandleAsync(request);
-        }
+        public Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _) =>
+            HandleAsync(request);
 
         protected abstract Task<ResourceRequestResult<TResource>> HandleAsync(TResourceRequest request);
     }

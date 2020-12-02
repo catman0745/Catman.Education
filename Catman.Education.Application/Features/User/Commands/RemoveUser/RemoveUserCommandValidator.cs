@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
 {
     using FluentValidation;
 
-    internal class RemoveUserCommandValidator : AbstractValidator<RemoveUserCommand>
+    public class RemoveUserCommandValidator : AbstractValidator<RemoveUserCommand>
     {
         public RemoveUserCommandValidator()
         {

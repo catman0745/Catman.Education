@@ -5,7 +5,6 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
 
     internal class GetUserQueryHandler : ResourceRequestHandlerBase<GetUserQuery, User>
     {
@@ -15,8 +14,6 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
         {
             _store = store;
         }
-
-        protected override IValidator<GetUserQuery> Validator => new GetUserQueryValidator();
 
         protected override async Task<ResourceRequestResult<User>> HandleAsync(GetUserQuery getQuery)
         {

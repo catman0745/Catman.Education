@@ -7,14 +7,18 @@ namespace Catman.Education.Application.Extensions
 
     internal static class ValidationExtensions
     {
-        public static IDictionary<string, string> Errors(this ValidationResult validationResult) =>
-            validationResult.Errors
-                .Where(error => error != null)
-                .GroupBy(error => error.PropertyName)
-                .ToDictionary(
-                    errors => errors.Key,                 // Property name
-                    errors => errors.First().ErrorMessage // Any error (each property will have single error)
-                );
+        public static IEnumerable<ValidationFailure> ValidationFailures<TValidated>(
+            this IEnumerable<IValidator<TValidated>> validators,
+            TValidated request) =>
+            validators
+                .Select(validator => validator.Validate(request))
+                .SelectMany(validationResult => validationResult.Errors)
+                .Where(validationFailure => validationFailure != null);
+        
+        public static IDictionary<string, string> ValidationErrors(this IEnumerable<ValidationFailure> failures) =>
+            failures
+                .GroupBy(validationFailure => validationFailure.PropertyName)
+                .ToDictionary(propErrors => propErrors.Key, propErrors => propErrors.First().ErrorMessage);
 
         public static IRuleBuilderOptions<T, string> ValidUsername<T>(this IRuleBuilder<T, string> username) =>
             username.NotEmpty().MaximumLength(30);

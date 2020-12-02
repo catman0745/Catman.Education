@@ -4,14 +4,11 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestResults;
-    using FluentValidation;
 
     internal class GenerateTokenQueryHandler : ResourceRequestHandlerBase<GenerateTokenQuery, string>
     {
         private readonly IApplicationStore _store;
         private readonly ITokenService _tokenService;
-
-        protected override IValidator<GenerateTokenQuery> Validator => new GenerateTokenQueryValidator();
 
         public GenerateTokenQueryHandler(IApplicationStore store, ITokenService tokenService)
         {

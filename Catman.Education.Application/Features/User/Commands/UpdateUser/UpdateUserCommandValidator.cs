@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.User.Commands.UpdateUser
     using Catman.Education.Application.Extensions;
     using FluentValidation;
 
-    internal class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
         public UpdateUserCommandValidator()
         {

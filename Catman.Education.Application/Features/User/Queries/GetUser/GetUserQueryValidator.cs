@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
 {
     using FluentValidation;
 
-    internal class GetUserQueryValidator : AbstractValidator<GetUserQuery>
+    public class GetUserQueryValidator : AbstractValidator<GetUserQuery>
     {
         public GetUserQueryValidator()
         {
