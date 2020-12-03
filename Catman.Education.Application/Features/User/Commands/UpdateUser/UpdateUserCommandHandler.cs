@@ -25,19 +25,6 @@ namespace Catman.Education.Application.Features.User.Commands.UpdateUser
             }
             var user = await _store.Users.WithUsernameAsync(updateCommand.OldUsername);
 
-            // unauthorized user cannot register other users
-            if (!await _store.Users.ExistsWithIdAsync(updateCommand.RequestorId))
-            {
-                return Unauthorized();
-            }
-            var requestor = await _store.Users.WithIdAsync(updateCommand.RequestorId);
-
-            // only admins can register other users
-            if (!requestor.IsAdmin())
-            {
-                return AccessViolation();
-            }
-
             if (await _store.Users.OtherThan(user).ExistsWithUsernameAsync(updateCommand.Username))
             {
                 return Duplicate("User with such username already exists");

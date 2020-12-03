@@ -22,19 +22,6 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
             }
             var user = await _store.Users.WithUsernameAsync(removeCommand.Username);
 
-            // unauthorized user cannot register other users
-            if (!await _store.Users.ExistsWithIdAsync(removeCommand.RequestorId))
-            {
-                return Unauthorized();
-            }
-            var requestor = await _store.Users.WithIdAsync(removeCommand.RequestorId);
-
-            // only admins can register other users
-            if (!requestor.IsAdmin())
-            {
-                return AccessViolation();
-            }
-
             _store.Users.Remove(user);
             await _store.SaveChangesAsync();
 

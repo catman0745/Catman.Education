@@ -24,19 +24,6 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
             {
                 return Duplicate("User with such username already exists");
             }
-            
-            // unauthorized user cannot register other users
-            if (!await _store.Users.ExistsWithIdAsync(registerCommand.RequestorId))
-            {
-                return Unauthorized();
-            }
-            var requestor = await _store.Users.WithIdAsync(registerCommand.RequestorId);
-            
-            // only admins can register other users
-            if (!requestor.IsAdmin())
-            {
-                return AccessViolation();
-            }
 
             var user = _mapper.Map<User>(registerCommand);
             _store.Users.Add(user);
