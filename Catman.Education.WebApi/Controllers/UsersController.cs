@@ -25,7 +25,10 @@ namespace Catman.Education.WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary> Get the user with matching username </summary>
         [HttpGet("{username}")]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromRoute] string username)
         {
             var getQuery = new GetUserQuery(username);
@@ -33,8 +36,13 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(user => Ok(_mapper.Map<UserDto>(user)));
         }
 
+        /// <summary> Register a new user with the specified registration parameters </summary>
         [HttpPost("register")]
         [Authorize]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
         {
             var registerCommand = new RegisterUserCommand(UserId);
@@ -48,7 +56,11 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
+        /// <summary> Generate token for specified user </summary>
         [HttpPost("token")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GenerateToken([FromBody] GenerateTokenDto tokenDto)
         {
             var tokenQuery = _mapper.Map<GenerateTokenQuery>(tokenDto);
@@ -56,8 +68,14 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(Ok);
         }
 
+        /// <summary> Update the user with matching username with the specified updation parameters </summary>
         [HttpPut("{username}")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update([FromRoute] string username, [FromBody] UpdateUserDto updateDto)
         {
             var updateCommand = new UpdateUserCommand(username, UserId);
@@ -67,8 +85,13 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(Ok);
         }
 
+        /// <summary> Remove the user with matching username </summary>
         [HttpDelete("{username}")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Remove([FromRoute] string username)
         {
             var removeCommand = new RemoveUserCommand(username, UserId);

@@ -3,11 +3,14 @@ namespace Catman.Education.WebApi.Controllers
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
+    using System.Net.Mime;
     using System.Security.Claims;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public abstract class ApiControllerBase : ControllerBase
     {
         protected Guid UserId => new (GetUserClaim(JwtRegisteredClaimNames.Sub).Value);

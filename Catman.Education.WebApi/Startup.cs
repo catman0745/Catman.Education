@@ -5,6 +5,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Persistence.Extensions;
     using Catman.Education.Authentication.Extensions;
+    using Catman.Education.WebApi.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace Catman.Education.WebApi
                     typeof(IApplicationStore), // Application mappings
                     typeof(Startup)            // WebApi mappings
                 )
+                .AddSwaggerGen(_configuration)
                 .AddControllers();
         }
 
@@ -40,6 +42,10 @@ namespace Catman.Education.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
+            
+            app.UseSwagger(_configuration);
 
             app.UseSerilogRequestLogging();
 
