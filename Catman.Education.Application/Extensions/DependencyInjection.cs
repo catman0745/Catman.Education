@@ -13,8 +13,8 @@ namespace Catman.Education.Application.Extensions
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestFluentValidationPipelineBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestRoleValidationPipelineBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationPipelineBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RoleValidationPipelineBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(IApplicationStore).Assembly);
 
             return services;

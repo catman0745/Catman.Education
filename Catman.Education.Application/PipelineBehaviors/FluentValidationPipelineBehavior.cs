@@ -7,8 +7,8 @@ namespace Catman.Education.Application.PipelineBehaviors
     using FluentValidation;
     using FluentValidation.Results;
 
-    internal class RequestFluentValidationPipelineBehavior<TRequest, TResponse>
-        : RequestValidationPipelineBehaviorBase<TRequest, TResponse>
+    internal class FluentValidationPipelineBehavior<TRequest, TResponse>
+        : ValidationPipelineBehaviorBase<TRequest, TResponse>
     {
         private static Error Incorrect(IEnumerable<ValidationFailure> validationFailures)
         {
@@ -20,7 +20,7 @@ namespace Catman.Education.Application.PipelineBehaviors
         
         private readonly ICollection<IValidator<TRequest>> _validators;
 
-        public RequestFluentValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public FluentValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators.ToList();
         }

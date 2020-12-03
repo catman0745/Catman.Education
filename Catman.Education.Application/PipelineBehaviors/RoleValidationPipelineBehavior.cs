@@ -6,12 +6,12 @@ namespace Catman.Education.Application.PipelineBehaviors
     using Catman.Education.Application.RequestRestrictions;
     using Catman.Education.Application.Results;
 
-    internal class RequestRoleValidationPipelineBehavior<TRequest, TResponse>
-        : RequestValidationPipelineBehaviorBase<TRequest, TResponse>
+    internal class RoleValidationPipelineBehavior<TRequest, TResponse>
+        : ValidationPipelineBehaviorBase<TRequest, TResponse>
     {
         private readonly IApplicationStore _store;
 
-        public RequestRoleValidationPipelineBehavior(IApplicationStore store)
+        public RoleValidationPipelineBehavior(IApplicationStore store)
         {
             _store = store;
         }

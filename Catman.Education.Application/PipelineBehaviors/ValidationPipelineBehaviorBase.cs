@@ -9,7 +9,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using Catman.Education.Application.Results;
     using MediatR;
 
-    internal abstract class RequestValidationPipelineBehaviorBase<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    internal abstract class ValidationPipelineBehaviorBase<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         #region Reflection shit
 
@@ -47,7 +47,7 @@ namespace Catman.Education.Application.PipelineBehaviors
         ///     with specified error and resource type
         /// </summary>
         private static object ResourceRequestFailureResult(Error error, Type resourceType) =>
-            typeof(RequestValidationPipelineBehaviorBase<TRequest, TResponse>)
+            typeof(ValidationPipelineBehaviorBase<TRequest, TResponse>)
                 .GetMethod(nameof(FailureResult), BindingFlags.NonPublic | BindingFlags.Static)
                 ?.MakeGenericMethod(resourceType)
                 ?.Invoke(null, new object[] {error});
