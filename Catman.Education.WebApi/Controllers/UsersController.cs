@@ -2,7 +2,6 @@ namespace Catman.Education.WebApi.Controllers
 {
     using System.Threading.Tasks;
     using AutoMapper;
-    using Catman.Education.Application.Entities;
     using Catman.Education.Application.Features.User.Commands.RegisterUser;
     using Catman.Education.Application.Features.User.Commands.RemoveUser;
     using Catman.Education.Application.Features.User.Commands.UpdateUser;
@@ -35,7 +34,7 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         [HttpPost("register")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
         {
             var registerCommand = new RegisterUserCommand(UserId);
@@ -58,7 +57,7 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         [HttpPut("{username}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] string username, [FromBody] UpdateUserDto updateDto)
         {
             var updateCommand = new UpdateUserCommand(username, UserId);
@@ -69,7 +68,7 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         [HttpDelete("{username}")]
-        [Authorize(Roles = Roles.Admin)]
+        [Authorize]
         public async Task<IActionResult> Remove([FromRoute] string username)
         {
             var removeCommand = new RemoveUserCommand(username, UserId);
