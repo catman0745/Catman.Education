@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.User.Commands.UpdateUser
 {
     using System;
-    using Catman.Education.Application.RequestResults;
+    using Catman.Education.Application.Results;
     using MediatR;
 
     public class UpdateUserCommand : IRequest<RequestResult>

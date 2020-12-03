@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.RequestResults;
+    using Catman.Education.Application.Results;
 
     internal class GenerateTokenQueryHandler : ResourceRequestHandlerBase<GenerateTokenQuery, string>
     {

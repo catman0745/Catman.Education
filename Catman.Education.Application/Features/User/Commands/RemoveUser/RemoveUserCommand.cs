@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.User.Commands.RemoveUser
 {
     using System;
-    using Catman.Education.Application.RequestResults;
+    using Catman.Education.Application.Results;
     using MediatR;
 
     public class RemoveUserCommand : IRequest<RequestResult>

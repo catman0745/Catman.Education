@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
 {
     using System;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.RequestResults;
+    using Catman.Education.Application.Results;
     using MediatR;
 
     public class RegisterUserCommand : IRequest<ResourceRequestResult<User>>

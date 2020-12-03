@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.Extensions
 {
     using System;
     using System.Runtime.CompilerServices;
-    using Catman.Education.Application.RequestResults;
+    using Catman.Education.Application.Results;
     using Microsoft.AspNetCore.Mvc;
 
     internal static class RequestResultExtensions

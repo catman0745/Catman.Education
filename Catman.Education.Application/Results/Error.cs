@@ -1,8 +1,8 @@
-namespace Catman.Education.Application.RequestResults
+namespace Catman.Education.Application.Results
 {
     using System.Collections.Generic;
 
-    /// <summary> Request error result </summary>
+    /// <summary> Error result </summary>
     /// <remarks> All error result types </remarks>
     public abstract record Error
     {
