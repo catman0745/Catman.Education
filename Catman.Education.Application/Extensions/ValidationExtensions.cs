@@ -5,7 +5,10 @@ namespace Catman.Education.Application.Extensions
     internal static class ValidationExtensions
     {
         public static IRuleBuilderOptions<T, string> ValidUsername<T>(this IRuleBuilder<T, string> username) =>
-            username.NotEmpty().MaximumLength(30);
+            username
+                .NotEmpty()
+                .MaximumLength(30)
+                .Matches(@"^[a-zA-Z_]*$").WithMessage("{PropertyName} must consist of Latin letters and underscores");
 
         public static IRuleBuilderOptions<T, string> ValidPassword<T>(this IRuleBuilder<T, string> password) =>
             password.NotEmpty().MaximumLength(10);
