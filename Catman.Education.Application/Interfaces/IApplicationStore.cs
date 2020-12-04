@@ -7,6 +7,8 @@ namespace Catman.Education.Application.Interfaces
     public interface IApplicationStore
     {
         DbSet<User> Users { get; }
+        
+        DbSet<Group> Groups { get; }
 
         Task SaveChangesAsync();
     }

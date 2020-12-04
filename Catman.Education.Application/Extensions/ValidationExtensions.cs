@@ -15,5 +15,8 @@ namespace Catman.Education.Application.Extensions
 
         public static IRuleBuilderOptions<T, string> ValidRole<T>(this IRuleBuilder<T, string> role) =>
             role.Must(value => value.ValidRole()).WithMessage("Unsupported role \"{PropertyValue}\"");
+
+        public static IRuleBuilderOptions<T, string> ValidGroupTitle<T>(this IRuleBuilder<T, string> title) =>
+            title.NotEmpty().MaximumLength(5);
     }
 }

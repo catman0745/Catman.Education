@@ -9,6 +9,8 @@ namespace Catman.Education.Persistence
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Group> Groups { get; set; }
+
         public ApplicationStore(DbContextOptions<ApplicationStore> options)
             : base(options)
         {
