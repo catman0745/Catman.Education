@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.User.Commands.UpdateUser
+namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
 {
     using System.Threading.Tasks;
     using AutoMapper;
@@ -6,31 +6,31 @@ namespace Catman.Education.Application.Features.User.Commands.UpdateUser
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results;
 
-    internal class UpdateUserCommandHandler : RequestHandlerBase<UpdateUserCommand>
+    internal class UpdateAdminCommandHandler : RequestHandlerBase<UpdateAdminCommand>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
 
-        public UpdateUserCommandHandler(IApplicationStore store, IMapper mapper)
+        public UpdateAdminCommandHandler(IApplicationStore store, IMapper mapper)
         {
             _store = store;
             _mapper = mapper;
         }
-
-        protected override async Task<RequestResult> HandleAsync(UpdateUserCommand updateCommand)
+        
+        protected override async Task<RequestResult> HandleAsync(UpdateAdminCommand updateCommand)
         {
-            if (!await _store.Users.ExistsWithUsernameAsync(updateCommand.OldUsername))
+            if (!await _store.Admins.ExistsWithIdAsync(updateCommand.Id))
             {
                 return NotFound();
             }
-            var user = await _store.Users.WithUsernameAsync(updateCommand.OldUsername);
+            var admin = await _store.Admins.WithIdAsync(updateCommand.Id);
 
-            if (await _store.Users.OtherThan(user).ExistsWithUsernameAsync(updateCommand.Username))
+            if (await _store.Users.OtherThan(admin).ExistsWithUsernameAsync(updateCommand.Username))
             {
                 return Duplicate("User with such username already exists");
             }
 
-            _mapper.Map(updateCommand, user);
+            _mapper.Map(updateCommand, admin);
             await _store.SaveChangesAsync();
 
             return Success();

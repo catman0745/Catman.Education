@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
     {
         public RemoveUserCommandValidator()
         {
-            RuleFor(command => command.Username).NotEmpty();
+            RuleFor(command => command.Id).NotEmpty();
             RuleFor(command => command.RequestorId).NotEmpty();
         }
     }

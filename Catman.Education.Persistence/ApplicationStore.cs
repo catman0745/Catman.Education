@@ -8,6 +8,10 @@ namespace Catman.Education.Persistence
     internal class ApplicationStore : DbContext, IApplicationStore
     {
         public DbSet<User> Users { get; set; }
+        
+        public DbSet<Student> Students { get; set; }
+
+        public DbSet<Admin> Admins { get; set; }
 
         public DbSet<Group> Groups { get; set; }
 

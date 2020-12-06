@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.User.Commands.RegisterUser
+namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 {
     using System.Threading.Tasks;
     using AutoMapper;
@@ -7,29 +7,35 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results;
 
-    internal class RegisterUserCommandHandler : ResourceRequestHandlerBase<RegisterUserCommand, User>
+    internal class RegisterStudentCommandHandler : ResourceRequestHandlerBase<RegisterStudentCommand, Student>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
 
-        public RegisterUserCommandHandler(IApplicationStore store, IMapper mapper)
+        public RegisterStudentCommandHandler(IApplicationStore store, IMapper mapper)
         {
             _store = store;
             _mapper = mapper;
         }
         
-        protected override async Task<ResourceRequestResult<User>> HandleAsync(RegisterUserCommand registerCommand)
+        protected override async Task<ResourceRequestResult<Student>> HandleAsync(
+            RegisterStudentCommand registerCommand)
         {
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
                 return Duplicate("User with such username already exists");
             }
 
-            var user = _mapper.Map<User>(registerCommand);
-            _store.Users.Add(user);
+            if (!await _store.Groups.ExistsWithIdAsync(registerCommand.GroupId))
+            {
+                return NotFound();
+            }
+
+            var student = _mapper.Map<Student>(registerCommand);
+            _store.Students.Add(student);
             await _store.SaveChangesAsync();
 
-            return Success(user);
+            return Success(student);
         }
     }
 }

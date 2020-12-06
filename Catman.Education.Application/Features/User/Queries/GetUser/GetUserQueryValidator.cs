@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
     {
         public GetUserQueryValidator()
         {
-            RuleFor(query => query.Username).NotEmpty();
+            RuleFor(query => query.Id).NotEmpty();
         }
     }
 }

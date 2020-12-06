@@ -8,15 +8,15 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
 
     public class RemoveUserCommand : IRequest<RequestResult>, IRequestorRoleRestriction
     {
-        public string Username { get; }
+        public Guid Id { get; }
         
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => Roles.Admin;
+        public UserRole RequiredRequestorRole => UserRole.Admin;
 
-        public RemoveUserCommand(string username, Guid requestorId)
+        public RemoveUserCommand(Guid id, Guid requestorId)
         {
-            Username = username;
+            Id = id;
             RequestorId = requestorId;
         }
     }

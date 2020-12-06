@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.User.Commands.UpdateUser
+namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
 {
     using System;
     using Catman.Education.Application.Entities;
@@ -6,23 +6,25 @@ namespace Catman.Education.Application.Features.User.Commands.UpdateUser
     using Catman.Education.Application.Results;
     using MediatR;
 
-    public class UpdateUserCommand : IRequest<RequestResult>, IRequestorRoleRestriction
+    public class UpdateStudentCommand : IRequest<RequestResult>, IRequestorRoleRestriction
     {
-        public string OldUsername { get; set; }
+        public Guid Id { get; }
         
         public string Username { get; set; }
         
         public string Password { get; set; }
         
-        public string Role { get; set; }
+        public string FullName { get; set; }
         
+        public Guid GroupId { get; set; }
+
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => Roles.Admin;
+        public UserRole RequiredRequestorRole => UserRole.Admin;
 
-        public UpdateUserCommand(string username, Guid requestorId)
+        public UpdateStudentCommand(Guid id, Guid requestorId)
         {
-            OldUsername = username;
+            Id = id;
             RequestorId = requestorId;
         }
     }

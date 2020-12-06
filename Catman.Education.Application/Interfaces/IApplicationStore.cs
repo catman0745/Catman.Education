@@ -8,6 +8,10 @@ namespace Catman.Education.Application.Interfaces
     {
         DbSet<User> Users { get; }
         
+        DbSet<Student> Students { get; }
+        
+        DbSet<Admin> Admins { get; }
+
         DbSet<Group> Groups { get; }
 
         Task SaveChangesAsync();

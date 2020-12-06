@@ -1,16 +1,17 @@
 namespace Catman.Education.Application.Features.User.Queries.GetUser
 {
+    using System;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Results;
     using MediatR;
 
     public class GetUserQuery : IRequest<ResourceRequestResult<User>>
     {
-        public string Username { get; }
+        public Guid Id { get; }
 
-        public GetUserQuery(string username)
+        public GetUserQuery(Guid id)
         {
-            Username = username;
+            Id = id;
         }
     }
 }

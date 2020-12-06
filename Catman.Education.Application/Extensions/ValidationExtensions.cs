@@ -13,10 +13,10 @@ namespace Catman.Education.Application.Extensions
         public static IRuleBuilderOptions<T, string> ValidPassword<T>(this IRuleBuilder<T, string> password) =>
             password.NotEmpty().MaximumLength(10);
 
-        public static IRuleBuilderOptions<T, string> ValidRole<T>(this IRuleBuilder<T, string> role) =>
-            role.Must(value => value.ValidRole()).WithMessage("Unsupported role \"{PropertyValue}\"");
-
         public static IRuleBuilderOptions<T, string> ValidGroupTitle<T>(this IRuleBuilder<T, string> title) =>
             title.NotEmpty().MaximumLength(5);
+
+        public static IRuleBuilderOptions<T, string> ValidName<T>(this IRuleBuilder<T, string> name) =>
+            name.NotEmpty().MaximumLength(40);
     }
 }

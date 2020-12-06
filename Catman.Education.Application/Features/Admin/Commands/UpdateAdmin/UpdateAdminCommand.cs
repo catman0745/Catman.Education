@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.User.Commands.RegisterUser
+namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
 {
     using System;
     using Catman.Education.Application.Entities;
@@ -6,20 +6,21 @@ namespace Catman.Education.Application.Features.User.Commands.RegisterUser
     using Catman.Education.Application.Results;
     using MediatR;
 
-    public class RegisterUserCommand : IRequest<ResourceRequestResult<User>>, IRequestorRoleRestriction
+    public class UpdateAdminCommand : IRequest<RequestResult>, IRequestorRoleRestriction
     {
+        public Guid Id { get; }
+        
         public string Username { get; set; }
         
         public string Password { get; set; }
-        
-        public string Role { get; set; }
-        
+
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => Roles.Admin;
+        public UserRole RequiredRequestorRole => UserRole.Admin;
 
-        public RegisterUserCommand(Guid requestorId)
+        public UpdateAdminCommand(Guid id, Guid requestorId)
         {
+            Id = id;
             RequestorId = requestorId;
         }
     }

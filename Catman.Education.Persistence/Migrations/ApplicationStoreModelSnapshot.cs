@@ -44,19 +44,15 @@ namespace Catman.Education.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("character varying(10)")
                         .HasColumnName("password");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
-                        .HasDefaultValue("stud")
-                        .HasColumnName("role");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -70,6 +66,45 @@ namespace Catman.Education.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Admin", b =>
+                {
+                    b.HasBaseType("Catman.Education.Application.Entities.User");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Student", b =>
+                {
+                    b.HasBaseType("Catman.Education.Application.Entities.User");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("full_name");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("group_id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasDiscriminator().HasValue("Student");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Student", b =>
+                {
+                    b.HasOne("Catman.Education.Application.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 #pragma warning restore 612, 618
         }

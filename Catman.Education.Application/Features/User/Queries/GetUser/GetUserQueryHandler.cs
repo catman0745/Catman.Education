@@ -17,11 +17,11 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
 
         protected override async Task<ResourceRequestResult<User>> HandleAsync(GetUserQuery getQuery)
         {
-            if (!await _store.Users.ExistsWithUsernameAsync(getQuery.Username))
+            if (!await _store.Users.ExistsWithIdAsync(getQuery.Id))
             {
                 return NotFound();
             }
-            var user = await _store.Users.WithUsernameAsync(getQuery.Username);
+            var user = await _store.Users.WithIdAsync(getQuery.Id);
             
             return Success(user);
         }

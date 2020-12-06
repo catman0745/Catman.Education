@@ -1,10 +1,11 @@
-namespace Catman.Education.WebApi.DataTransferObjects.User
+namespace Catman.Education.WebApi.DataTransferObjects.Student
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.WebApi.Attributes;
 
-    public class UpdateUserDto
+    public class RegisterStudentDto
     {
         [JsonPropertyName("username")]
         [Required]
@@ -15,9 +16,14 @@ namespace Catman.Education.WebApi.DataTransferObjects.User
         [Required]
         [MaxLength(10)]
         public string Password { get; set; }
-
-        [JsonPropertyName("role")]
+        
+        [JsonPropertyName("full_name")]
         [Required]
-        public string Role { get; set; } = Roles.Student;
+        [MaxLength(40)]
+        public string FullName { get; set; }
+        
+        [JsonPropertyName("group_id")]
+        [NotEmpty]
+        public Guid GroupId { get; set; }
     }
 }

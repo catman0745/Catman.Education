@@ -12,7 +12,7 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => Roles.Admin;
+        public UserRole RequiredRequestorRole => UserRole.Admin;
 
         public CreateGroupCommand(Guid requestorId)
         {

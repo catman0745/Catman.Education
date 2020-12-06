@@ -5,6 +5,7 @@ namespace Catman.Education.Authentication
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Authentication.Configuration;
     using Microsoft.IdentityModel.Tokens;
@@ -14,6 +15,7 @@ namespace Catman.Education.Authentication
         private static IEnumerable<Claim> UserClaims(User user)
         {
             yield return new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString());
+            yield return new Claim("role", user.Role().ToString());
         }
         
         private readonly IAuthenticationConfiguration _configuration;

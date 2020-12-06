@@ -1,12 +1,13 @@
 namespace Catman.Education.WebApi.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Catman.Education.Application.Features.User.Commands.RegisterUser;
     using Catman.Education.Application.Features.User.Commands.RemoveUser;
-    using Catman.Education.Application.Features.User.Commands.UpdateUser;
     using Catman.Education.Application.Features.User.Queries.GenerateToken;
     using Catman.Education.Application.Features.User.Queries.GetUser;
+    using Catman.Education.Application.Features.User.Queries.GetUsers;
     using Catman.Education.WebApi.DataTransferObjects.User;
     using Catman.Education.WebApi.Extensions;
     using MediatR;
@@ -25,39 +26,34 @@ namespace Catman.Education.WebApi.Controllers
             _mapper = mapper;
         }
 
-        /// <summary> Get the user with matching username </summary>
-        [HttpGet("{username}")]
+        /// <summary> Get all users </summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<UserDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get()
+        {
+            var getQuery = new GetUsersQuery();
+
+            var result = await _mediator.Send(getQuery);
+            return result.ToActionResult(users =>
+            {
+                var dtos = _mapper.Map<ICollection<UserDto>>(users);
+                return Ok(dtos);
+            });
+        }
+
+        /// <summary> Get the user with matching id </summary>
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromRoute] string username)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var getQuery = new GetUserQuery(username);
+            var getQuery = new GetUserQuery(id);
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(user => Ok(_mapper.Map<UserDto>(user)));
         }
 
-        /// <summary> Register a new user with the specified registration parameters </summary>
-        [HttpPost("register")]
-        [Authorize]
-        [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
-        {
-            var registerCommand = new RegisterUserCommand(UserId);
-            _mapper.Map(registerDto, registerCommand);
-            
-            var result = await _mediator.Send(registerCommand);
-            return result.ToActionResult(user =>
-            {
-                var dto = _mapper.Map<UserDto>(user);
-                return StatusCode(StatusCodes.Status201Created, dto);
-            });
-        }
-
         /// <summary> Generate token for specified user </summary>
-        [HttpPost("token")]
+        [HttpPost]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,33 +64,16 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(Ok);
         }
 
-        /// <summary> Update the user with matching username with the specified updation parameters </summary>
-        [HttpPut("{username}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update([FromRoute] string username, [FromBody] UpdateUserDto updateDto)
-        {
-            var updateCommand = new UpdateUserCommand(username, UserId);
-            _mapper.Map(updateDto, updateCommand);
-
-            var result = await _mediator.Send(updateCommand);
-            return result.ToActionResult(Ok);
-        }
-
-        /// <summary> Remove the user with matching username </summary>
-        [HttpDelete("{username}")]
+        /// <summary> Remove the user with matching id </summary>
+        [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Remove([FromRoute] string username)
+        public async Task<IActionResult> Remove([FromRoute] Guid id)
         {
-            var removeCommand = new RemoveUserCommand(username, UserId);
+            var removeCommand = new RemoveUserCommand(id, UserId);
             var result = await _mediator.Send(removeCommand);
             return result.ToActionResult(Ok);
         }

@@ -16,11 +16,11 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
         
         protected override async Task<RequestResult> HandleAsync(RemoveUserCommand removeCommand)
         {
-            if (!await _store.Users.ExistsWithUsernameAsync(removeCommand.Username))
+            if (!await _store.Users.ExistsWithIdAsync(removeCommand.Id))
             {
                 return NotFound();
             }
-            var user = await _store.Users.WithUsernameAsync(removeCommand.Username);
+            var user = await _store.Users.WithIdAsync(removeCommand.Id);
 
             _store.Users.Remove(user);
             await _store.SaveChangesAsync();
