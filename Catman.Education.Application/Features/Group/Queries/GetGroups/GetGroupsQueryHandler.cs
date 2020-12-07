@@ -19,7 +19,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
         protected override async Task<ResourceRequestResult<ICollection<Group>>> HandleAsync(GetGroupsQuery getQuery)
         {
             var groups = await _store.Groups.ToListAsync();
-            return Success(groups);
+            return Success($"Several ({groups.Count}) groups retrieved successfully", groups);
         }
     }
 }

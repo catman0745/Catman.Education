@@ -15,7 +15,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             var validationErrors = validationFailures
                 .GroupBy(failure => failure.PropertyName)
                 .ToDictionary(propErrors => propErrors.Key, propErrors => propErrors.First().ErrorMessage);
-            return new Error.Incorrect(validationErrors);
+            return new Error.ValidationError(validationErrors);
         }
         
         private readonly ICollection<IValidator<TRequest>> _validators;

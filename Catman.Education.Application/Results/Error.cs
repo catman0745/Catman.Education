@@ -10,9 +10,7 @@ namespace Catman.Education.Application.Results
 
         public sealed record NotFound : Error;
 
-        public sealed record Duplicate(string Message) : Error;
-
-        public sealed record Incorrect(IDictionary<string, string> Errors) : Error;
+        public sealed record ValidationError(IDictionary<string, string> Errors) : Error;
 
         public sealed record Unauthorized : Error;
 

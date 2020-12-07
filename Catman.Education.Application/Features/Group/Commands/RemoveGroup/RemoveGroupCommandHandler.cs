@@ -18,14 +18,14 @@ namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound();
+                return NotFound($"Group with id \"{removeCommand.Id}\" not found");
             }
             var group = await _store.Groups.WithIdAsync(removeCommand.Id);
 
             _store.Groups.Remove(group);
             await _store.SaveChangesAsync();
 
-            return Success();
+            return Success($"Group with id \"{group.Id}\" removed successfully");
         }
     }
 }

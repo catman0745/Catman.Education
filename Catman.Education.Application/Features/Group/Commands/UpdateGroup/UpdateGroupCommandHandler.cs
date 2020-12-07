@@ -21,19 +21,19 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound();
+                return NotFound($"Group with id \"{updateCommand.Id}\" not found");
             }
             var group = await _store.Groups.WithIdAsync(updateCommand.Id);
 
             if (await _store.Groups.OtherThan(group).ExistsWithTitleAsync(updateCommand.Title))
             {
-                return Duplicate("Group with such title already exists");
+                return ValidationError("title", "Must be unique");
             }
 
             _mapper.Map(updateCommand, group);
             await _store.SaveChangesAsync();
 
-            return Success();
+            return Success($"Group with id \"{updateCommand.Id}\" updated successfully");
         }
     }
 }

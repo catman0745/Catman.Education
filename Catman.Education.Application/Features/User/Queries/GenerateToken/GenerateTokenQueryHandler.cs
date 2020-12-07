@@ -20,17 +20,17 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
         {
             if (!await _store.Users.ExistsWithUsernameAsync(tokenQuery.Username))
             {
-                return NotFound();
+                return NotFound($"User with username \"{tokenQuery.Username}\" not found");
             }
             var user = await _store.Users.WithUsernameAsync(tokenQuery.Username);
 
             if (user.Password != tokenQuery.Password)
             {
-                return Incorrect("Password", "Incorrect password provided");
+                return ValidationError("password", "Incorrect password provided");
             }
 
             var token = _tokenService.GenerateToken(user);
-            return Success(token);
+            return Success($"Token for user with username \"{user.Username}\" generated successfully", token);
         }
     }
 }

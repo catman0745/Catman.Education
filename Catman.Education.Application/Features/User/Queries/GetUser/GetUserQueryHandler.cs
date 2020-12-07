@@ -19,11 +19,11 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
         {
             if (!await _store.Users.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound();
+                return NotFound($"User with id \"{getQuery.Id}\" not found");
             }
             var user = await _store.Users.WithIdAsync(getQuery.Id);
             
-            return Success(user);
+            return Success($"User with id \"{user.Id}\" retrieved successfully", user);
         }
     }
 }

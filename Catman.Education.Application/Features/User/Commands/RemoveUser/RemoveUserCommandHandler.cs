@@ -18,14 +18,14 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
         {
             if (!await _store.Users.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound();
+                return NotFound($"User with id \"{removeCommand.Id}\" not found");
             }
             var user = await _store.Users.WithIdAsync(removeCommand.Id);
 
             _store.Users.Remove(user);
             await _store.SaveChangesAsync();
 
-            return Success();
+            return Success($"User with id \"{user.Id}\" removed successfully");
         }
     }
 }

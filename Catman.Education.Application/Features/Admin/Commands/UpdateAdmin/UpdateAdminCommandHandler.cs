@@ -21,19 +21,19 @@ namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
         {
             if (!await _store.Admins.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound();
+                return NotFound($"Admin with id \"{updateCommand.Id}\" not found");
             }
             var admin = await _store.Admins.WithIdAsync(updateCommand.Id);
 
             if (await _store.Users.OtherThan(admin).ExistsWithUsernameAsync(updateCommand.Username))
             {
-                return Duplicate("User with such username already exists");
+                return ValidationError("username", "Must be unique");
             }
 
             _mapper.Map(updateCommand, admin);
             await _store.SaveChangesAsync();
 
-            return Success();
+            return Success($"Admin with id \"{admin.Id}\" updated successfully");
         }
     }
 }

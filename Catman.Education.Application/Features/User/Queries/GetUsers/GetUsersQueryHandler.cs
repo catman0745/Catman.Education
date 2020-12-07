@@ -19,7 +19,7 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
         protected override async Task<ResourceRequestResult<ICollection<User>>> HandleAsync(GetUsersQuery getQuery)
         {
             var users = await _store.Users.ToListAsync();
-            return Success(users);
+            return Success($"Several ({users.Count}) users retrieved successfully", users);
         }
     }
 }

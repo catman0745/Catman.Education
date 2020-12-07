@@ -19,11 +19,11 @@ namespace Catman.Education.Application.Features.Admin.Queries.GetAdmin
         {
             if (!await _store.Admins.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound();
+                return NotFound($"Admin with id \"{getQuery.Id}\" not found");
             }
             var admin = await _store.Admins.WithIdAsync(getQuery.Id);
 
-            return Success(admin);
+            return Success($"Admin with id \"{admin.Id}\" retrieved successfully", admin);
         }
     }
 }

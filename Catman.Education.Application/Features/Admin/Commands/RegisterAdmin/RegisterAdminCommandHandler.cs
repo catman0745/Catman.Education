@@ -22,14 +22,14 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
         {
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
-                return Duplicate("User with such username already exists");
+                return ValidationError("username", "Must be unique");
             }
 
             var admin = _mapper.Map<Admin>(registerCommand);
             _store.Admins.Add(admin);
             await _store.SaveChangesAsync();
 
-            return Success(admin);
+            return Success($"Admin with id \"{admin.Id}\" registered successfully", admin);
         }
     }
 }

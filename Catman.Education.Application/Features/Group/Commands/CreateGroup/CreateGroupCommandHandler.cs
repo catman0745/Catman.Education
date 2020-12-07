@@ -22,14 +22,14 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         {
             if (await _store.Groups.ExistsWithTitleAsync(createCommand.Title))
             {
-                return Duplicate("Group with such title already exists");
+                return ValidationError("title", "Must be unique");
             }
 
             var group = _mapper.Map<Group>(createCommand);
             _store.Groups.Add(group);
             await _store.SaveChangesAsync();
 
-            return Success(group);
+            return Success($"Group with id \"{group.Id}\" created successfully", group);
         }
     }
 }

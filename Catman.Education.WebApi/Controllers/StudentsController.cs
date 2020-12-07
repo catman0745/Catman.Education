@@ -8,6 +8,7 @@ namespace Catman.Education.WebApi.Controllers
     using Catman.Education.Application.Features.Student.Queries.GetStudent;
     using Catman.Education.WebApi.DataTransferObjects.Student;
     using Catman.Education.WebApi.Extensions;
+    using Catman.Education.WebApi.Responses;
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
@@ -26,8 +27,8 @@ namespace Catman.Education.WebApi.Controllers
         
         /// <summary> Get the student with matching id </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(StudentDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<StudentDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             var getQuery = new GetStudentQuery(id);
@@ -36,17 +37,17 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(student =>
             {
                 var dto = _mapper.Map<StudentDto>(student);
-                return Ok(dto);
+                return Ok(Success(result.Message, dto));
             });
         }
         
         /// <summary> Registers a new student with the specified registration parameters </summary>
         [HttpPost]
         [Authorize]
-        [ProducesResponseType(typeof(StudentDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<StudentDto>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Register([FromBody] RegisterStudentDto registerDto)
         {
             var registerCommand = new RegisterStudentCommand(UserId);
@@ -56,25 +57,25 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(student =>
             {
                 var dto = _mapper.Map<StudentDto>(student);
-                return CreatedAtAction(nameof(Get), new {student.Id}, dto);
+                return CreatedAtAction(nameof(Get), new {student.Id}, Success(result.Message, dto));
             });
         }
 
         /// <summary> Updates the student with matching id with specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateStudentDto updateDto)
         {
             var updateCommand = new UpdateStudentCommand(id, UserId);
             _mapper.Map(updateDto, updateCommand);
 
             var result = await _mediator.Send(updateCommand);
-            return result.ToActionResult(Ok);
+            return result.ToActionResult(() => Ok(Success(result.Message)));
         }
     }
 }

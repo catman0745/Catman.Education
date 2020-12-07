@@ -32,7 +32,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             }
             else if (MustReturnRequestResult)
             {
-                object response = new RequestResult.Failure(error);
+                object response = new RequestResult.Failure(ErrorMessage, error);
                 return (TResponse) response;
             }
             else
@@ -54,9 +54,11 @@ namespace Catman.Education.Application.PipelineBehaviors
 
         // Used for the sake of simplicity
         private static ResourceRequestResult<TResource> FailureResult<TResource>(Error error) =>
-            new ResourceRequestResult<TResource>.Failure(error);
+            new ResourceRequestResult<TResource>.Failure(ErrorMessage, error);
         
         #endregion
+
+        private const string ErrorMessage = "Validation errors occurred";
 
         public async Task<TResponse> Handle(
             TRequest request,

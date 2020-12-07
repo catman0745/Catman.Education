@@ -21,24 +21,24 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
         {
             if (!await _store.Students.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound();
+                return NotFound($"Student with id \"{updateCommand.Id}\" not found");
             }
             var student = await _store.Students.WithIdAsync(updateCommand.Id);
 
             if (await _store.Users.OtherThan(student).ExistsWithUsernameAsync(updateCommand.Username))
             {
-                return Duplicate("User with such username already exists");
+                return ValidationError("username", "Must be unique");
             }
 
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.GroupId))
             {
-                return NotFound();
+                return NotFound($"Group with id \"{updateCommand.GroupId}\" not found");
             }
 
             _mapper.Map(updateCommand, student);
             await _store.SaveChangesAsync();
 
-            return Success();
+            return Success($"Student with id \"{student.Id}\" updated successfully");
         }
     }
 }

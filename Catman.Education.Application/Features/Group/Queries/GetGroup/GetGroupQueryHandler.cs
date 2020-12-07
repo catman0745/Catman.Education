@@ -19,11 +19,11 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound();
+                return NotFound($"Group with id \"{getQuery.Id}\" not found");
             }
             var group = await _store.Groups.WithIdAsync(getQuery.Id);
 
-            return Success(group);
+            return Success($"Group with id \"{getQuery.Id}\" retrieved successfully", group);
         }
     }
 }

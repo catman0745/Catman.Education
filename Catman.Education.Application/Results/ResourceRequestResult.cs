@@ -2,12 +2,36 @@ namespace Catman.Education.Application.Results
 {
     /// <summary> Resource request result </summary>
     /// <remarks> Either monad implementation </remarks>
-    public abstract record ResourceRequestResult<TResource>
+    public abstract class ResourceRequestResult<TResource>
     {
         private ResourceRequestResult() { }
+        
+        public abstract string Message { get; }
 
-        public sealed record Success(TResource Resource) : ResourceRequestResult<TResource>;
+        public sealed class Success : ResourceRequestResult<TResource>
+        {
+            public override string Message { get; }
+            
+            public TResource Resource { get; }
 
-        public sealed record Failure(Error Error) : ResourceRequestResult<TResource>;
+            public Success(string message, TResource resource)
+            {
+                Message = message;
+                Resource = resource;
+            }
+        }
+
+        public sealed class Failure : ResourceRequestResult<TResource>
+        {
+            public override string Message { get; }
+
+            public Error Error { get; }
+
+            public Failure(string message, Error error)
+            {
+                Message = message;
+                Error = error;
+            }
+        }
     }
 }

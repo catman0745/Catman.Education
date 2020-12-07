@@ -10,29 +10,26 @@ namespace Catman.Education.Application.Features
         : IRequestHandler<TResourceRequest, ResourceRequestResult<TResource>>
         where TResourceRequest : IRequest<ResourceRequestResult<TResource>>
     {
-        private static ResourceRequestResult<TResource> Error(Error error) =>
-            new ResourceRequestResult<TResource>.Failure(error);
+        private static ResourceRequestResult<TResource> Failure(string message, Error error) =>
+            new ResourceRequestResult<TResource>.Failure(message, error);
         
-        protected static ResourceRequestResult<TResource> Success(TResource resource) =>
-            new ResourceRequestResult<TResource>.Success(resource);
+        protected static ResourceRequestResult<TResource> Success(string message, TResource resource) =>
+            new ResourceRequestResult<TResource>.Success(message, resource);
         
-        protected static ResourceRequestResult<TResource> NotFound() =>
-            Error(new Error.NotFound());
-        
-        protected static ResourceRequestResult<TResource> Duplicate(string message) =>
-            Error(new Error.Duplicate(message));
+        protected static ResourceRequestResult<TResource> NotFound(string message) =>
+            Failure(message, new Error.NotFound());
 
-        protected static ResourceRequestResult<TResource> Incorrect(string propertyName, string errorMessage) =>
-            Incorrect(new Dictionary<string, string>() {[propertyName] = errorMessage});
+        protected static ResourceRequestResult<TResource> ValidationError(string propertyName, string errorMessage) =>
+            ValidationError(new Dictionary<string, string>() {[propertyName] = errorMessage});
         
-        protected static ResourceRequestResult<TResource> Incorrect(IDictionary<string, string> errors) =>
-            Error(new Error.Incorrect(errors));
+        protected static ResourceRequestResult<TResource> ValidationError(IDictionary<string, string> errors) =>
+            Failure("Validation errors occured", new Error.ValidationError(errors));
 
         protected static ResourceRequestResult<TResource> Unauthorized() =>
-            Error(new Error.Unauthorized());
+            Failure("User must be authorized", new Error.Unauthorized());
 
         protected static ResourceRequestResult<TResource> AccessViolation() =>
-            Error(new Error.AccessViolation());
+            Failure("Access violation", new Error.AccessViolation());
 
         public Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _) =>
             HandleAsync(request);
