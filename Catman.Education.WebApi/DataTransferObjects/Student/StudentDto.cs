@@ -11,10 +11,10 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
         [JsonPropertyName("username")]
         public string Username { get; set; }
         
-        [JsonPropertyName("full_name")]
+        [JsonPropertyName("fullName")]
         public string FullName { get; set; }
         
-        [JsonPropertyName("group_id")]
+        [JsonPropertyName("groupId")]
         public Guid GroupId { get; set; }
     }
 }

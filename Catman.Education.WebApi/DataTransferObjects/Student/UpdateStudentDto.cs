@@ -17,12 +17,12 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
         [MaxLength(10)]
         public string Password { get; set; }
         
-        [JsonPropertyName("full_name")]
+        [JsonPropertyName("fullName")]
         [Required]
         [MaxLength(40)]
         public string FullName { get; set; }
         
-        [JsonPropertyName("group_id")]
+        [JsonPropertyName("groupId")]
         [NotEmpty]
         public Guid GroupId { get; set; }
     }
