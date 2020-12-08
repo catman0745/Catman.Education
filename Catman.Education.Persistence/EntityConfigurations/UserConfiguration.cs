@@ -8,7 +8,11 @@ namespace Catman.Education.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("users");
+            builder
+                .ToTable("users")
+                .HasDiscriminator(user => user.Role)
+                .HasValue<Student>(nameof(Student))
+                .HasValue<Admin>(nameof(Admin));
 
             builder
                 .HasIndex(user => user.Username)
@@ -29,6 +33,10 @@ namespace Catman.Education.Persistence.EntityConfigurations
                 .HasColumnName("password")
                 .HasMaxLength(10)
                 .IsRequired();
+
+            builder
+                .Property(user => user.Role)
+                .HasColumnName("role");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
         
         public Guid RequestorId { get; }
 
-        public UserRole RequiredRequestorRole => UserRole.Admin;
+        public string RequiredRequestorRole => nameof(Admin);
 
         public UpdateGroupCommand(Guid id, Guid requestorId)
         {

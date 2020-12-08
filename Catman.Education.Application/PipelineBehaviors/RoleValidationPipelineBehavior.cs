@@ -33,7 +33,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             }
             var requestor = await _store.Users.WithIdAsync(restrictedRequest.RequestorId);
 
-            return requestor.Role() == restrictedRequest.RequiredRequestorRole
+            return requestor.Role == restrictedRequest.RequiredRequestorRole
                 ? RequestValidationResult.Valid()
                 : RequestValidationResult.Invalid(new Error.AccessViolation());
         }

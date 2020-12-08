@@ -20,7 +20,7 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
 
         public Guid RequestorId { get; }
 
-        public UserRole RequiredRequestorRole => UserRole.Admin;
+        public string RequiredRequestorRole => nameof(Admin);
 
         public UpdateStudentCommand(Guid id, Guid requestorId)
         {

@@ -18,7 +18,7 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 
         public Guid RequestorId { get; }
 
-        public UserRole RequiredRequestorRole => UserRole.Admin;
+        public string RequiredRequestorRole => nameof(Admin);
 
         public RegisterStudentCommand(Guid requestorId)
         {
