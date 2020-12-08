@@ -6,6 +6,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Persistence.Extensions;
     using Catman.Education.Authentication.Extensions;
     using Catman.Education.WebApi.Extensions;
+    using Catman.Education.WebApi.Filter;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -33,7 +34,8 @@ namespace Catman.Education.WebApi
                     typeof(Startup)            // WebApi mappings
                 )
                 .AddSwaggerGen(_configuration)
-                .AddControllers();
+                .AddControllers(options => options.Filters.Add<ValidationFilter>())
+                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
