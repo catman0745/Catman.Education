@@ -7,5 +7,8 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
 
     public class GetUsersQuery : IRequest<ResourceRequestResult<ICollection<User>>>
     {
+        public string Username { get; set; }
+        
+        public string Role { get; set; }
     }
 }

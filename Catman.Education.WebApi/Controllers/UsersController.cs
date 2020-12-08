@@ -30,9 +30,9 @@ namespace Catman.Education.WebApi.Controllers
         /// <summary> Get all users </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<UserDto>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] GetUsersDto getDto)
         {
-            var getQuery = new GetUsersQuery();
+            var getQuery = _mapper.Map<GetUsersQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(users =>

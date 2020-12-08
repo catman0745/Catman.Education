@@ -47,9 +47,9 @@ namespace Catman.Education.WebApi.Controllers
         /// <summary> Get all groups </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<GroupDto>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] GetGroupsDto getDto)
         {
-            var getQuery = new GetGroupsQuery();
+            var getQuery = _mapper.Map<GetGroupsQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(groups => 
