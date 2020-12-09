@@ -25,5 +25,8 @@ namespace Catman.Education.Application.Extensions
 
         public static IRuleBuilderOptions<T, int> ValidPageSize<T>(this IRuleBuilder<T, int> pageNumber) =>
             pageNumber.InclusiveBetween(1, 50);
+
+        public static IRuleBuilderOptions<T, string> ValidDisciplineTitle<T>(this IRuleBuilder<T, string> title) =>
+            title.NotEmpty().MaximumLength(30);
     }
 }

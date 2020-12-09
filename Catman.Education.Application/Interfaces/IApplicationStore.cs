@@ -13,6 +13,8 @@ namespace Catman.Education.Application.Interfaces
         DbSet<Admin> Admins { get; }
 
         DbSet<Group> Groups { get; }
+        
+        DbSet<Discipline> Disciplines { get; }
 
         Task SaveChangesAsync();
     }
