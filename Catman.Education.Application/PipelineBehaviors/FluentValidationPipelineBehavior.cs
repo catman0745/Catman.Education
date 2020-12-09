@@ -37,7 +37,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             }
             
             return validationFailures.Any()
-                ? RequestValidationResult.Invalid(Incorrect(validationFailures))
+                ? RequestValidationResult.Invalid("Validation errors occurred", Incorrect(validationFailures))
                 : RequestValidationResult.Valid();
         }
     }

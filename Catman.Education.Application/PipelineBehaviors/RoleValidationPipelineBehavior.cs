@@ -26,16 +26,19 @@ namespace Catman.Education.Application.PipelineBehaviors
         protected override async Task<RequestValidationResult> ValidateAsync(TRequest request)
         {
             var restrictedRequest = (IRequestorRoleRestriction) request;
-            
+
             if (!await _store.Users.ExistsWithIdAsync(restrictedRequest.RequestorId))
             {
-                return RequestValidationResult.Invalid(new Error.Unauthorized());
+                return RequestValidationResult.Invalid("User must be authorized", new Error.Unauthorized());
             }
+
             var requestor = await _store.Users.WithIdAsync(restrictedRequest.RequestorId);
 
             return requestor.Role == restrictedRequest.RequiredRequestorRole
                 ? RequestValidationResult.Valid()
-                : RequestValidationResult.Invalid(new Error.AccessViolation());
+                : RequestValidationResult.Invalid(
+                    $"Access violation: user must be {restrictedRequest.RequiredRequestorRole}",
+                    new Error.AccessViolation());
         }
     }
 }

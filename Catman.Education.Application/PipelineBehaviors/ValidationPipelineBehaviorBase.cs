@@ -23,16 +23,16 @@ namespace Catman.Education.Application.PipelineBehaviors
             typeof(RequestResult).IsAssignableTo(typeof(TResponse));
 
         /// <summary> Creates validation failure response with specified error </summary>
-        private static TResponse ValidationErrorResponse(Error error)
+        private static TResponse ValidationErrorResponse(string message, Error error)
         {
             if (MustReturnResourceRequestResult)
             {
                 var resourceType = typeof(TResponse).GetGenericArguments().Single();
-                return (TResponse) ResourceRequestFailureResult(error, resourceType);
+                return (TResponse) ResourceRequestFailureResult(message, error, resourceType);
             }
             else if (MustReturnRequestResult)
             {
-                object response = new RequestResult.Failure(ErrorMessage, error);
+                object response = new RequestResult.Failure(message, error);
                 return (TResponse) response;
             }
             else
@@ -46,19 +46,17 @@ namespace Catman.Education.Application.PipelineBehaviors
         ///     Creates validation failure result of type <see cref="ResourceRequestResult{TResource}"/>
         ///     with specified error and resource type
         /// </summary>
-        private static object ResourceRequestFailureResult(Error error, Type resourceType) =>
+        private static object ResourceRequestFailureResult(string message, Error error, Type resourceType) =>
             typeof(ValidationPipelineBehaviorBase<TRequest, TResponse>)
                 .GetMethod(nameof(FailureResult), BindingFlags.NonPublic | BindingFlags.Static)
                 ?.MakeGenericMethod(resourceType)
-                ?.Invoke(null, new object[] {error});
+                ?.Invoke(null, new object[] {message, error});
 
         // Used for the sake of simplicity
-        private static ResourceRequestResult<TResource> FailureResult<TResource>(Error error) =>
-            new ResourceRequestResult<TResource>.Failure(ErrorMessage, error);
+        private static ResourceRequestResult<TResource> FailureResult<TResource>(string message, Error error) =>
+            new ResourceRequestResult<TResource>.Failure(message, error);
         
         #endregion
-
-        private const string ErrorMessage = "Validation errors occurred";
 
         public async Task<TResponse> Handle(
             TRequest request,
@@ -73,7 +71,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             var validationResult = await ValidateAsync(request);
             return validationResult.IsValid
                 ? await next()
-                : ValidationErrorResponse(validationResult.Error);
+                : ValidationErrorResponse(validationResult.Message, validationResult.Error);
         }
         
         /// <summary> Checks if request should be validated </summary>
