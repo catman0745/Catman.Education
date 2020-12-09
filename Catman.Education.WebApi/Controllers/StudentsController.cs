@@ -43,6 +43,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
+        /// <summary> Get all students </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<StudentDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
