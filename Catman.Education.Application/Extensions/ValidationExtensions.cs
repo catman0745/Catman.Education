@@ -19,5 +19,11 @@ namespace Catman.Education.Application.Extensions
 
         public static IRuleBuilderOptions<T, string> ValidName<T>(this IRuleBuilder<T, string> name) =>
             name.NotEmpty().MaximumLength(40);
+
+        public static IRuleBuilderOptions<T, int> ValidPageNumber<T>(this IRuleBuilder<T, int> pageNumber) =>
+            pageNumber.GreaterThanOrEqualTo(1);
+
+        public static IRuleBuilderOptions<T, int> ValidPageSize<T>(this IRuleBuilder<T, int> pageNumber) =>
+            pageNumber.InclusiveBetween(1, 50);
     }
 }

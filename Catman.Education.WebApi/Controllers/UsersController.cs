@@ -1,13 +1,13 @@
 namespace Catman.Education.WebApi.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.User.Commands.RemoveUser;
     using Catman.Education.Application.Features.User.Queries.GenerateToken;
     using Catman.Education.Application.Features.User.Queries.GetUser;
     using Catman.Education.Application.Features.User.Queries.GetUsers;
+    using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.User;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
@@ -29,16 +29,17 @@ namespace Catman.Education.WebApi.Controllers
 
         /// <summary> Get all users </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<UserDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<UserDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] GetUsersDto getDto)
         {
             var getQuery = _mapper.Map<GetUsersQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
-            return result.ToActionResult(users =>
+            return result.ToActionResult(paginated =>
             {
-                var dtos = _mapper.Map<ICollection<UserDto>>(users);
-                return Ok(Success(result.Message, dtos));
+                var dto = _mapper.Map<PaginatedDto<UserDto>>(paginated);
+                return Ok(Success(result.Message, dto));
             });
         }
 

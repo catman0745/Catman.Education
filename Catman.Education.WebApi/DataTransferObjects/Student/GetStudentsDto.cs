@@ -1,9 +1,10 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Student
 {
     using System;
+    using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Microsoft.AspNetCore.Mvc;
 
-    public class GetStudentsDto
+    public class GetStudentsDto : PaginationInfoDto
     {
         [FromQuery(Name = "username")]
         public string Username { get; set; }

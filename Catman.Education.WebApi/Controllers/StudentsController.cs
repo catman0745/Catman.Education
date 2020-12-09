@@ -1,13 +1,13 @@
 namespace Catman.Education.WebApi.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.Student.Commands.RegisterStudent;
     using Catman.Education.Application.Features.Student.Commands.UpdateStudent;
     using Catman.Education.Application.Features.Student.Queries.GetStudent;
     using Catman.Education.Application.Features.Student.Queries.GetStudents;
+    using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.Student;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
@@ -44,16 +44,17 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<StudentDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<StudentDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetStudents([FromQuery] GetStudentsDto getDto)
         {
             var getQuery = _mapper.Map<GetStudentsQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
-            return result.ToActionResult(students =>
+            return result.ToActionResult(paginated =>
             {
-                var dtos = _mapper.Map<ICollection<StudentDto>>(students);
-                return Ok(Success(result.Message, dtos));
+                var dto = _mapper.Map<PaginatedDto<StudentDto>>(paginated);
+                return Ok(Success(result.Message, dto));
             });
         }
         

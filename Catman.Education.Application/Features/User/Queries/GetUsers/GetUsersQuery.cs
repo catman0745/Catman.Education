@@ -1,11 +1,11 @@
 namespace Catman.Education.Application.Features.User.Queries.GetUsers
 {
-    using System.Collections.Generic;
     using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Pagination;
     using Catman.Education.Application.Results;
     using MediatR;
 
-    public class GetUsersQuery : IRequest<ResourceRequestResult<ICollection<User>>>
+    public class GetUsersQuery : PaginationInfo, IRequest<ResourceRequestResult<Paginated<User>>>
     {
         public string Username { get; set; }
         
