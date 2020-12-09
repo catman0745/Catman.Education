@@ -8,7 +8,8 @@ namespace Catman.Education.Application.Extensions
             username
                 .NotEmpty()
                 .MaximumLength(30)
-                .Matches(@"^[a-zA-Z_]*$").WithMessage("{PropertyName} must consist of Latin letters and underscores");
+                .Matches(@"^[a-zA-Z0-9_]*$")
+                    .WithMessage("{PropertyName} must consist of Latin letters, digits and underscores");
 
         public static IRuleBuilderOptions<T, string> ValidPassword<T>(this IRuleBuilder<T, string> password) =>
             password.NotEmpty().MaximumLength(10);
