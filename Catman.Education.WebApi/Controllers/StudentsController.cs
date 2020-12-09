@@ -1,11 +1,13 @@
 namespace Catman.Education.WebApi.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.Student.Commands.RegisterStudent;
     using Catman.Education.Application.Features.Student.Commands.UpdateStudent;
     using Catman.Education.Application.Features.Student.Queries.GetStudent;
+    using Catman.Education.Application.Features.Student.Queries.GetStudents;
     using Catman.Education.WebApi.DataTransferObjects.Student;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
@@ -29,7 +31,7 @@ namespace Catman.Education.WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ResourceSuccessResponse<StudentDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
+        public async Task<IActionResult> GetStudent([FromRoute] Guid id)
         {
             var getQuery = new GetStudentQuery(id);
 
@@ -38,6 +40,20 @@ namespace Catman.Education.WebApi.Controllers
             {
                 var dto = _mapper.Map<StudentDto>(student);
                 return Ok(Success(result.Message, dto));
+            });
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<StudentDto>>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetStudents([FromQuery] GetStudentsDto getDto)
+        {
+            var getQuery = _mapper.Map<GetStudentsQuery>(getDto);
+
+            var result = await _mediator.Send(getQuery);
+            return result.ToActionResult(students =>
+            {
+                var dtos = _mapper.Map<ICollection<StudentDto>>(students);
+                return Ok(Success(result.Message, dtos));
             });
         }
         
@@ -57,7 +73,7 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(student =>
             {
                 var dto = _mapper.Map<StudentDto>(student);
-                return CreatedAtAction(nameof(Get), new {student.Id}, Success(result.Message, dto));
+                return CreatedAtAction(nameof(GetStudent), new {student.Id}, Success(result.Message, dto));
             });
         }
 
