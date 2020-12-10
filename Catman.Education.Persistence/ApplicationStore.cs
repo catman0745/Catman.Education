@@ -18,6 +18,8 @@ namespace Catman.Education.Persistence
         public DbSet<Discipline> Disciplines { get; set; }
         
         public DbSet<Test> Tests { get; set; }
+        
+        public DbSet<Question> Questions { get; set; }
 
         public ApplicationStore(DbContextOptions<ApplicationStore> options)
             : base(options)

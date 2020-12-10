@@ -31,5 +31,11 @@ namespace Catman.Education.Application.Extensions
 
         public static IRuleBuilderOptions<T, string> ValidTestTitle<T>(this IRuleBuilder<T, string> title) =>
             title.NotEmpty().MaximumLength(250);
+
+        public static IRuleBuilderOptions<T, string> ValidQuestionText<T>(this IRuleBuilder<T, string> text) =>
+            text.NotEmpty().MaximumLength(10000);
+
+        public static IRuleBuilderOptions<T, int> ValidQuestionCost<T>(this IRuleBuilder<T, int> cost) =>
+            cost.InclusiveBetween(1, 100);
     }
 }
