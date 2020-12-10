@@ -10,7 +10,8 @@ namespace Catman.Education.Application.MappingProfiles
         public GroupMappingProfile()
         {
             CreateMap<CreateGroupCommand, Group>();
-            CreateMap<UpdateGroupCommand, Group>();
+            CreateMap<UpdateGroupCommand, Group>()
+                .ForMember(group => group.Id, options => options.Ignore());
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Catman.Education.Application.MappingProfiles
         public DisciplineMappingProfile()
         {
             CreateMap<CreateDisciplineCommand, Discipline>();
-            CreateMap<UpdateDisciplineCommand, Discipline>();
+            CreateMap<UpdateDisciplineCommand, Discipline>()
+                .ForMember(discipline => discipline.Id, options => options.Ignore());
         }
     }
 }
