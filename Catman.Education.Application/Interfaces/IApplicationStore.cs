@@ -15,6 +15,8 @@ namespace Catman.Education.Application.Interfaces
         DbSet<Group> Groups { get; }
         
         DbSet<Discipline> Disciplines { get; }
+        
+        DbSet<Test> Tests { get; }
 
         Task SaveChangesAsync();
     }

@@ -28,5 +28,8 @@ namespace Catman.Education.Application.Extensions
 
         public static IRuleBuilderOptions<T, string> ValidDisciplineTitle<T>(this IRuleBuilder<T, string> title) =>
             title.NotEmpty().MaximumLength(30);
+
+        public static IRuleBuilderOptions<T, string> ValidTestTitle<T>(this IRuleBuilder<T, string> title) =>
+            title.NotEmpty().MaximumLength(250);
     }
 }
