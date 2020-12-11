@@ -9,7 +9,7 @@ namespace Catman.Education.WebApi.Responses
         public IDictionary<string, string> ValidationErrors { get; }
 
         public ValidationErrorResponse(string message, IDictionary<string, string> validationErrors)
-            : base(success: true, message)
+            : base(success: false, message)
         {
             ValidationErrors = validationErrors;
         }
