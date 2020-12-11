@@ -28,6 +28,7 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswers
         {
             var answers = await _store.Answers
                 .ApplyFilter(AnswersFilter, getQuery)
+                .OrderBy(answer => answer.QuestionId)
                 .PaginateAsync(getQuery);
 
             return Success($"Several ({answers.Count}) answers retrieved successfully", answers);

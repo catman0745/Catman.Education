@@ -28,6 +28,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
         {
             var groups = await _store.Groups
                 .ApplyFilter(GroupFilter, getQuery)
+                .OrderBy(group => group.Title)
                 .ToListAsync();
             return Success($"Several ({groups.Count}) groups retrieved successfully", groups);
         }

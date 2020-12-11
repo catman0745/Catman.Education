@@ -31,6 +31,7 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
         {
             var tests = await _store.Tests
                 .ApplyFilter(TestsFilter, getQuery)
+                .OrderBy(test => test.Title)
                 .PaginateAsync(getQuery);
 
             return Success($"Several ({tests.Count}) tests retrieved successfully", tests);
