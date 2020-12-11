@@ -22,7 +22,7 @@ namespace Catman.Education.WebApi
         {
             _configuration = configuration;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -34,6 +34,7 @@ namespace Catman.Education.WebApi
                     typeof(Startup)            // WebApi mappings
                 )
                 .AddSwaggerGen(_configuration)
+                .AddClientCors(_configuration)
                 .AddControllers(options => options.Filters.Add<ValidationFilter>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
         }
@@ -46,15 +47,17 @@ namespace Catman.Education.WebApi
             }
 
             app.UseStaticFiles();
-            
+
             app.UseSwagger(_configuration);
 
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseClientCors();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
