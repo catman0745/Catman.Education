@@ -1,6 +1,7 @@
 namespace Catman.Education.Application.Entities
 {
     using System;
+    using System.Collections.Generic;
 
     public class Question
     {
@@ -13,5 +14,7 @@ namespace Catman.Education.Application.Entities
         public Guid TestId { get; set; }
         
         public Test Test { get; set; }
+        
+        public ICollection<Answer> Answers { get; set; }
     }
 }

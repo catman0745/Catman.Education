@@ -19,6 +19,8 @@ namespace Catman.Education.Application.Interfaces
         DbSet<Test> Tests { get; }
         
         DbSet<Question> Questions { get; }
+        
+        DbSet<Answer> Answers { get; }
 
         Task SaveChangesAsync();
     }
