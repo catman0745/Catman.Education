@@ -22,7 +22,7 @@ dotnet restore
 
 Apply migrations:
 ```
-dotnet ef database update -s Catman.Eudcation.WebApi -p Catman.Education.Persistence
+dotnet ef database update -s Catman.Education.WebApi -p Catman.Education.Persistence
 ```
 
 Start the API (default port is `5000`):
