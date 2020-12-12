@@ -27,8 +27,8 @@ namespace Catman.Education.WebApi
 
             try
             {
-                CreateHostBuilder(args).Build().Run();
                 Log.Information("Web host started");
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception exception)
             {
