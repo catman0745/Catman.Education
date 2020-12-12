@@ -59,7 +59,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Create a new discipline with the specified creation parameters </summary>
+        /// <summary> Create a new discipline according to the specified creation parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<DisciplineDto>), StatusCodes.Status201Created)]
@@ -79,7 +79,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Update the discipline with matching id with the specified updation parameters</summary>
+        /// <summary> Update the discipline with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

@@ -45,7 +45,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get all tests </summary>
+        /// <summary> Get filtered and paginated tests </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<Paginated<TestDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
@@ -61,7 +61,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Create a new test with the specified creation parameters </summary>
+        /// <summary> Create a new test according to the specified creation parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<TestDto>), StatusCodes.Status201Created)]
@@ -81,7 +81,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Update the test with matching id with the specified updation parameters </summary>
+        /// <summary> Update the test with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

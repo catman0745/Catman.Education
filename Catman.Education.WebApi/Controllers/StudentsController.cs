@@ -43,7 +43,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get all students </summary>
+        /// <summary> Get filtered and paginated students </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<StudentDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
@@ -59,7 +59,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
         
-        /// <summary> Registers a new student with the specified registration parameters </summary>
+        /// <summary> Register a new student according to the specified registration parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<StudentDto>), StatusCodes.Status201Created)]
@@ -79,7 +79,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Updates the student with matching id with specified updation parameters </summary>
+        /// <summary> Update the student with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

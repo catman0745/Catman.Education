@@ -44,7 +44,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get all groups </summary>
+        /// <summary> Get filtered groups </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<GroupDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get([FromQuery] GetGroupsDto getDto)
@@ -59,7 +59,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Create a new group with the specified creation parameters </summary>
+        /// <summary> Create a new group according to the specified creation parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<GroupDto>), StatusCodes.Status201Created)]
@@ -79,7 +79,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Update the group with matching id with the specified updation parameters </summary>
+        /// <summary> Update the group with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

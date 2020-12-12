@@ -45,7 +45,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get all answers </summary>
+        /// <summary> Get filtered and paginated answers </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<Paginated<AnswerDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
@@ -61,7 +61,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Create a new answer with the specified creation parameters </summary>
+        /// <summary> Create a new answer according to the specified creation parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<AnswerDto>), StatusCodes.Status201Created)]
@@ -81,7 +81,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Update the answer with matching id with the specified updation parameters </summary>
+        /// <summary> Update the answer with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

@@ -41,7 +41,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Registers a new admin with the specified registration parameters </summary>
+        /// <summary> Register a new admin according to the specified registration parameters </summary>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<AdminDto>), StatusCodes.Status201Created)]
@@ -61,7 +61,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Updates the admin with matching id with specified updation parameters </summary>
+        /// <summary> Update the admin with matching id according to the specified updation parameters </summary>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]

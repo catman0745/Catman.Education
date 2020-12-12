@@ -27,7 +27,7 @@ namespace Catman.Education.WebApi.Controllers
             _mapper = mapper;
         }
 
-        /// <summary> Get all users </summary>
+        /// <summary> Get filtered and paginated users </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<UserDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
@@ -58,7 +58,7 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Generate token for specified user </summary>
+        /// <summary> Generate token for the specified user </summary>
         [HttpPost]
         [ProducesResponseType(typeof(ResourceSuccessResponse<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
