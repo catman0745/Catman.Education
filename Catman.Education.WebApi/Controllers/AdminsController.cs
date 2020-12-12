@@ -5,7 +5,7 @@ namespace Catman.Education.WebApi.Controllers
     using AutoMapper;
     using Catman.Education.Application.Features.Admin.Commands.RegisterAdmin;
     using Catman.Education.Application.Features.Admin.Commands.UpdateAdmin;
-    using Catman.Education.Application.Features.User.Queries.GetUser;
+    using Catman.Education.Application.Features.Admin.Queries.GetAdmin;
     using Catman.Education.WebApi.DataTransferObjects.Admin;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
@@ -31,7 +31,7 @@ namespace Catman.Education.WebApi.Controllers
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var getQuery = new GetUserQuery(id);
+            var getQuery = new GetAdminQuery(id);
 
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(admin =>
