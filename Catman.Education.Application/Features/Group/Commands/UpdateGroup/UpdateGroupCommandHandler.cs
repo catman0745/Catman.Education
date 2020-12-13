@@ -23,19 +23,19 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound(_localizer["Group with id not found"].Replace("{id}", updateCommand.Id.ToString()));
+                return NotFound(_localizer.GroupNotFound(updateCommand.Id));
             }
             var group = await _store.Groups.WithIdAsync(updateCommand.Id);
 
             if (await _store.Groups.OtherThan(group).ExistsWithTitleAsync(updateCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             _mapper.Map(updateCommand, group);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Group with id updated"].Replace("{id}", group.Id.ToString()));
+            return Success(_localizer.GroupUpdated(group.Id));
         }
     }
 }

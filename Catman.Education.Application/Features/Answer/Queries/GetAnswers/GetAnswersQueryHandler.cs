@@ -33,8 +33,7 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswers
                 .OrderBy(answer => answer.QuestionId)
                 .PaginateAsync(getQuery);
 
-            var message = _localizer["Answers retrieved"].Replace("{count}", answers.Count.ToString());
-            return Success(message, answers);
+            return Success(_localizer.AnswersRetrieved(answers.Count), answers);
         }
     }
 }

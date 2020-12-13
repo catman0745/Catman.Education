@@ -24,24 +24,20 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
         {
             if (!await _store.Disciplines.ExistsWithIdAsync(createCommand.DisciplineId))
             {
-                var notFoundMessage = _localizer["Discipline with id not found"]
-                    .Replace("{id}", createCommand.DisciplineId.ToString());
-                
-                return NotFound(notFoundMessage);
+                return NotFound(_localizer.DisciplineNotFound(createCommand.DisciplineId));
             }
             var discipline = await _store.Disciplines.WithIdAsync(createCommand.DisciplineId);
 
             if (await _store.Tests.OfDiscipline(discipline).ExistsWithTitleAsync(createCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             var test = _mapper.Map<Test>(createCommand);
             _store.Tests.Add(test);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Test with id created"].Replace("{id}", test.Id.ToString());
-            return Success(message, test);
+            return Success(_localizer.TestCreated(test.Id), test);
         }
     }
 }

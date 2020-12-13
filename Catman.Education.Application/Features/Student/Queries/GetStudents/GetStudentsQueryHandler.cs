@@ -38,8 +38,7 @@ namespace Catman.Education.Application.Features.Student.Queries.GetStudents
                 .OrderBy(student => student.FullName)
                 .PaginateAsync(getQuery);
             
-            var message = _localizer["Students retrieved"].Replace("{count}", students.Count.ToString());
-            return Success(message, students);
+            return Success(_localizer.StudentsRetrieved(students.Count), students);
         }
     }
 }

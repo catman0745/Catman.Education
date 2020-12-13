@@ -36,8 +36,7 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
                 .OrderBy(test => test.Title)
                 .PaginateAsync(getQuery);
             
-            var message = _localizer["Tests retrieved"].Replace("{count}", tests.Count.ToString());
-            return Success(message, tests);
+            return Success(_localizer.TestsRetrieved(tests.Count), tests);
         }
     }
 }

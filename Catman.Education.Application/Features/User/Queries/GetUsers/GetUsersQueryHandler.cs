@@ -36,8 +36,7 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
                 .OrderBy(user => user.Username)
                 .PaginateAsync(getQuery);
 
-            var message = _localizer["Users retrieved"].Replace("{count}", users.Count.ToString());
-            return Success(message, users);
+            return Success(_localizer.UsersRetrieved(users.Count), users);
         }
     }
 }

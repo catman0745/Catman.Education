@@ -23,22 +23,19 @@ namespace Catman.Education.Application.Features.Answer.Commands.UpdateAnswer
         {
             if (!await _store.Questions.ExistsWithIdAsync(updateCommand.QuestionId))
             {
-                var message = _localizer["Question with id not found"]
-                    .Replace("{id}", updateCommand.QuestionId.ToString()); 
-                
-                return NotFound(message);
+                return NotFound(_localizer.QuestionNotFound(updateCommand.QuestionId));
             }
         
             if (!await _store.Answers.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound(_localizer["Answer with id not found"].Replace("{id}", updateCommand.Id.ToString()));
+                return NotFound(_localizer.AnswerNotFound(updateCommand.Id));
             }
             var answer = await _store.Answers.WithIdAsync(updateCommand.Id);
 
             _mapper.Map(updateCommand, answer);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Answer with id updated"].Replace("{id}", answer.Id.ToString()));
+            return Success(_localizer.AnswerUpdated(answer.Id));
         }
     }
 }

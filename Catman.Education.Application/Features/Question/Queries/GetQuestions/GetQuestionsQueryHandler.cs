@@ -35,8 +35,7 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestions
                 .ThenBy(question => question.Cost)
                 .PaginateAsync(getQuery);
 
-            var message = _localizer["Questions retrieved"].Replace("{count}", questions.Count.ToString());
-            return Success(message, questions);
+            return Success(_localizer.QuestionsRetrieved(questions.Count), questions);
         }
     }
 }

@@ -25,15 +25,14 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
         {
             if (await _store.Disciplines.ExistsWithTitleAsync(createCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             var discipline = _mapper.Map<Discipline>(createCommand);
             _store.Disciplines.Add(discipline);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Discipline with id created"].Replace("{id}", discipline.Id.ToString());
-            return Success(message, discipline);
+            return Success(_localizer.DisciplineCreated(discipline.Id), discipline);
         }
     }
 }

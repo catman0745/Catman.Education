@@ -25,23 +25,19 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
         {
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
-                return ValidationError("username", _localizer["Must be unique"]);
+                return ValidationError("username", _localizer.MustBeUnique());
             }
 
             if (!await _store.Groups.ExistsWithIdAsync(registerCommand.GroupId))
             {
-                var notFoundMessage = _localizer["Group with id not found"]
-                    .Replace("{id}", registerCommand.GroupId.ToString());
-                
-                return NotFound(notFoundMessage);
+                return NotFound(_localizer.GroupNotFound(registerCommand.GroupId));
             }
 
             var student = _mapper.Map<Student>(registerCommand);
             _store.Students.Add(student);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Student with id registered"].Replace("{id}", student.Id.ToString());
-            return Success(message, student);
+            return Success(_localizer.StudentRegistered(student.Id), student);
         }
     }
 }

@@ -23,8 +23,7 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
         {
             var disciplines = await _store.Disciplines.ToListAsync();
 
-            var message = _localizer["Disciplines retrieved"].Replace("{count}", disciplines.Count.ToString());
-            return Success(message, disciplines);
+            return Success(_localizer.DisciplinesRetrieved(disciplines.Count), disciplines);
         }
     }
 }

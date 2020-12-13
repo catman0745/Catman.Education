@@ -20,14 +20,14 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
         {
             if (!await _store.Tests.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound(_localizer["Test with id not found"].Replace("{id}", removeCommand.Id.ToString()));
+                return NotFound(_localizer.TestNotFound(removeCommand.Id));
             }
             var test = await _store.Tests.WithIdAsync(removeCommand.Id);
 
             _store.Tests.Remove(test);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Test with id removed"].Replace("{id}", test.Id.ToString()));
+            return Success(_localizer.TestRemoved(test.Id));
         }
     }
 }

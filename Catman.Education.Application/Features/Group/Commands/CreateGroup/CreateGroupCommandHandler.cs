@@ -24,15 +24,14 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         {
             if (await _store.Groups.ExistsWithTitleAsync(createCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             var group = _mapper.Map<Group>(createCommand);
             _store.Groups.Add(group);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Group with id created"].Replace("{id}", group.Id.ToString());
-            return Success(message, group);
+            return Success(_localizer.GroupCreated(group.Id), group);
         }
     }
 }

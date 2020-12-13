@@ -24,18 +24,14 @@ namespace Catman.Education.Application.Features.Answer.Commands.CreateAnswer
         {
             if (!await _store.Questions.ExistsWithIdAsync(createCommand.QuestionId))
             {
-                var notFoundMessage = _localizer["Question with id not found"]
-                    .Replace("{id}", createCommand.QuestionId.ToString()); 
-                
-                return NotFound(notFoundMessage);
+                return NotFound(_localizer.QuestionNotFound(createCommand.QuestionId));
             }
         
             var answer = _mapper.Map<Answer>(createCommand);
             _store.Answers.Add(answer);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Answer with id created"].Replace("{id}", answer.Id.ToString());
-            return Success(message, answer);
+            return Success(_localizer.AnswerCreated(answer.Id), answer);
         }
     }
 }

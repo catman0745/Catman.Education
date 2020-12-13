@@ -33,8 +33,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
                 .OrderBy(group => group.Title)
                 .ToListAsync();
 
-            var message = _localizer["Groups retrieved"].Replace("{count}", groups.Count.ToString());
-            return Success(message, groups);
+            return Success(_localizer.GroupsRetrieved(groups.Count), groups);
         }
     }
 }

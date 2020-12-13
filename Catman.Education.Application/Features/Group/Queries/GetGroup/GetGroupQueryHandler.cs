@@ -21,12 +21,11 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound(_localizer["Group with id not found"].Replace("{id}", getQuery.Id.ToString()));
+                return NotFound(_localizer.GroupNotFound(getQuery.Id));
             }
             var group = await _store.Groups.WithIdAsync(getQuery.Id);
 
-            var message = _localizer["Group with id retrieved"].Replace("{id}", group.Id.ToString());
-            return Success(message, group);
+            return Success(_localizer.GroupRetrieved(group.Id), group);
         }
     }
 }

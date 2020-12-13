@@ -23,28 +23,25 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
         {
             if (!await _store.Tests.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound(_localizer["Test with id not found"].Replace("{id}", updateCommand.Id.ToString()));
+                return NotFound(_localizer.TestNotFound(updateCommand.Id));
             }
             var test = await _store.Tests.WithIdAsync(updateCommand.Id);
             
             if (!await _store.Disciplines.ExistsWithIdAsync(updateCommand.DisciplineId))
             {
-                var notFoundMessage = _localizer["Discipline with id not found"]
-                    .Replace("{id}", updateCommand.DisciplineId.ToString());
-                
-                return NotFound(notFoundMessage);
+                return NotFound(_localizer.DisciplineNotFound(updateCommand.DisciplineId));
             }
             var discipline = await _store.Disciplines.WithIdAsync(updateCommand.DisciplineId);
             
             if (await _store.Tests.OtherThan(test).OfDiscipline(discipline).ExistsWithTitleAsync(updateCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             _mapper.Map(updateCommand, test);
             await _store.SaveChangesAsync();
             
-            return Success(_localizer["Test with id updated"].Replace("{id}", test.Id.ToString()));
+            return Success(_localizer.TestUpdated(test.Id));
         }
     }
 }

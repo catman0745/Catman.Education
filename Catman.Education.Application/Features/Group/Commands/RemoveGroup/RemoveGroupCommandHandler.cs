@@ -20,14 +20,14 @@ namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
         {
             if (!await _store.Groups.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound(_localizer["Group with id not found"].Replace("{id}", removeCommand.Id.ToString()));
+                return NotFound(_localizer.GroupNotFound(removeCommand.Id));
             }
             var group = await _store.Groups.WithIdAsync(removeCommand.Id);
 
             _store.Groups.Remove(group);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Group with id removed"].Replace("{id}", group.Id.ToString()));
+            return Success(_localizer.GroupRemoved(group.Id));
         }
     }
 }

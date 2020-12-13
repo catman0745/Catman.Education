@@ -21,12 +21,11 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswer
         {
             if (!await _store.Answers.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound(_localizer["Answer with id not found"].Replace("{id}", getQuery.Id.ToString()));
+                return NotFound(_localizer.AnswerNotFound(getQuery.Id));
             }
             var answer = await _store.Answers.WithIdAsync(getQuery.Id);
 
-            var message = _localizer["Answer with id retrieved"].Replace("{id}", answer.Id.ToString());
-            return Success(message, answer);
+            return Success(_localizer.AnswerRetrieved(answer.Id), answer);
         }
     }
 }

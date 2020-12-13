@@ -20,14 +20,14 @@ namespace Catman.Education.Application.Features.Question.Commands.RemoveQuestion
         {
             if (!await _store.Questions.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound(_localizer["Question with id not found"].Replace("{id}", removeCommand.Id.ToString()));
+                return NotFound(_localizer.QuestionNotFound(removeCommand.Id));
             }
             var question = await _store.Questions.WithIdAsync(removeCommand.Id);
 
             _store.Questions.Remove(question);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Question with id removed"].Replace("{id}", removeCommand.Id.ToString()));
+            return Success(_localizer.QuestionRemoved(question.Id));
         }
     }
 }

@@ -21,12 +21,11 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
         {
             if (!await _store.Disciplines.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound(_localizer["Discipline with id not found"].Replace("{id}", getQuery.Id.ToString()));
+                return NotFound(_localizer.DisciplineNotFound(getQuery.Id));
             }
             var discipline = await _store.Disciplines.WithIdAsync(getQuery.Id);
 
-            var message = _localizer["Discipline with id retrieved"].Replace("{id}", discipline.Id.ToString());
-            return Success(message, discipline);
+            return Success(_localizer.DisciplineRetrieved(discipline.Id), discipline);
         }
     }
 }

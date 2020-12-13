@@ -20,15 +20,14 @@ namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscip
         {
             if (!await _store.Disciplines.ExistsWithIdAsync(removeCommand.Id))
             {
-                var message = _localizer["Discipline with id not found"].Replace("{id}", removeCommand.Id.ToString());
-                return NotFound(message);
+                return NotFound(_localizer.DisciplineNotFound(removeCommand.Id));
             }
             var discipline = await _store.Disciplines.WithIdAsync(removeCommand.Id);
 
             _store.Disciplines.Remove(discipline);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Discipline with id removed"].Replace("{id}", discipline.Id.ToString()));
+            return Success(_localizer.DisciplineRemoved(discipline.Id));
         }
     }
 }

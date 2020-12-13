@@ -23,27 +23,24 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
         {
             if (!await _store.Students.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound(_localizer["Student with id not found"].Replace("{id}", updateCommand.Id.ToString()));
+                return NotFound(_localizer.StudentNotFound(updateCommand.Id));
             }
             var student = await _store.Students.WithIdAsync(updateCommand.Id);
 
             if (await _store.Users.OtherThan(student).ExistsWithUsernameAsync(updateCommand.Username))
             {
-                return ValidationError("username", _localizer["Must be unique"]);
+                return ValidationError("username", _localizer.MustBeUnique());
             }
 
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.GroupId))
             {
-                var notFoundMessage = _localizer["Group with id not found"]
-                    .Replace("{id}", updateCommand.GroupId.ToString());
-                
-                return NotFound(notFoundMessage);
+                return NotFound(_localizer.GroupNotFound(updateCommand.GroupId));
             }
 
             _mapper.Map(updateCommand, student);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Student with id updated"].Replace("{id}", student.Id.ToString()));
+            return Success(_localizer.StudentUpdated(student.Id));
         }
     }
 }

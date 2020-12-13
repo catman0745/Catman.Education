@@ -21,12 +21,11 @@ namespace Catman.Education.Application.Features.Admin.Queries.GetAdmin
         {
             if (!await _store.Admins.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound(_localizer["Admin with id not found"].Replace("{id}", getQuery.Id.ToString()));
+                return NotFound(_localizer.AdminNotFound(getQuery.Id));
             }
             var admin = await _store.Admins.WithIdAsync(getQuery.Id);
 
-            var message = _localizer["Admin with id retrieved"].Replace("{id}", admin.Id.ToString());
-            return Success(message, admin);
+            return Success(_localizer.AdminRetrieved(getQuery.Id), admin);
         }
     }
 }

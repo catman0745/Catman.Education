@@ -24,15 +24,14 @@ namespace Catman.Education.Application.Features.Question.Commands.CreateQuestion
         {
             if (!await _store.Tests.ExistsWithIdAsync(createCommand.TestId))
             {
-                return NotFound(_localizer["Test with id not found"].Replace("{id}", createCommand.TestId.ToString()));
+                return NotFound(_localizer.TestNotFound(createCommand.TestId));
             }
 
             var question = _mapper.Map<Question>(createCommand);
             _store.Questions.Add(question);
             await _store.SaveChangesAsync();
 
-            var message = _localizer["Question with id created"].Replace("{id}", question.Id.ToString());
-            return Success(message, question);
+            return Success(_localizer.QuestionCreated(question.Id), question);
         }
     }
 }

@@ -24,21 +24,19 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
         {
             if (!await _store.Disciplines.ExistsWithIdAsync(updateCommand.Id))
             {
-                
-                var message = _localizer["Discipline with id not found"].Replace("{id}", updateCommand.Id.ToString());
-                return NotFound(message);
+                return NotFound(_localizer.DisciplineNotFound(updateCommand.Id));
             }
             var discipline = await _store.Disciplines.WithIdAsync(updateCommand.Id);
 
             if (await _store.Disciplines.OtherThan(discipline).ExistsWithTitleAsync(updateCommand.Title))
             {
-                return ValidationError("title", _localizer["Must be unique"]);
+                return ValidationError("title", _localizer.MustBeUnique());
             }
 
             _mapper.Map(updateCommand, discipline);
             await _store.SaveChangesAsync();
 
-            return Success(_localizer["Discipline with id updated"].Replace("{id}", discipline.Id.ToString()));
+            return Success(_localizer.DisciplineUpdated(discipline.Id));
         }
     }
 }

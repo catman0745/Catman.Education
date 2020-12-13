@@ -22,18 +22,17 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
         {
             if (!await _store.Users.ExistsWithUsernameAsync(tokenQuery.Username))
             {
-                return NotFound(_localizer["User with username not found"].Replace("{username}", tokenQuery.Username));
+                return NotFound(_localizer.UserNotFound(tokenQuery.Username));
             }
             var user = await _store.Users.WithUsernameAsync(tokenQuery.Username);
 
             if (user.Password != tokenQuery.Password)
             {
-                return ValidationError("password", _localizer["Incorrect password"]);
+                return ValidationError("password", _localizer.IncorrectPassword());
             }
 
-            var message = _localizer["Token for user with username generated"].Replace("{username}", user.Username);
             var token = _tokenService.GenerateToken(user);
-            return Success(message, token);
+            return Success(_localizer.TokenGenerated(user.Username), token);
         }
     }
 }
