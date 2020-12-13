@@ -3,6 +3,7 @@ namespace Catman.Education.Application.Features.Answer.Commands.CreateAnswer
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results;
 
@@ -19,8 +20,12 @@ namespace Catman.Education.Application.Features.Answer.Commands.CreateAnswer
         
         protected override async Task<ResourceRequestResult<Answer>> HandleAsync(CreateAnswerCommand createCommand)
         {
+            if (!await _store.Questions.ExistsWithIdAsync(createCommand.QuestionId))
+            {
+                return NotFound($"Question with id \"{createCommand.QuestionId}\" not found");
+            }
+        
             var answer = _mapper.Map<Answer>(createCommand);
-
             _store.Answers.Add(answer);
             await _store.SaveChangesAsync();
 

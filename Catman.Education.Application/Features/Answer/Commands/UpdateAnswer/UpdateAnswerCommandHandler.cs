@@ -19,6 +19,11 @@ namespace Catman.Education.Application.Features.Answer.Commands.UpdateAnswer
         
         protected override async Task<RequestResult> HandleAsync(UpdateAnswerCommand updateCommand)
         {
+            if (!await _store.Questions.ExistsWithIdAsync(updateCommand.QuestionId))
+            {
+                return NotFound($"Question with id \"{updateCommand.QuestionId}\" not found");
+            }
+        
             if (!await _store.Answers.ExistsWithIdAsync(updateCommand.Id))
             {
                 return NotFound($"Answer with id \"{updateCommand.Id}\" not found");
