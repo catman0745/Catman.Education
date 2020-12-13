@@ -21,10 +21,12 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
         }
         
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetTestsQueryHandler(IApplicationStore store)
+        public GetTestsQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
 
         protected override async Task<ResourceRequestResult<Paginated<Test>>> HandleAsync(GetTestsQuery getQuery)
@@ -33,8 +35,9 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
                 .ApplyFilter(TestsFilter, getQuery)
                 .OrderBy(test => test.Title)
                 .PaginateAsync(getQuery);
-
-            return Success($"Several ({tests.Count}) tests retrieved successfully", tests);
+            
+            var message = _localizer["Tests retrieved"].Replace("{count}", tests.Count.ToString());
+            return Success(message, tests);
         }
     }
 }

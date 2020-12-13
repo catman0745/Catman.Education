@@ -18,10 +18,12 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
         }
         
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetGroupsQueryHandler(IApplicationStore store)
+        public GetGroupsQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<ICollection<Group>>> HandleAsync(GetGroupsQuery getQuery)
@@ -30,7 +32,9 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
                 .ApplyFilter(GroupFilter, getQuery)
                 .OrderBy(group => group.Title)
                 .ToListAsync();
-            return Success($"Several ({groups.Count}) groups retrieved successfully", groups);
+
+            var message = _localizer["Groups retrieved"].Replace("{count}", groups.Count.ToString());
+            return Success(message, groups);
         }
     }
 }

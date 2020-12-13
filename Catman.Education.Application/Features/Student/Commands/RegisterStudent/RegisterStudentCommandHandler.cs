@@ -11,11 +11,13 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public RegisterStudentCommandHandler(IApplicationStore store, IMapper mapper)
+        public RegisterStudentCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Student>> HandleAsync(
@@ -23,19 +25,23 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
         {
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
-                return ValidationError("username", "Must be unique");
+                return ValidationError("username", _localizer["Must be unique"]);
             }
 
             if (!await _store.Groups.ExistsWithIdAsync(registerCommand.GroupId))
             {
-                return NotFound($"Group with id \"{registerCommand.GroupId}\" not found");
+                var notFoundMessage = _localizer["Group with id not found"]
+                    .Replace("{id}", registerCommand.GroupId.ToString());
+                
+                return NotFound(notFoundMessage);
             }
 
             var student = _mapper.Map<Student>(registerCommand);
             _store.Students.Add(student);
             await _store.SaveChangesAsync();
 
-            return Success($"Student with id \"{student.Id}\" registered successfully", student);
+            var message = _localizer["Student with id registered"].Replace("{id}", student.Id.ToString());
+            return Success(message, student);
         }
     }
 }

@@ -8,24 +8,27 @@ namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscip
     internal class RemoveDisciplineCommandHandler : RequestHandlerBase<RemoveDisciplineCommand>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public RemoveDisciplineCommandHandler(IApplicationStore store)
+        public RemoveDisciplineCommandHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(RemoveDisciplineCommand removeCommand)
         {
             if (!await _store.Disciplines.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound($"Discipline with id \"{removeCommand.Id}\" not found");
+                var message = _localizer["Discipline with id not found"].Replace("{id}", removeCommand.Id.ToString());
+                return NotFound(message);
             }
             var discipline = await _store.Disciplines.WithIdAsync(removeCommand.Id);
 
             _store.Disciplines.Remove(discipline);
             await _store.SaveChangesAsync();
 
-            return Success($"Discipline with id \"{discipline.Id}\" removed successfully");
+            return Success(_localizer["Discipline with id removed"].Replace("{id}", discipline.Id.ToString()));
         }
     }
 }

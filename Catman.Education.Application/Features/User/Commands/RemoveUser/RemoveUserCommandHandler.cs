@@ -8,24 +8,26 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
     internal class RemoveUserCommandHandler : RequestHandlerBase<RemoveUserCommand>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public RemoveUserCommandHandler(IApplicationStore store)
+        public RemoveUserCommandHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(RemoveUserCommand removeCommand)
         {
             if (!await _store.Users.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound($"User with id \"{removeCommand.Id}\" not found");
+                return NotFound(_localizer["User with id not found"].Replace("{id}", removeCommand.Id.ToString()));
             }
             var user = await _store.Users.WithIdAsync(removeCommand.Id);
 
             _store.Users.Remove(user);
             await _store.SaveChangesAsync();
 
-            return Success($"User with id \"{user.Id}\" removed successfully");
+            return Success(_localizer["User with id removed"].Replace("{id}", user.Id.ToString()));
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Persistence.Extensions;
     using Catman.Education.Authentication.Extensions;
+    using Catman.Education.Localization.Extensions;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Filter;
     using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace Catman.Education.WebApi
                 )
                 .AddSwaggerGen(_configuration)
                 .AddClientCors(_configuration)
+                .AddLocalizer()
                 .AddControllers(options => options.Filters.Add<ValidationFilter>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
         }
@@ -58,6 +60,8 @@ namespace Catman.Education.WebApi
             app.UseAuthorization();
 
             app.UseClientCors();
+
+            app.UseApplicationLocalization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }

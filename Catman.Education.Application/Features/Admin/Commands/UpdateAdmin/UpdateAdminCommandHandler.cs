@@ -10,30 +10,32 @@ namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public UpdateAdminCommandHandler(IApplicationStore store, IMapper mapper)
+        public UpdateAdminCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(UpdateAdminCommand updateCommand)
         {
             if (!await _store.Admins.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound($"Admin with id \"{updateCommand.Id}\" not found");
+                return NotFound(_localizer["Admin with id not found"].Replace("{id}", updateCommand.Id.ToString()));
             }
             var admin = await _store.Admins.WithIdAsync(updateCommand.Id);
 
             if (await _store.Users.OtherThan(admin).ExistsWithUsernameAsync(updateCommand.Username))
             {
-                return ValidationError("username", "Must be unique");
+                return ValidationError("username", _localizer["Must be unique"]);
             }
 
             _mapper.Map(updateCommand, admin);
             await _store.SaveChangesAsync();
 
-            return Success($"Admin with id \"{admin.Id}\" updated successfully");
+            return Success(_localizer["Admin with id updated"].Replace("{id}", admin.Id.ToString()));
         }
     }
 }

@@ -21,10 +21,12 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
         }
         
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetUsersQueryHandler(IApplicationStore store)
+        public GetUsersQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Paginated<User>>> HandleAsync(GetUsersQuery getQuery)
@@ -33,8 +35,9 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
                 .ApplyFilter(UsersFilter, getQuery)
                 .OrderBy(user => user.Username)
                 .PaginateAsync(getQuery);
-            
-            return Success($"Several ({users.Count}) users retrieved successfully", users);
+
+            var message = _localizer["Users retrieved"].Replace("{count}", users.Count.ToString());
+            return Success(message, users);
         }
     }
 }

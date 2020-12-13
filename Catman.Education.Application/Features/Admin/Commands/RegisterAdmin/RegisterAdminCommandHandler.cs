@@ -11,25 +11,28 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public RegisterAdminCommandHandler(IApplicationStore store, IMapper mapper)
+        public RegisterAdminCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Admin>> HandleAsync(RegisterAdminCommand registerCommand)
         {
             if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
             {
-                return ValidationError("username", "Must be unique");
+                return ValidationError("username", _localizer["Must be unique"]);
             }
 
             var admin = _mapper.Map<Admin>(registerCommand);
             _store.Admins.Add(admin);
             await _store.SaveChangesAsync();
 
-            return Success($"Admin with id \"{admin.Id}\" registered successfully", admin);
+            var message = _localizer["Admin with id registered"].Replace("{id}", admin.Id.ToString());
+            return Success(message, admin);
         }
     }
 }

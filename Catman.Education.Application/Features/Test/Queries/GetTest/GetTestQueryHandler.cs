@@ -9,21 +9,24 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTest
     internal class GetTestQueryHandler : ResourceRequestHandlerBase<GetTestQuery, Test>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetTestQueryHandler(IApplicationStore store)
+        public GetTestQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
 
         protected override async Task<ResourceRequestResult<Test>> HandleAsync(GetTestQuery getQuery)
         {
             if (!await _store.Tests.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound($"Test with id \"{getQuery.Id}\" not found");
+                return NotFound(_localizer["Test with id not found"].Replace("{id}", getQuery.Id.ToString()));
             }
             var test = await _store.Tests.WithIdAsync(getQuery.Id);
 
-            return Success($"Test with id \"{test.Id}\" retrieved successfully", test);
+            var message = _localizer["Test with id retrieved"].Replace("{id}", test.Id.ToString());
+            return Success(message, test);
         }
     }
 }

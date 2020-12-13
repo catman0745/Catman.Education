@@ -11,25 +11,28 @@ namespace Catman.Education.Application.Features.Question.Commands.CreateQuestion
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public CreateQuestionCommandHandler(IApplicationStore store, IMapper mapper)
+        public CreateQuestionCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Question>> HandleAsync(CreateQuestionCommand createCommand)
         {
             if (!await _store.Tests.ExistsWithIdAsync(createCommand.TestId))
             {
-                return NotFound($"Test with id \"{createCommand.TestId}\" not found");
+                return NotFound(_localizer["Test with id not found"].Replace("{id}", createCommand.TestId.ToString()));
             }
 
             var question = _mapper.Map<Question>(createCommand);
             _store.Questions.Add(question);
             await _store.SaveChangesAsync();
 
-            return Success($"Question with id \"{question.Id}\" created successfully", question);
+            var message = _localizer["Question with id created"].Replace("{id}", question.Id.ToString());
+            return Success(message, question);
         }
     }
 }

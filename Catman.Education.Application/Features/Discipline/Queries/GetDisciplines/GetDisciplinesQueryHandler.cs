@@ -10,17 +10,21 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
     internal class GetDisciplinesQueryHandler : ResourceRequestHandlerBase<GetDisciplinesQuery, ICollection<Discipline>>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetDisciplinesQueryHandler(IApplicationStore store)
+        public GetDisciplinesQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<ICollection<Discipline>>> HandleAsync(
             GetDisciplinesQuery getQuery)
         {
             var disciplines = await _store.Disciplines.ToListAsync();
-            return Success($"Several ({disciplines.Count}) disciplines retrieved successfully", disciplines);
+
+            var message = _localizer["Disciplines retrieved"].Replace("{count}", disciplines.Count.ToString());
+            return Success(message, disciplines);
         }
     }
 }

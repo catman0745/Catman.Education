@@ -9,21 +9,24 @@ namespace Catman.Education.Application.Features.User.Queries.GetUser
     internal class GetUserQueryHandler : ResourceRequestHandlerBase<GetUserQuery, User>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetUserQueryHandler(IApplicationStore store)
+        public GetUserQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
 
         protected override async Task<ResourceRequestResult<User>> HandleAsync(GetUserQuery getQuery)
         {
             if (!await _store.Users.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound($"User with id \"{getQuery.Id}\" not found");
+                return NotFound(_localizer["User with id not found"].Replace("{id}", getQuery.Id.ToString()));
             }
             var user = await _store.Users.WithIdAsync(getQuery.Id);
-            
-            return Success($"User with id \"{user.Id}\" retrieved successfully", user);
+
+            var message = _localizer["User with id retrieved"].Replace("{id}", user.Id.ToString());
+            return Success(message, user);
         }
     }
 }

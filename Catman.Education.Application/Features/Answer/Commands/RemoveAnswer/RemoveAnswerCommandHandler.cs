@@ -8,24 +8,26 @@ namespace Catman.Education.Application.Features.Answer.Commands.RemoveAnswer
     internal class RemoveAnswerCommandHandler : RequestHandlerBase<RemoveAnswerCommand>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public RemoveAnswerCommandHandler(IApplicationStore store)
+        public RemoveAnswerCommandHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(RemoveAnswerCommand removeCommand)
         {
             if (!await _store.Answers.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound($"Answer with id \"{removeCommand.Id}\" not found");
+                return NotFound(_localizer["Answer with id not found"].Replace("{id}", removeCommand.Id.ToString()));
             }
             var answer = await _store.Answers.WithIdAsync(removeCommand.Id);
 
             _store.Answers.Remove(answer);
             await _store.SaveChangesAsync();
 
-            return Success($"Answer with id \"{answer.Id}\" removed successfully");
+            return Success(_localizer["Answer with id removed"].Replace("{id}", answer.Id.ToString()));
         }
     }
 }

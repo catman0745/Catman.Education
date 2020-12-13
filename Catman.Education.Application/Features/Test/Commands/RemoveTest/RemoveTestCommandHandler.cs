@@ -8,24 +8,26 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
     internal class RemoveTestCommandHandler : RequestHandlerBase<RemoveTestCommand>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public RemoveTestCommandHandler(IApplicationStore store)
+        public RemoveTestCommandHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
 
         protected override async Task<RequestResult> HandleAsync(RemoveTestCommand removeCommand)
         {
             if (!await _store.Tests.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound($"Test with id \"{removeCommand.Id}\" not found");
+                return NotFound(_localizer["Test with id not found"].Replace("{id}", removeCommand.Id.ToString()));
             }
             var test = await _store.Tests.WithIdAsync(removeCommand.Id);
 
             _store.Tests.Remove(test);
             await _store.SaveChangesAsync();
 
-            return Success($"Test with id \"{test.Id}\" removed successfully");
+            return Success(_localizer["Test with id removed"].Replace("{id}", test.Id.ToString()));
         }
     }
 }

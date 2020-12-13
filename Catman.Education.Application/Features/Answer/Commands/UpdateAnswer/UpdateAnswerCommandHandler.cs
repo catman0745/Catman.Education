@@ -10,30 +10,35 @@ namespace Catman.Education.Application.Features.Answer.Commands.UpdateAnswer
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public UpdateAnswerCommandHandler(IApplicationStore store, IMapper mapper)
+        public UpdateAnswerCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(UpdateAnswerCommand updateCommand)
         {
             if (!await _store.Questions.ExistsWithIdAsync(updateCommand.QuestionId))
             {
-                return NotFound($"Question with id \"{updateCommand.QuestionId}\" not found");
+                var message = _localizer["Question with id not found"]
+                    .Replace("{id}", updateCommand.QuestionId.ToString()); 
+                
+                return NotFound(message);
             }
         
             if (!await _store.Answers.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound($"Answer with id \"{updateCommand.Id}\" not found");
+                return NotFound(_localizer["Answer with id not found"].Replace("{id}", updateCommand.Id.ToString()));
             }
             var answer = await _store.Answers.WithIdAsync(updateCommand.Id);
 
             _mapper.Map(updateCommand, answer);
             await _store.SaveChangesAsync();
 
-            return Success($"Answer with id \"{answer.Id}\" updated successfully");
+            return Success(_localizer["Answer with id updated"].Replace("{id}", answer.Id.ToString()));
         }
     }
 }

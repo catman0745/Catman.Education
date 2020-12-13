@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Catman.Education.Application\Catman.Education.Application.csproj" />
     <ProjectReference Include="..\Catman.Education.Authentication\Catman.Education.Authentication.csproj" />
+    <ProjectReference Include="..\Catman.Education.Localization\Catman.Education.Localization.csproj" />
     <ProjectReference Include="..\Catman.Education.Persistence\Catman.Education.Persistence.csproj" />
   </ItemGroup>
 

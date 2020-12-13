@@ -19,6 +19,7 @@ namespace Catman.Education.WebApi.Extensions
                 options.ConfigureApiInfo(configuration);
                 options.ConfigureXmlDocumentationPath();
                 options.ConfigureAuthorization();
+                options.ConfigureLocalization();
             });
 
             return services;
@@ -64,6 +65,11 @@ namespace Catman.Education.WebApi.Extensions
                 BearerFormat = "JWT"
             });
             options.OperationFilter<SwaggerAuthorizationFilter>();
+        }
+
+        private static void ConfigureLocalization(this SwaggerGenOptions options)
+        {
+            options.OperationFilter<SwaggerLocalizationFilter>();
         }
     }
 }

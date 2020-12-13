@@ -10,35 +10,40 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
         
-        public UpdateStudentCommandHandler(IApplicationStore store, IMapper mapper)
+        public UpdateStudentCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(UpdateStudentCommand updateCommand)
         {
             if (!await _store.Students.ExistsWithIdAsync(updateCommand.Id))
             {
-                return NotFound($"Student with id \"{updateCommand.Id}\" not found");
+                return NotFound(_localizer["Student with id not found"].Replace("{id}", updateCommand.Id.ToString()));
             }
             var student = await _store.Students.WithIdAsync(updateCommand.Id);
 
             if (await _store.Users.OtherThan(student).ExistsWithUsernameAsync(updateCommand.Username))
             {
-                return ValidationError("username", "Must be unique");
+                return ValidationError("username", _localizer["Must be unique"]);
             }
 
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.GroupId))
             {
-                return NotFound($"Group with id \"{updateCommand.GroupId}\" not found");
+                var notFoundMessage = _localizer["Group with id not found"]
+                    .Replace("{id}", updateCommand.GroupId.ToString());
+                
+                return NotFound(notFoundMessage);
             }
 
             _mapper.Map(updateCommand, student);
             await _store.SaveChangesAsync();
 
-            return Success($"Student with id \"{student.Id}\" updated successfully");
+            return Success(_localizer["Student with id updated"].Replace("{id}", student.Id.ToString()));
         }
     }
 }

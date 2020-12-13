@@ -9,21 +9,24 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestion
     internal class GetQuestionQueryHandler : ResourceRequestHandlerBase<GetQuestionQuery, Question>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetQuestionQueryHandler(IApplicationStore store)
+        public GetQuestionQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Question>> HandleAsync(GetQuestionQuery getQuery)
         {
             if (!await _store.Questions.ExistsWithIdAsync(getQuery.Id))
             {
-                return NotFound($"Question with id \"{getQuery.Id}\" not found");
+                return NotFound(_localizer["Question with id not found"].Replace("{id}", getQuery.Id.ToString()));
             }
             var question = await _store.Questions.WithIdAsync(getQuery.Id);
 
-            return Success($"Query with id \"{question.Id}\" retrieved successfully", question);
+            var message = _localizer["Question with id retrieved"].Replace("{id}", question.Id.ToString());
+            return Success(message, question);
         }
     }
 }

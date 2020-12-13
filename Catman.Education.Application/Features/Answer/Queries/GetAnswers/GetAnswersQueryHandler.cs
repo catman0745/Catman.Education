@@ -18,10 +18,12 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswers
         }
         
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetAnswersQueryHandler(IApplicationStore store)
+        public GetAnswersQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Paginated<Answer>>> HandleAsync(GetAnswersQuery getQuery)
@@ -31,7 +33,8 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswers
                 .OrderBy(answer => answer.QuestionId)
                 .PaginateAsync(getQuery);
 
-            return Success($"Several ({answers.Count}) answers retrieved successfully", answers);
+            var message = _localizer["Answers retrieved"].Replace("{count}", answers.Count.ToString());
+            return Success(message, answers);
         }
     }
 }

@@ -18,10 +18,12 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestions
         }
         
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public GetQuestionsQueryHandler(IApplicationStore store)
+        public GetQuestionsQueryHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Paginated<Question>>> HandleAsync(
@@ -33,7 +35,8 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestions
                 .ThenBy(question => question.Cost)
                 .PaginateAsync(getQuery);
 
-            return Success($"Several ({questions.Count}) question retrieved successfully", questions);
+            var message = _localizer["Questions retrieved"].Replace("{count}", questions.Count.ToString());
+            return Success(message, questions);
         }
     }
 }

@@ -8,24 +8,26 @@ namespace Catman.Education.Application.Features.Question.Commands.RemoveQuestion
     internal class RemoveQuestionCommandHandler : RequestHandlerBase<RemoveQuestionCommand>
     {
         private readonly IApplicationStore _store;
+        private readonly ILocalizer _localizer;
 
-        public RemoveQuestionCommandHandler(IApplicationStore store)
+        public RemoveQuestionCommandHandler(IApplicationStore store, ILocalizer localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
         
         protected override async Task<RequestResult> HandleAsync(RemoveQuestionCommand removeCommand)
         {
             if (!await _store.Questions.ExistsWithIdAsync(removeCommand.Id))
             {
-                return NotFound($"Question with id \"{removeCommand.Id}\" not found");
+                return NotFound(_localizer["Question with id not found"].Replace("{id}", removeCommand.Id.ToString()));
             }
             var question = await _store.Questions.WithIdAsync(removeCommand.Id);
 
             _store.Questions.Remove(question);
             await _store.SaveChangesAsync();
 
-            return Success($"Question with id \"{question.Id}\" removed successfully");
+            return Success(_localizer["Question with id removed"].Replace("{id}", removeCommand.Id.ToString()));
         }
     }
 }

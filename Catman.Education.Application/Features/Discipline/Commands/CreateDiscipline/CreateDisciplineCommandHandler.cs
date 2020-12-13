@@ -11,11 +11,13 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
+        private readonly ILocalizer _localizer;
 
-        public CreateDisciplineCommandHandler(IApplicationStore store, IMapper mapper)
+        public CreateDisciplineCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
+            _localizer = localizer;
         }
         
         protected override async Task<ResourceRequestResult<Discipline>> HandleAsync(
@@ -23,14 +25,15 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
         {
             if (await _store.Disciplines.ExistsWithTitleAsync(createCommand.Title))
             {
-                return ValidationError("title", "Must be unique");
+                return ValidationError("title", _localizer["Must be unique"]);
             }
 
             var discipline = _mapper.Map<Discipline>(createCommand);
             _store.Disciplines.Add(discipline);
             await _store.SaveChangesAsync();
 
-            return Success($"Discipline with id \"{discipline.Id}\" created successfully", discipline);
+            var message = _localizer["Discipline with id created"].Replace("{id}", discipline.Id.ToString());
+            return Success(message, discipline);
         }
     }
 }
