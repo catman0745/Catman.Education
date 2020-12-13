@@ -11,6 +11,16 @@ namespace Catman.Education.Application.Interfaces
         string IncorrectPassword();
 
         string MustBeUnique();
+
+        string ValidationError();
+
+        string UnauthorizedError();
+
+        string AccessViolationError();
+
+        string AccessViolationError(string requiredRole);
+
+        string UsernameRegexValidationErrorMessage();
         
         #endregion
         

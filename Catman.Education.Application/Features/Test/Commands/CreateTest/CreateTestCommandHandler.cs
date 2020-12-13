@@ -14,6 +14,7 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
         private readonly ILocalizer _localizer;
 
         public CreateTestCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

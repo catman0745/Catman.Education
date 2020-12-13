@@ -13,6 +13,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
         private readonly ILocalizer _localizer;
 
         public UpdateDisciplineCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

@@ -1,15 +1,17 @@
 namespace Catman.Education.Application.Extensions
 {
+    using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
     internal static class ValidationExtensions
     {
-        public static IRuleBuilderOptions<T, string> ValidUsername<T>(this IRuleBuilder<T, string> username) =>
+        public static IRuleBuilderOptions<T, string> ValidUsername<T>(
+            this IRuleBuilder<T, string> username, 
+            ILocalizer localizer) =>
             username
                 .NotEmpty()
                 .MaximumLength(30)
-                .Matches(@"^[a-zA-Z0-9_]*$")
-                    .WithMessage("{PropertyName} must consist of Latin letters, digits and underscores");
+                .Matches(@"^[a-zA-Z0-9_]*$").WithMessage(localizer.UsernameRegexValidationErrorMessage());
 
         public static IRuleBuilderOptions<T, string> ValidPassword<T>(this IRuleBuilder<T, string> password) =>
             password.NotEmpty().MaximumLength(10);

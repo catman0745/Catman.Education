@@ -11,6 +11,7 @@ namespace Catman.Education.Application.Features.User.Commands.RemoveUser
         private readonly ILocalizer _localizer;
 
         public RemoveUserCommandHandler(IApplicationStore store, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

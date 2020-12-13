@@ -152,4 +152,19 @@
     <data name="Answers retrieved" xml:space="preserve">
         <value>Получено несколько ({count}) ответов</value>
     </data>
+    <data name="Validation error" xml:space="preserve">
+        <value>На этапе валидации возникли ошибки</value>
+    </data>
+    <data name="Unauthorized error" xml:space="preserve">
+        <value>Пользователь должен быть авторизован</value>
+    </data>
+    <data name="Access violation error" xml:space="preserve">
+        <value>Нарушение прав доступа</value>
+    </data>
+    <data name="Access violation role error" xml:space="preserve">
+        <value>Нарушение прав доступа: пользователь должен иметь роль "{role}"</value>
+    </data>
+    <data name="Username regex validation error message" xml:space="preserve">
+        <value>{PropertyName} должен содердать только буквы Латинского алфавита, цифры и знаки подчёркивания</value>
+    </data>
 </root>

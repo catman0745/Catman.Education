@@ -7,11 +7,10 @@ namespace Catman.Education.Application.Exceptions
     /// <remarks> Thrown if validation failed and failure result cannot be returned as response </remarks>
     public class ValidationException : Exception
     {
-        public override string Message => "Validation error has occured"; 
-        
         public Error ValidationError { get; }
 
-        public ValidationException(Error error)
+        public ValidationException(Error error, string message)
+            : base(message)
         {
             ValidationError = error;
         }

@@ -16,5 +16,8 @@ namespace Catman.Education.Localization.Extensions
 
         public static LocalizedString InjectCount(this LocalizedString localizedString, int count) =>
             localizedString.Inject("count", count.ToString());
+
+        public static LocalizedString InjectRole(this LocalizedString localizedString, string role) =>
+            localizedString.Inject("role", role);
     }
 }

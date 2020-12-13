@@ -14,6 +14,7 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
         private readonly ILocalizer _localizer;
 
         public RegisterStudentCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

@@ -6,6 +6,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using System.Threading;
     using System.Threading.Tasks;
     using Catman.Education.Application.Exceptions;
+    using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results;
     using MediatR;
 
@@ -23,7 +24,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             typeof(RequestResult).IsAssignableTo(typeof(TResponse));
 
         /// <summary> Creates validation failure response with specified error </summary>
-        private static TResponse ValidationErrorResponse(string message, Error error)
+        private TResponse ValidationErrorResponse(string message, Error error)
         {
             if (MustReturnResourceRequestResult)
             {
@@ -38,7 +39,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             else
             {
                 // cannot return error
-                throw new ValidationException(error);
+                throw new ValidationException(error, _localizer.ValidationError());
             }
         }
 
@@ -57,6 +58,13 @@ namespace Catman.Education.Application.PipelineBehaviors
             new ResourceRequestResult<TResource>.Failure(message, error);
         
         #endregion
+
+        private readonly ILocalizer _localizer;
+
+        protected ValidationPipelineBehaviorBase(ILocalizer localizer)
+        {
+            _localizer = localizer;
+        }
 
         public async Task<TResponse> Handle(
             TRequest request,

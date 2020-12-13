@@ -10,10 +10,13 @@ namespace Catman.Education.Application.PipelineBehaviors
         : ValidationPipelineBehaviorBase<TRequest, TResponse>
     {
         private readonly IApplicationStore _store;
+        protected readonly ILocalizer _localizer;
 
-        public RoleValidationPipelineBehavior(IApplicationStore store)
+        public RoleValidationPipelineBehavior(IApplicationStore store, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
+            _localizer = localizer;
         }
 
         protected override bool ShouldBeValidated(TRequest request) =>
@@ -29,7 +32,7 @@ namespace Catman.Education.Application.PipelineBehaviors
 
             if (!await _store.Users.ExistsWithIdAsync(restrictedRequest.RequestorId))
             {
-                return RequestValidationResult.Invalid("User must be authorized", new Error.Unauthorized());
+                return RequestValidationResult.Invalid(_localizer.UnauthorizedError(), new Error.Unauthorized());
             }
 
             var requestor = await _store.Users.WithIdAsync(restrictedRequest.RequestorId);
@@ -37,7 +40,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             return requestor.Role == restrictedRequest.RequiredRequestorRole
                 ? RequestValidationResult.Valid()
                 : RequestValidationResult.Invalid(
-                    $"Access violation: user must be {restrictedRequest.RequiredRequestorRole}",
+                    _localizer.AccessViolationError(restrictedRequest.RequiredRequestorRole),
                     new Error.AccessViolation());
         }
     }

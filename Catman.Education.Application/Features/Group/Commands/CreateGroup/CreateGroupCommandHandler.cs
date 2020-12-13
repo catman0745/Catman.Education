@@ -14,6 +14,7 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         private readonly ILocalizer _localizer;
 
         public CreateGroupCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

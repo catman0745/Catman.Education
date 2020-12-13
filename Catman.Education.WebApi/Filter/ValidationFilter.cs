@@ -2,12 +2,20 @@ namespace Catman.Education.WebApi.Filter
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using Catman.Education.Application.Interfaces;
     using Catman.Education.WebApi.Responses;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 
     internal class ValidationFilter : IAsyncActionFilter
     {
+        private readonly ILocalizer _localizer;
+
+        public ValidationFilter(ILocalizer localizer)
+        {
+            _localizer = localizer;
+        }
+        
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (context.ModelState.IsValid)
@@ -20,7 +28,7 @@ namespace Catman.Education.WebApi.Filter
                     .Where(kvp => kvp.Value.Errors.Any())
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.First().ErrorMessage);
                 
-                var response = new ValidationErrorResponse("Validation errors occurred", errors);
+                var response = new ValidationErrorResponse(_localizer.ValidationError(), errors);
                 context.Result = new BadRequestObjectResult(response);
             }
         }

@@ -14,6 +14,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
         private readonly ILocalizer _localizer;
 
         public CreateDisciplineCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

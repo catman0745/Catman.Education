@@ -13,6 +13,7 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
         private readonly ILocalizer _localizer;
 
         public UpdateGroupCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

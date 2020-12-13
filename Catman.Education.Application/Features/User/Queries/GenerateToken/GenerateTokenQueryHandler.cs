@@ -12,6 +12,7 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
         private readonly ILocalizer _localizer;
 
         public GenerateTokenQueryHandler(IApplicationStore store, ITokenService tokenService, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _tokenService = tokenService;

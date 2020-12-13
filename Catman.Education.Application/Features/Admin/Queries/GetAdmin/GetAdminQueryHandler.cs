@@ -12,6 +12,7 @@ namespace Catman.Education.Application.Features.Admin.Queries.GetAdmin
         private readonly ILocalizer _localizer;
 
         public GetAdminQueryHandler(IApplicationStore store, ILocalizer localizer)
+            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

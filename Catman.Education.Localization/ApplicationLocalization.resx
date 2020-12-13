@@ -152,4 +152,19 @@
     <data name="Answer with id not found" xml:space="preserve">
         <value>Answer with id "{id}" not found</value>
     </data>
+    <data name="Validation error" xml:space="preserve">
+        <value>Validation errors occured</value>
+    </data>
+    <data name="Unauthorized error" xml:space="preserve">
+        <value>User must be authorized</value>
+    </data>
+    <data name="Access violation error" xml:space="preserve">
+        <value>Access violation</value>
+    </data>
+    <data name="Access violation role error" xml:space="preserve">
+        <value>Access violation: user must be {role}</value>
+    </data>
+    <data name="Username regex validation error message" xml:space="preserve">
+        <value>{PropertyName} must consist of Latin letters, digits and underscores</value>
+    </data>
 </root>

@@ -3,6 +3,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results;
     using FluentValidation;
     using FluentValidation.Results;
@@ -19,10 +20,13 @@ namespace Catman.Education.Application.PipelineBehaviors
         }
         
         private readonly ICollection<IValidator<TRequest>> _validators;
+        private readonly ILocalizer _localizer;
 
-        public FluentValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public FluentValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators, ILocalizer localizer)
+            : base(localizer)
         {
             _validators = validators.ToList();
+            _localizer = localizer;
         }
         
         protected override bool ShouldBeValidated(TRequest request) => _validators.Any();
@@ -37,7 +41,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             }
             
             return validationFailures.Any()
-                ? RequestValidationResult.Invalid("Validation errors occurred", Incorrect(validationFailures))
+                ? RequestValidationResult.Invalid(_localizer.ValidationError(), Incorrect(validationFailures))
                 : RequestValidationResult.Valid();
         }
     }
