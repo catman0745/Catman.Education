@@ -167,4 +167,16 @@
     <data name="Username regex validation error message" xml:space="preserve">
         <value>{PropertyName} must consist of Latin letters, digits and underscores</value>
     </data>
+    <data name="Not empty validation error" xml:space="preserve">
+        <value>{PropertyName} required</value>
+    </data>
+    <data name="Max length validation error" xml:space="preserve">
+        <value>{PropertyName} must not exceed {MaxLength} characters</value>
+    </data>
+    <data name="Inclusive between validation error" xml:space="preserve">
+        <value>{PropertyName} must be between {From} and {To}</value>
+    </data>
+    <data name="Greater than or equal to validation error" xml:space="preserve">
+        <value>{PropertyName} must be greater than or equal to {ComparisonValue}</value>
+    </data>
 </root>

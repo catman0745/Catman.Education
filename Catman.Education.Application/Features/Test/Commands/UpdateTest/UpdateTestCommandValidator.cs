@@ -1,17 +1,18 @@
 namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
 {
     using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
     public class UpdateTestCommandValidator : AbstractValidator<UpdateTestCommand>
     {
-        public UpdateTestCommandValidator()
+        public UpdateTestCommandValidator(ILocalizer localizer)
         {
-            RuleFor(command => command.Id).NotEmpty();
-            RuleFor(command => command.DisciplineId).NotEmpty();
-            RuleFor(command => command.RequestorId).NotEmpty();
+            RuleFor(command => command.Id).NotEmpty(localizer);
+            RuleFor(command => command.DisciplineId).NotEmpty(localizer);
+            RuleFor(command => command.RequestorId).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidTestTitle();
+            RuleFor(command => command.Title).ValidTestTitle(localizer);
         }
     }
 }

@@ -1,12 +1,14 @@
 namespace Catman.Education.Application.Features.Answer.Queries.GetAnswer
 {
+    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
     public class GetAnswerQueryValidator : AbstractValidator<GetAnswerQuery>
     {
-        public GetAnswerQueryValidator()
+        public GetAnswerQueryValidator(ILocalizer localizer)
         {
-            RuleFor(query => query.Id).NotEmpty();
+            RuleFor(query => query.Id).NotEmpty(localizer);
         }
     }
 }

@@ -167,4 +167,16 @@
     <data name="Username regex validation error message" xml:space="preserve">
         <value>{PropertyName} должен содердать только буквы Латинского алфавита, цифры и знаки подчёркивания</value>
     </data>
+    <data name="Not empty validation error" xml:space="preserve">
+        <value>Поле "{PropertyName}" обязательно</value>
+    </data>
+    <data name="Max length validation error" xml:space="preserve">
+        <value>Поле "{PropertyName}" должно быть не длиннее {MaxLength} символов</value>
+    </data>
+    <data name="Inclusive between validation error" xml:space="preserve">
+        <value>Значение поля "{PropertyName}" должно быть между {From} и {To}</value>
+    </data>
+    <data name="Greater than or equal to validation error" xml:space="preserve">
+        <value>Значение поля "{PropertyName}" должно быть больше или равно {ComparisonValue}</value>
+    </data>
 </root>

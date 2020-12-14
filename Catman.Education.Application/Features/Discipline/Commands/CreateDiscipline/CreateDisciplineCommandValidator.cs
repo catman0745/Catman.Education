@@ -1,15 +1,16 @@
 namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscipline
 {
     using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
     public class CreateDisciplineCommandValidator : AbstractValidator<CreateDisciplineCommand>
     {
-        public CreateDisciplineCommandValidator()
+        public CreateDisciplineCommandValidator(ILocalizer localizer)
         {
-            RuleFor(command => command.RequestorId).NotEmpty();
+            RuleFor(command => command.RequestorId).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidDisciplineTitle();
+            RuleFor(command => command.Title).ValidDisciplineTitle(localizer);
         }
     }
 }

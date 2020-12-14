@@ -8,11 +8,11 @@ namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
     {
         public UpdateAdminCommandValidator(ILocalizer localizer)
         {
-            RuleFor(command => command.Id).NotEmpty();
-            RuleFor(command => command.RequestorId).NotEmpty();
+            RuleFor(command => command.Id).NotEmpty(localizer);
+            RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
             RuleFor(command => command.Username).ValidUsername(localizer);
-            RuleFor(command => command.Password).ValidPassword();
+            RuleFor(command => command.Password).ValidPassword(localizer);
         }
     }
 }

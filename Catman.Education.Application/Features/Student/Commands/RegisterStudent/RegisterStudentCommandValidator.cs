@@ -8,12 +8,12 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
     {
         public RegisterStudentCommandValidator(ILocalizer localizer)
         {
-            RuleFor(command => command.GroupId).NotEmpty();
-            RuleFor(command => command.RequestorId).NotEmpty();
+            RuleFor(command => command.GroupId).NotEmpty(localizer);
+            RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
             RuleFor(command => command.Username).ValidUsername(localizer);
-            RuleFor(command => command.Password).ValidPassword();
-            RuleFor(command => command.FullName).ValidName();
+            RuleFor(command => command.Password).ValidPassword(localizer);
+            RuleFor(command => command.FullName).ValidName(localizer);
         }
     }
 }

@@ -1,18 +1,19 @@
 namespace Catman.Education.Application.Features.Question.Commands.UpdateQuestion
 {
     using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
     public class UpdateQuestionCommandValidator : AbstractValidator<UpdateQuestionCommand>
     {
-        public UpdateQuestionCommandValidator()
+        public UpdateQuestionCommandValidator(ILocalizer localizer)
         {
-            RuleFor(command => command.Id).NotEmpty();
-            RuleFor(command => command.TestId).NotEmpty();
-            RuleFor(command => command.RequestorId).NotEmpty();
+            RuleFor(command => command.Id).NotEmpty(localizer);
+            RuleFor(command => command.TestId).NotEmpty(localizer);
+            RuleFor(command => command.RequestorId).NotEmpty(localizer);
 
-            RuleFor(command => command.Text).ValidQuestionText();
-            RuleFor(command => command.Cost).ValidQuestionCost();
+            RuleFor(command => command.Text).ValidQuestionText(localizer);
+            RuleFor(command => command.Cost).ValidQuestionCost(localizer);
         }
     }
 }
