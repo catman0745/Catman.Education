@@ -8,6 +8,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Localization.Extensions;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Filter;
+    using FluentValidation.AspNetCore;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -38,7 +39,8 @@ namespace Catman.Education.WebApi
                 .AddClientCors(_configuration)
                 .AddLocalizer()
                 .AddControllers(options => options.Filters.Add<ValidationFilter>())
-                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
+                .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

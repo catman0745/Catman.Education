@@ -1,18 +1,25 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Admin
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
+    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
+    using FluentValidation;
 
     public class UpdateAdminDto
     {
         [JsonPropertyName("username")]
-        [Required]
-        [MaxLength(30)]
         public string Username { get; set; }
         
         [JsonPropertyName("password")]
-        [Required]
-        [MaxLength(10)]
         public string Password { get; set; }
+    }
+
+    public class UpdateAdminDtoValidator : AbstractValidator<UpdateAdminDto>
+    {
+        public UpdateAdminDtoValidator(ILocalizer localizer)
+        {
+            RuleFor(dto => dto.Username).ValidUsername(localizer);
+            RuleFor(dto => dto.Password).ValidPassword(localizer);
+        }
     }
 }

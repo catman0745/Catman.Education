@@ -1,29 +1,34 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Student
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
-    using Catman.Education.WebApi.Attributes;
+    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
+    using FluentValidation;
 
     public class UpdateStudentDto
     {
         [JsonPropertyName("username")]
-        [Required]
-        [MaxLength(30)]
         public string Username { get; set; }
         
         [JsonPropertyName("password")]
-        [Required]
-        [MaxLength(10)]
         public string Password { get; set; }
         
         [JsonPropertyName("fullName")]
-        [Required]
-        [MaxLength(40)]
         public string FullName { get; set; }
         
         [JsonPropertyName("groupId")]
-        [NotEmpty]
         public Guid GroupId { get; set; }
+    }
+
+    public class UpdateStudentDtoValidator : AbstractValidator<UpdateStudentDto>
+    {
+        public UpdateStudentDtoValidator(ILocalizer localizer)
+        {
+            RuleFor(dto => dto.Username).ValidUsername(localizer);
+            RuleFor(dto => dto.Password).ValidPassword(localizer);
+            RuleFor(dto => dto.FullName).ValidName(localizer);
+            RuleFor(dto => dto.GroupId).NotEmpty(localizer);
+        }
     }
 }

@@ -1,23 +1,30 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Question
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
-    using Catman.Education.WebApi.Attributes;
+    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
+    using FluentValidation;
 
     public class UpdateQuestionDto
     {
         [JsonPropertyName("text")]
-        [Required]
-        [MaxLength(10000)]
         public string Text { get; set; }
         
         [JsonPropertyName("cost")]
-        [Range(1, 100)]
         public int Cost { get; set; }
         
         [JsonPropertyName("testId")]
-        [NotEmpty]
         public Guid TestId { get; set; }
+    }
+
+    public class UpdateQuestionDtoValidator : AbstractValidator<UpdateQuestionDto>
+    {
+        public UpdateQuestionDtoValidator(ILocalizer localizer)
+        {
+            RuleFor(dto => dto.Text).ValidQuestionText(localizer);
+            RuleFor(dto => dto.Cost).ValidQuestionCost(localizer);
+            RuleFor(dto => dto.TestId).NotEmpty(localizer);
+        }
     }
 }

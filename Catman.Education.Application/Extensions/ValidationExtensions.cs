@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Extensions
     using Catman.Education.Application.Interfaces;
     using FluentValidation;
 
-    internal static class ValidationExtensions
+    public static class ValidationExtensions
     {
         public static IRuleBuilderOptions<T, TProperty> NotEmpty<T, TProperty>(
             this IRuleBuilder<T, TProperty> property,

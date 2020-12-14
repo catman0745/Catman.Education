@@ -1,16 +1,25 @@
 namespace Catman.Education.WebApi.DataTransferObjects.User
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
+    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Interfaces;
+    using FluentValidation;
 
     public class GenerateTokenDto
     {
         [JsonPropertyName("username")]
-        [Required]
         public string Username { get; set; }
         
         [JsonPropertyName("password")]
-        [Required]
         public string Password { get; set; }
+    }
+
+    public class GenerateTokenDtoValidator : AbstractValidator<GenerateTokenDto>
+    {
+        public GenerateTokenDtoValidator(ILocalizer localizer)
+        {
+            RuleFor(dto => dto.Username).NotEmpty(localizer);
+            RuleFor(dto => dto.Password).NotEmpty(localizer);
+        }
     }
 }
