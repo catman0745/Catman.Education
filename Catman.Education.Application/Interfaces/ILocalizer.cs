@@ -127,6 +127,8 @@ namespace Catman.Education.Application.Interfaces
         string TestRemoved(Guid id);
 
         string TestNotFound(Guid id);
+
+        string TestChecked(Guid id);
         
         #endregion
         

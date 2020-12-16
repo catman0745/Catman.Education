@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
     using AutoMapper;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class UpdateDisciplineCommandHandler : RequestHandlerBase<UpdateDisciplineCommand>
     {

@@ -184,6 +184,9 @@ namespace Catman.Education.Localization
         public string TestNotFound(Guid id) =>
             _localizer["Test with id not found"].InjectId(id);
         
+        public string TestChecked(Guid id) =>
+            _localizer["Test with id checked"].InjectId(id);
+
         #endregion
         
         #region User

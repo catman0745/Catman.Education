@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features
     using System.Threading;
     using System.Threading.Tasks;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     internal abstract class RequestHandlerBase<TRequest>

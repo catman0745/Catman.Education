@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Student.Queries.GetStudent
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class GetStudentQueryHandler : ResourceRequestHandlerBase<GetStudentQuery, Student>
     {

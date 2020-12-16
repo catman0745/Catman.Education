@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Results
+namespace Catman.Education.Application.Results.Common
 {
     /// <summary> Request result </summary>
     /// <remarks> Either monad implementation </remarks>

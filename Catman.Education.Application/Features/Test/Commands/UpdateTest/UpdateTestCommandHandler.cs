@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
     using AutoMapper;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class UpdateTestCommandHandler : RequestHandlerBase<UpdateTestCommand>
     {

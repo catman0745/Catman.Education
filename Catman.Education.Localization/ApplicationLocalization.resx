@@ -179,4 +179,10 @@
     <data name="Greater than or equal to validation error" xml:space="preserve">
         <value>{PropertyName} must be greater than or equal to {ComparisonValue}</value>
     </data>
+    <data name="Not null validation error" xml:space="preserve">
+        <value>{PropertyName} must not be null</value>
+    </data>
+    <data name="Test with id checked" xml:space="preserve">
+        <value>Test with id "{id}" checked successfully</value>
+    </data>
 </root>

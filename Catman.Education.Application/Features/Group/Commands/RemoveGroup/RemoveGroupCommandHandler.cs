@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class RemoveGroupCommandHandler : RequestHandlerBase<RemoveGroupCommand>
     {

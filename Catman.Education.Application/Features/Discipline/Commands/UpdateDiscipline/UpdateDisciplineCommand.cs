@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
 {
     using System;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class UpdateDisciplineCommand : IRequest<RequestResult>, IRequestorRoleRestriction

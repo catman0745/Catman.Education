@@ -7,7 +7,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using System.Threading.Tasks;
     using Catman.Education.Application.Exceptions;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     internal abstract class ValidationPipelineBehaviorBase<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>

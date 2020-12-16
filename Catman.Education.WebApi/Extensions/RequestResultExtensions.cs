@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.Extensions
 {
     using System;
     using System.Runtime.CompilerServices;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using Catman.Education.WebApi.Responses;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

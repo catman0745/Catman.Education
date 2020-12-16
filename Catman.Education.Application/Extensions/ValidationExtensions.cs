@@ -6,6 +6,11 @@ namespace Catman.Education.Application.Extensions
 
     public static class ValidationExtensions
     {
+        public static IRuleBuilderOptions<T, TProperty> NotNull<T, TProperty>(
+            this IRuleBuilder<T, TProperty> property,
+            ILocalizer localizer) =>
+            property.NotNull().WithMessage(localizer["Not null validation error"]);
+        
         public static IRuleBuilderOptions<T, TProperty> NotEmpty<T, TProperty>(
             this IRuleBuilder<T, TProperty> property,
             ILocalizer localizer) =>

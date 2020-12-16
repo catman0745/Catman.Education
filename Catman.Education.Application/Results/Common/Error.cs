@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Results
+namespace Catman.Education.Application.Results.Common
 {
     using System.Collections.Generic;
 

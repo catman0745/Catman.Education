@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
     using System.Threading.Tasks;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Interfaces;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using Microsoft.EntityFrameworkCore;
 
     internal class GetDisciplinesQueryHandler : ResourceRequestHandlerBase<GetDisciplinesQuery, ICollection<Discipline>>

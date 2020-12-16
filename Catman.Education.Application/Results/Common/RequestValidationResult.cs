@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Results
+namespace Catman.Education.Application.Results.Common
 {
     /// <summary> Validation result </summary>
     /// <remarks> Should only be used for requests validation </remarks>

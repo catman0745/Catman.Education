@@ -4,13 +4,13 @@ namespace Catman.Education.Application.PipelineBehaviors
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class RoleValidationPipelineBehavior<TRequest, TResponse>
         : ValidationPipelineBehaviorBase<TRequest, TResponse>
     {
         private readonly IApplicationStore _store;
-        protected readonly ILocalizer _localizer;
+        private readonly ILocalizer _localizer;
 
         public RoleValidationPipelineBehavior(IApplicationStore store, ILocalizer localizer)
             : base(localizer)

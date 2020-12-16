@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Question.Commands.RemoveQuestion
 {
     using System;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class RemoveQuestionCommand : IRequest<RequestResult>, IRequestorRoleRestriction

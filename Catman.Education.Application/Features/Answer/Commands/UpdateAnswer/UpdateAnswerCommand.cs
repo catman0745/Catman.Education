@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Answer.Commands.UpdateAnswer
 {
     using System;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class UpdateAnswerCommand : IRequest<RequestResult>, IRequestorRoleRestriction

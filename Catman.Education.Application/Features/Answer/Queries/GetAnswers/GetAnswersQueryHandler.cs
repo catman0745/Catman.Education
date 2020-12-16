@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Features.Answer.Queries.GetAnswers
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Pagination;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
 
     internal class GetAnswersQueryHandler : ResourceRequestHandlerBase<GetAnswersQuery, Paginated<Answer>>
     {

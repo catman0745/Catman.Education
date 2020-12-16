@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
     using System;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results;
+    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class CreateTestCommand : IRequest<ResourceRequestResult<Test>>, IRequestorRoleRestriction

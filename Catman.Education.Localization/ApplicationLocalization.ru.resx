@@ -179,4 +179,10 @@
     <data name="Greater than or equal to validation error" xml:space="preserve">
         <value>Значение поля "{PropertyName}" должно быть больше или равно {ComparisonValue}</value>
     </data>
+    <data name="Not null validation error" xml:space="preserve">
+        <value>Значение поля "{PropertyName}" не должно быть null</value>
+    </data>
+    <data name="Test with id checked" xml:space="preserve">
+        <value>Тест с id "{id}" проверен</value>
+    </data>
 </root>
