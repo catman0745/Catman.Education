@@ -187,6 +187,11 @@ namespace Catman.Education.Localization
         public string TestChecked(Guid id) =>
             _localizer["Test with id checked"].InjectId(id);
 
+        public string TestRetake(Guid studentId, Guid testId) =>
+            _localizer["Test with id already passed by student with id"]
+                .InjectStudentId(studentId)
+                .InjectTestId(testId);
+
         #endregion
         
         #region User

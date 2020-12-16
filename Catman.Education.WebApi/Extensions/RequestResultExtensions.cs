@@ -35,6 +35,8 @@ namespace Catman.Education.WebApi.Extensions
             {
                 Error.NotFound =>
                     new NotFoundObjectResult(new Response(success: false, message)),
+                Error.TestRetake =>
+                    new BadRequestObjectResult(new Response(success: false, message)),
                 Error.ValidationError validationError =>
                     new BadRequestObjectResult(new ValidationErrorResponse(message, validationError.Errors)),
                 Error.Unauthorized =>

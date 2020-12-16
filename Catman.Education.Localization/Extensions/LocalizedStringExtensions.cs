@@ -11,6 +11,12 @@ namespace Catman.Education.Localization.Extensions
         public static LocalizedString InjectId(this LocalizedString localizedString, Guid id) =>
             localizedString.Inject("id", id.ToString());
 
+        public static LocalizedString InjectStudentId(this LocalizedString localizedString, Guid studentId) =>
+            localizedString.Inject("studentId", studentId.ToString());
+
+        public static LocalizedString InjectTestId(this LocalizedString localizedString, Guid testId) =>
+            localizedString.Inject("testId", testId.ToString());
+
         public static LocalizedString InjectUsername(this LocalizedString localizedString, string username) =>
             localizedString.Inject("username", username);
 

@@ -185,4 +185,7 @@
     <data name="Test with id checked" xml:space="preserve">
         <value>Тест с id "{id}" проверен</value>
     </data>
+    <data name="Test with id already passed by student with id" xml:space="preserve">
+        <value>Студент с id "{studentId}" уже прошёл тест с id "{testId}"</value>
+    </data>
 </root>

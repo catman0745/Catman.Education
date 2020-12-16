@@ -15,5 +15,7 @@ namespace Catman.Education.Application.Results.Common
         public sealed record Unauthorized : Error;
 
         public sealed record AccessViolation : Error;
+
+        public sealed record TestRetake : Error;
     }
 }

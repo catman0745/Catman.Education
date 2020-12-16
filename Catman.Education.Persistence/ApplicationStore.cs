@@ -23,6 +23,8 @@ namespace Catman.Education.Persistence
 
         public DbSet<Answer> Answers { get; set; }
 
+        public DbSet<TestingResult> TestingResults { get; set; }
+
         public ApplicationStore(DbContextOptions<ApplicationStore> options)
             : base(options)
         {

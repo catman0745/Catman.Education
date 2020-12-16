@@ -1,33 +1,43 @@
-namespace Catman.Education.Application.Features.Test.Queries.CheckTest
+namespace Catman.Education.Application.Features.Test.Commands.CheckTest
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Interfaces;
     using Catman.Education.Application.Results.Common;
     using Catman.Education.Application.Results.Testing;
 
-    internal class CheckTestQueryHandler : ResourceRequestHandlerBase<CheckTestQuery, TestCheckResult>
+    internal class CheckTestCommandHandler : ResourceRequestHandlerBase<CheckTestCommand, TestCheckResult>
     {
         private readonly IApplicationStore _store;
+        private readonly IMapper _mapper;
         private readonly ILocalizer _localizer;
         
-        public CheckTestQueryHandler(IApplicationStore store, ILocalizer localizer)
+        public CheckTestCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
             : base(localizer)
         {
             _store = store;
+            _mapper = mapper;
             _localizer = localizer;
         }
 
-        protected override async Task<ResourceRequestResult<TestCheckResult>> HandleAsync(CheckTestQuery checkQuery)
+        protected override async Task<ResourceRequestResult<TestCheckResult>> HandleAsync(
+            CheckTestCommand checkCommand)
         {
-            if (!await _store.Tests.ExistsWithIdAsync(checkQuery.TestId))
+            if (!await _store.Tests.ExistsWithIdAsync(checkCommand.TestId))
             {
-                return NotFound(_localizer.TestNotFound(checkQuery.TestId));
+                return NotFound(_localizer.TestNotFound(checkCommand.TestId));
             }
             var test = await _store.Tests
-                .IncludeQuestionsWithAnswers(checkQuery.TestId)
-                .WithIdAsync(checkQuery.TestId);
+                .IncludeQuestionsWithAnswers(checkCommand.TestId)
+                .WithIdAsync(checkCommand.TestId);
+
+            if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.RequestorId, checkCommand.TestId))
+            {
+                return TestRetake(checkCommand.RequestorId, checkCommand.TestId);
+            }
 
             var answerCheckResults = test.Questions
                 .SelectMany(question => question.Answers)
@@ -35,11 +45,11 @@ namespace Catman.Education.Application.Features.Test.Queries.CheckTest
                 {
                     AnswerId = expectedAnswer.Id,
                     IsCorrect = expectedAnswer.IsCorrect,
-                    IsChecked = checkQuery.CorrectAnswersIds.Contains(expectedAnswer.Id),
+                    IsChecked = checkCommand.CorrectAnswersIds.Contains(expectedAnswer.Id),
                     QuestionId = expectedAnswer.QuestionId
                 });
 
-            var testCheckingResult = new TestCheckResult()
+            var testCheckResult = new TestCheckResult()
             {
                 TestId = test.Id,
                 Questions = test.Questions
@@ -56,7 +66,12 @@ namespace Catman.Education.Application.Features.Test.Queries.CheckTest
                     .ToList()
             };
 
-            return Success(_localizer.TestChecked(test.Id), testCheckingResult);
+            var testingResult = new TestingResult() {StudentId = checkCommand.RequestorId};
+            _mapper.Map(testCheckResult, testingResult);
+            _store.TestingResults.Add(testingResult);
+            await _store.SaveChangesAsync();
+
+            return Success(_localizer.TestChecked(test.Id), testCheckResult);
         }
     }
 }

@@ -4,12 +4,13 @@ namespace Catman.Education.WebApi.Controllers
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Catman.Education.Application.Features.Test.Queries.CheckTest;
+    using Catman.Education.Application.Features.Test.Commands.CheckTest;
     using Catman.Education.Application.Features.Test.Queries.GetTestForTesting;
     using Catman.Education.WebApi.DataTransferObjects.Testing;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -43,13 +44,16 @@ namespace Catman.Education.WebApi.Controllers
         /// <summary> Check the specified answers for a test with a matching id </summary>
         /// <param name="correctAnswersIds"> IDs of answers marked as correct </param>
         [HttpPost("{testId}")]
+        [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<TestCheckResultDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CheckAnswers(
             [FromRoute] Guid testId,
             [FromBody] ICollection<Guid> correctAnswersIds)
         {
-            var checkQuery = new CheckTestQuery(testId, correctAnswersIds);
+            var checkQuery = new CheckTestCommand(testId, correctAnswersIds, UserId);
 
             var result = await _mediator.Send(checkQuery);
             return result.ToActionResult(testCheckResult =>
