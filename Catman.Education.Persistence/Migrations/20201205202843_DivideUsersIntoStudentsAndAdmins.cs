@@ -4,7 +4,7 @@ namespace Catman.Education.Persistence.Migrations
 {
     using System;
 
-    internal class DivideUsersToAdminsAndStudentsTPH
+    internal class DivideUsersToAdminsAndStudentsTablePerHierarchy
     {
         public static void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,7 @@ namespace Catman.Education.Persistence.Migrations
 
     internal class SetUserDiscriminatorBasedOnRole
     {
-        private const string PostgreSQLCommand = @"UPDATE users
+        private const string PostgreSqlCommand = @"UPDATE users
                                                    SET ""Discriminator"" = CASE
                                                        WHEN role = 'stud' THEN 'Student'
                                                        WHEN role = 'admin' THEN 'Admin'
@@ -78,7 +78,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             var sqlCommand = migrationBuilder.ActiveProvider switch
             {
-                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSQLCommand,
+                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSqlCommand,
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);
@@ -87,7 +87,7 @@ namespace Catman.Education.Persistence.Migrations
 
     internal class RemoveUserRole
     {
-        private const string PostgreSQLCommand = @"UPDATE users
+        private const string PostgreSqlCommand = @"UPDATE users
                                                    SET role = CASE
                                                        WHEN ""Discriminator"" = 'Admin' THEN 'admin'
                                                        WHEN ""Discriminator"" = 'Student' THEN 'stud'
@@ -104,7 +104,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             var sqlCommand = migrationBuilder.ActiveProvider switch
             {
-                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSQLCommand,
+                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSqlCommand,
                 _ => throw new Exception("Unexpected provider")
             };
             
@@ -122,7 +122,7 @@ namespace Catman.Education.Persistence.Migrations
 
     internal class SetStudentFullNameBasedOnUsername
     {
-        private const string PostgreSQLCommand = @"UPDATE users
+        private const string PostgreSqlCommand = @"UPDATE users
                                                    SET full_name = username
                                                    WHERE ""Discriminator"" = 'Student'";
         
@@ -130,7 +130,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             var sqlCommand = migrationBuilder.ActiveProvider switch
             {
-                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSQLCommand,
+                "Npgsql.EntityFrameworkCore.PostgreSQL" => PostgreSqlCommand,
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);
@@ -139,7 +139,7 @@ namespace Catman.Education.Persistence.Migrations
 
     internal class AssignStudentsToDummyGroup
     {
-        private const string UpPostgreSQLCommand = @"INSERT INTO groups(id, title)
+        private const string UpPostgreSqlCommand = @"INSERT INTO groups(id, title)
                                                      SELECT '07450745-0745-0745-0745-074507450745', 'DUMMY'
                                                      WHERE EXISTS (SELECT * FROM users
                                                                    WHERE ""Discriminator"" = 'Student');
@@ -147,7 +147,7 @@ namespace Catman.Education.Persistence.Migrations
                                                      SET group_id = '07450745-0745-0745-0745-074507450745'
                                                      WHERE ""Discriminator"" = 'Student'";
 
-        private const string DownPostgreSQLCommand = @"UPDATE users
+        private const string DownPostgreSqlCommand = @"UPDATE users
                                                        SET group_id = NULL
                                                        WHERE group_id = '07450745-0745-0745-0745-074507450745';
                                                        DELETE FROM groups
@@ -157,7 +157,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             var sqlCommand = migrationBuilder.ActiveProvider switch
             {
-                "Npgsql.EntityFrameworkCore.PostgreSQL" => UpPostgreSQLCommand,
+                "Npgsql.EntityFrameworkCore.PostgreSQL" => UpPostgreSqlCommand,
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);
@@ -167,7 +167,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             var sqlCommand = migrationBuilder.ActiveProvider switch
             {
-                "Npgsql.EntityFrameworkCore.PostgreSQL" => DownPostgreSQLCommand,
+                "Npgsql.EntityFrameworkCore.PostgreSQL" => DownPostgreSqlCommand,
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);
@@ -178,7 +178,7 @@ namespace Catman.Education.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            DivideUsersToAdminsAndStudentsTPH.Up(migrationBuilder);
+            DivideUsersToAdminsAndStudentsTablePerHierarchy.Up(migrationBuilder);
             SetUserDiscriminatorBasedOnRole.Up(migrationBuilder);
             RemoveUserRole.Up(migrationBuilder);
             SetStudentFullNameBasedOnUsername.Up(migrationBuilder);
@@ -189,7 +189,7 @@ namespace Catman.Education.Persistence.Migrations
         {
             AssignStudentsToDummyGroup.Down(migrationBuilder);
             RemoveUserRole.Down(migrationBuilder);
-            DivideUsersToAdminsAndStudentsTPH.Down(migrationBuilder);
+            DivideUsersToAdminsAndStudentsTablePerHierarchy.Down(migrationBuilder);
         }
     }
 }
