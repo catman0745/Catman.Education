@@ -1,4 +1,4 @@
-namespace Catman.Education.WebApi.Extensions
+namespace Catman.Education.WebApi.Extensions.DependencyInjection
 {
     using System;
     using System.IO;
@@ -12,8 +12,9 @@ namespace Catman.Education.WebApi.Extensions
 
     internal static class SwaggerExtensions
     {
-        public static IServiceCollection AddSwaggerGen(this IServiceCollection services, IConfiguration configuration)
-        {
+        public static IServiceCollection AddSwaggerGen(
+            this IServiceCollection services,
+            IConfiguration configuration) =>
             services.AddSwaggerGen(options =>
             {
                 options.ConfigureApiInfo(configuration);
@@ -21,30 +22,33 @@ namespace Catman.Education.WebApi.Extensions
                 options.ConfigureAuthorization();
                 options.ConfigureLocalization();
             });
-
-            return services;
-        }
         
-        public static void UseSwagger(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder UseSwagger(this IApplicationBuilder application, IConfiguration configuration)
         {
-            var title = configuration["WebApi:Title"];
-            var version = configuration["WebApi:Version"];
+            var title = configuration.WebApiTitle();
+            var version = configuration.WebApiVersion();
             
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"{title} v{version}");
-                options.RoutePrefix = string.Empty;
-                options.InjectStylesheet("/swagger.css");
-            });
+            return application
+                .UseSwagger()
+                .UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"{title} v{version}");
+                    options.RoutePrefix = string.Empty;
+                    options.InjectStylesheet("/swagger.css");
+                });
         }
 
         private static void ConfigureApiInfo(this SwaggerGenOptions options, IConfiguration configuration)
         {
-            var title = configuration["WebApi:Title"];
-            var version = configuration["WebApi:Version"];
+            var title = configuration.WebApiTitle();
+            var version = configuration.WebApiVersion();
             
-            var info = new OpenApiInfo() {Title = title, Version = version};
+            var info = new OpenApiInfo()
+            {
+                Title = title,
+                Version = version
+            };
+            
             options.SwaggerDoc(version, info);
         }
 
@@ -67,9 +71,7 @@ namespace Catman.Education.WebApi.Extensions
             options.OperationFilter<SwaggerAuthorizationFilter>();
         }
 
-        private static void ConfigureLocalization(this SwaggerGenOptions options)
-        {
+        private static void ConfigureLocalization(this SwaggerGenOptions options) =>
             options.OperationFilter<SwaggerLocalizationFilter>();
-        }
     }
 }

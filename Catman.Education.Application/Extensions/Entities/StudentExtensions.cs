@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Extensions
+namespace Catman.Education.Application.Extensions.Entities
 {
     using System;
     using System.Linq;

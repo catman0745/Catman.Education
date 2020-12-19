@@ -1,4 +1,4 @@
-namespace Catman.Education.Authentication.Extensions
+namespace Catman.Education.Authentication.Extensions.DependencyInjection
 {
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
