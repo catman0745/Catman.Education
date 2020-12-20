@@ -8,6 +8,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Localization.Extensions;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Filter;
+    using Catman.Education.WebApi.Middlewares;
     using FluentValidation.AspNetCore;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -57,13 +58,15 @@ namespace Catman.Education.WebApi
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
+            
+            app.UseApplicationLocalization();
+
+            app.UseMiddleware<CustomUnauthorizedResponseMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseClientCors();
-
-            app.UseApplicationLocalization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
