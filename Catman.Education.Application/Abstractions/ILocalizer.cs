@@ -128,9 +128,19 @@ namespace Catman.Education.Application.Abstractions
 
         string TestNotFound(Guid id);
 
+        #endregion
+        
+        #region Testing
+        
         string TestChecked(Guid id);
 
-        string TestRetake(Guid studentId, Guid testId);
+        string TestingResultRetrieved(Guid testId, Guid studentId);
+        
+        string TestingResultsRetrieved(int count);
+
+        string TestRetake(Guid testId, Guid studentId);
+
+        string TestingResultNotFound(Guid testId, Guid studentId);
         
         #endregion
         

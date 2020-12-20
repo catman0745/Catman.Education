@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.Test.Commands.CheckTest
+namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -34,9 +34,9 @@ namespace Catman.Education.Application.Features.Test.Commands.CheckTest
                 .IncludeQuestionsWithAnswers(checkCommand.TestId)
                 .WithIdAsync(checkCommand.TestId);
 
-            if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.RequestorId, checkCommand.TestId))
+            if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.TestId, checkCommand.RequestorId))
             {
-                return TestRetake(checkCommand.RequestorId, checkCommand.TestId);
+                return TestRetake(checkCommand.TestId, checkCommand.RequestorId);
             }
 
             var answerCheckResults = test.Questions

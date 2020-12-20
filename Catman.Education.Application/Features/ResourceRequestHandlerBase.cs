@@ -28,8 +28,8 @@ namespace Catman.Education.Application.Features
         protected static ResourceRequestResult<TResource> NotFound(string message) =>
             Failure(message, new Error.NotFound());
 
-        protected ResourceRequestResult<TResource> TestRetake(Guid studentId, Guid testId) =>
-            Failure(_localizer.TestRetake(studentId, testId), new Error.TestRetake());
+        protected ResourceRequestResult<TResource> TestRetake(Guid testId, Guid studentId) =>
+            Failure(_localizer.TestRetake(testId, studentId), new Error.TestRetake());
 
         protected ResourceRequestResult<TResource> ValidationError(string propertyName, string errorMessage) =>
             ValidationError(new Dictionary<string, string>() {[propertyName] = errorMessage});

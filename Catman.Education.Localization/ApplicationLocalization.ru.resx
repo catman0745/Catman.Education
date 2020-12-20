@@ -188,4 +188,13 @@
     <data name="Test with id already passed by student with id" xml:space="preserve">
         <value>Студент с id "{studentId}" уже прошёл тест с id "{testId}"</value>
     </data>
+    <data name="Testing results retrieved" xml:space="preserve">
+        <value>Получено несколько ({count}) результатов тестирования</value>
+    </data>
+    <data name="Testing result with testId and studentId retrieved" xml:space="preserve">
+        <value>Получен результат прохождения теста с id "{testId}" студентом с id "{studentId}"</value>
+    </data>
+    <data name="Testing result with testId and studentId not found" xml:space="preserve">
+        <value>Результат прохождения теста с id "{testId}" студентом с id "{studentId}" не найден</value>
+    </data>
 </root>

@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Features.Test.Commands.CheckTest
+namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
 {
     using System;
     using System.Collections.Generic;

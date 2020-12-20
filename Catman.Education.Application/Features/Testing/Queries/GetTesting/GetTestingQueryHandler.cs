@@ -1,24 +1,24 @@
-namespace Catman.Education.Application.Features.Test.Queries.GetTestForTesting
+namespace Catman.Education.Application.Features.Testing.Queries.GetTesting
 {
     using System.Threading.Tasks;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions.Entities;
-    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
-    internal class GetTestForTestingQueryHandler : ResourceRequestHandlerBase<GetTestForTestingQuery, Test>
+    internal class GetTestingQueryHandler : ResourceRequestHandlerBase<GetTestingQuery, Test>
     {
         private readonly IApplicationStore _store;
         private readonly ILocalizer _localizer;
 
-        public GetTestForTestingQueryHandler(IApplicationStore store, ILocalizer localizer)
+        public GetTestingQueryHandler(IApplicationStore store, ILocalizer localizer)
             : base(localizer)
         {
             _store = store;
             _localizer = localizer;
         }
 
-        protected override async Task<ResourceRequestResult<Test>> HandleAsync(GetTestForTestingQuery getQuery)
+        protected override async Task<ResourceRequestResult<Test>> HandleAsync(GetTestingQuery getQuery)
         {
             if (!await _store.Tests.ExistsWithIdAsync(getQuery.Id))
             {
