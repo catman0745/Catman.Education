@@ -1,4 +1,4 @@
-namespace Catman.Education.WebApi.Filter
+namespace Catman.Education.WebApi.Filters
 {
     using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerGen;

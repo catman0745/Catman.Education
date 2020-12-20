@@ -1,4 +1,4 @@
-namespace Catman.Education.WebApi.Filter
+namespace Catman.Education.WebApi.Filters
 {
     using System.Linq;
     using System.Threading.Tasks;

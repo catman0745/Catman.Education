@@ -3,7 +3,7 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
     using System;
     using System.IO;
     using System.Reflection;
-    using Catman.Education.WebApi.Filter;
+    using Catman.Education.WebApi.Filters;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
 {
     using System.Reflection;
     using AutoMapper;
-    using Catman.Education.WebApi.Filter;
+    using Catman.Education.WebApi.Filters;
     using FluentValidation.AspNetCore;
     using Microsoft.Extensions.DependencyInjection;
 
