@@ -3,7 +3,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
     using FluentValidation;
     using FluentValidation.Results;

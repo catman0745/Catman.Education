@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
 {
     using Catman.Education.Application.Extensions;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using FluentValidation;
 
     public class UpdateGroupCommandValidator : AbstractValidator<UpdateGroupCommand>

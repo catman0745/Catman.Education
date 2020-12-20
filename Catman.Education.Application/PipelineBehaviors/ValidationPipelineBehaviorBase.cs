@@ -6,7 +6,7 @@ namespace Catman.Education.Application.PipelineBehaviors
     using System.Threading;
     using System.Threading.Tasks;
     using Catman.Education.Application.Exceptions;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
     using MediatR;
 

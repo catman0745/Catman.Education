@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Admin
 {
     using System.Text.Json.Serialization;
     using Catman.Education.Application.Extensions;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using FluentValidation;
 
     public class RegisterAdminDto

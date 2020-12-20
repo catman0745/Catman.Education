@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Interfaces
+namespace Catman.Education.Application.Abstractions
 {
     using System.Threading.Tasks;
     using Catman.Education.Application.Entities;

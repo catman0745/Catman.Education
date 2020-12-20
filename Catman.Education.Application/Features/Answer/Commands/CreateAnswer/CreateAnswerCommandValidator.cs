@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Answer.Commands.CreateAnswer
 {
     using Catman.Education.Application.Extensions;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using FluentValidation;
 
     public class CreateAnswerCommandValidator : AbstractValidator<CreateAnswerCommand>

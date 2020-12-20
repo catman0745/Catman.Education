@@ -2,7 +2,7 @@ namespace Catman.Education.Persistence
 {
     using System.Threading.Tasks;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Microsoft.EntityFrameworkCore;
 
     internal class ApplicationStore : DbContext, IApplicationStore

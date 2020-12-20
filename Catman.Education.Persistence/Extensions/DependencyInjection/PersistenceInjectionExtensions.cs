@@ -1,6 +1,6 @@
 namespace Catman.Education.Persistence.Extensions.DependencyInjection
 {
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

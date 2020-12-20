@@ -1,7 +1,7 @@
 namespace Catman.Education.Localization
 {
     using System;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Localization.Extensions;
     using Microsoft.Extensions.Localization;
 

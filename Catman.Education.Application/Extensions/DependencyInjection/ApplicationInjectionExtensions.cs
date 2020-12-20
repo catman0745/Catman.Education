@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Extensions.DependencyInjection
 {
     using System.Reflection;
     using AutoMapper;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.PipelineBehaviors;
     using FluentValidation;
     using MediatR;

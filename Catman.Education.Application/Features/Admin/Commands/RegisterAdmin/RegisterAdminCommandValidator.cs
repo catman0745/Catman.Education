@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
 {
     using Catman.Education.Application.Extensions;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using FluentValidation;
 
     public class RegisterAdminCommandValidator : AbstractValidator<RegisterAdminCommand>

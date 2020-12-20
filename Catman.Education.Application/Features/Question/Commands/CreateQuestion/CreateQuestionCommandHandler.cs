@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Question.Commands.CreateQuestion
     using AutoMapper;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions.Entities;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
     internal class CreateQuestionCommandHandler : ResourceRequestHandlerBase<CreateQuestionCommand, Question>

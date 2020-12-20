@@ -1,6 +1,6 @@
 namespace Catman.Education.Authentication.Extensions.DependencyInjection
 {
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Authentication.Configuration;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.Extensions.Configuration;

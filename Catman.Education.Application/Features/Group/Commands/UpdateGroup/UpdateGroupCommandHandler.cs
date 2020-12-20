@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Extensions.Entities;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
     internal class UpdateGroupCommandHandler : RequestHandlerBase<UpdateGroupCommand>

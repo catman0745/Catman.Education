@@ -1,6 +1,6 @@
 namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
 {
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Extensions;
     using FluentValidation;
 

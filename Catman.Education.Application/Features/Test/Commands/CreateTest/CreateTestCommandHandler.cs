@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
     using AutoMapper;
     using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions.Entities;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
     internal class CreateTestCommandHandler : ResourceRequestHandlerBase<CreateTestCommand, Test>

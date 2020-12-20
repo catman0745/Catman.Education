@@ -1,6 +1,6 @@
 namespace Catman.Education.Localization.Extensions.DependencyInjection
 {
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class LocalizationInjectionExtensions

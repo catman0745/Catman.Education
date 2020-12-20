@@ -5,7 +5,7 @@ namespace Catman.Education.Authentication
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.Interfaces;
+    using Catman.Education.Application.Abstractions;
     using Catman.Education.Authentication.Configuration;
     using Microsoft.IdentityModel.Tokens;
 
