@@ -5,6 +5,7 @@ namespace Catman.Education.WebApi
     using Catman.Education.Authentication.Extensions.DependencyInjection;
     using Catman.Education.Localization.Extensions.DependencyInjection;
     using Catman.Education.WebApi.Extensions.DependencyInjection;
+    using Catman.Education.WebApi.Middlewares;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -45,10 +46,11 @@ namespace Catman.Education.WebApi
                 .UseSwagger(_configuration)
                 .UseSerilogRequestLogging()
                 .UseRouting()
+                .UseLocalization()
+                .UseMiddleware<CustomUnauthorizedResponseMiddleware>()
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseClientCors()
-                .UseLocalization()
                 .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
