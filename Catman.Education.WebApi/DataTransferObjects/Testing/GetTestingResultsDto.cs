@@ -2,7 +2,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing
 {
     using System;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Extensions;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using FluentValidation;
     using Microsoft.AspNetCore.Mvc;
@@ -20,8 +19,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing
     {
         public GetTestingResultsDtoValidator(ILocalizer localizer)
         {
-            RuleFor(dto => dto.PageNumber).ValidPageNumber(localizer);
-            RuleFor(dto => dto.PageSize).ValidPageSize(localizer);
+            Include(new PaginationInfoDtoValidator(localizer));
         }
     }
 }

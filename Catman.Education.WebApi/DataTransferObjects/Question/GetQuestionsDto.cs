@@ -1,7 +1,6 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Question
 {
     using System;
-    using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using FluentValidation;
@@ -17,8 +16,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Question
     {
         public GetQuestionsDtoValidator(ILocalizer localizer)
         {
-            RuleFor(dto => dto.PageNumber).ValidPageNumber(localizer);
-            RuleFor(dto => dto.PageSize).ValidPageSize(localizer);
+            Include(new PaginationInfoDtoValidator(localizer));
         }
     }
 }
