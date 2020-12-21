@@ -22,22 +22,16 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
 
         protected override async Task<RequestResult> HandleAsync(UpdateTestCommand updateCommand)
         {
+            if (!await _store.Disciplines.ExistsWithIdAsync(updateCommand.DisciplineId))
+            {
+                return NotFound(_localizer.DisciplineNotFound(updateCommand.DisciplineId));
+            }
+            
             if (!await _store.Tests.ExistsWithIdAsync(updateCommand.Id))
             {
                 return NotFound(_localizer.TestNotFound(updateCommand.Id));
             }
             var test = await _store.Tests.WithIdAsync(updateCommand.Id);
-            
-            if (!await _store.Disciplines.ExistsWithIdAsync(updateCommand.DisciplineId))
-            {
-                return NotFound(_localizer.DisciplineNotFound(updateCommand.DisciplineId));
-            }
-            var discipline = await _store.Disciplines.WithIdAsync(updateCommand.DisciplineId);
-            
-            if (await _store.Tests.OtherThan(test).OfDiscipline(discipline).ExistsWithTitleAsync(updateCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
 
             _mapper.Map(updateCommand, test);
             await _store.SaveChangesAsync();

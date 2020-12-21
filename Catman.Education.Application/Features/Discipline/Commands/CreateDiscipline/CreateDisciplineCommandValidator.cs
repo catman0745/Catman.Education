@@ -6,11 +6,11 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
 
     public class CreateDisciplineCommandValidator : AbstractValidator<CreateDisciplineCommand>
     {
-        public CreateDisciplineCommandValidator(ILocalizer localizer)
+        public CreateDisciplineCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidDisciplineTitle(localizer);
+            RuleFor(command => command.Title).ValidDisciplineTitle(localizer).UniqueDisciplineTitle(store, localizer);
         }
     }
 }

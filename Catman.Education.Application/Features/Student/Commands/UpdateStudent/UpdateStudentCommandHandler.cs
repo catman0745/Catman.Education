@@ -28,11 +28,6 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
             }
             var student = await _store.Students.WithIdAsync(updateCommand.Id);
 
-            if (await _store.Users.OtherThan(student).ExistsWithUsernameAsync(updateCommand.Username))
-            {
-                return ValidationError("username", _localizer.MustBeUnique());
-            }
-
             if (!await _store.Groups.ExistsWithIdAsync(updateCommand.GroupId))
             {
                 return NotFound(_localizer.GroupNotFound(updateCommand.GroupId));

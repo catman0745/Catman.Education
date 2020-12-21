@@ -3,7 +3,6 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
@@ -24,11 +23,6 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
         protected override async Task<ResourceRequestResult<Discipline>> HandleAsync(
             CreateDisciplineCommand createCommand)
         {
-            if (await _store.Disciplines.ExistsWithTitleAsync(createCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
-
             var discipline = _mapper.Map<Discipline>(createCommand);
             _store.Disciplines.Add(discipline);
             await _store.SaveChangesAsync();

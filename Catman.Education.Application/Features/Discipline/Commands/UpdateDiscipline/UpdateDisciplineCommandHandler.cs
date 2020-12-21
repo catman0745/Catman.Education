@@ -29,11 +29,6 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
             }
             var discipline = await _store.Disciplines.WithIdAsync(updateCommand.Id);
 
-            if (await _store.Disciplines.OtherThan(discipline).ExistsWithTitleAsync(updateCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
-
             _mapper.Map(updateCommand, discipline);
             await _store.SaveChangesAsync();
 

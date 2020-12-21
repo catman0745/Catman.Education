@@ -6,12 +6,14 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
 
     public class CreateTestCommandValidator : AbstractValidator<CreateTestCommand>
     {
-        public CreateTestCommandValidator(ILocalizer localizer)
+        public CreateTestCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             RuleFor(command => command.DisciplineId).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidTestTitle(localizer);
+            RuleFor(command => command.Title)
+                .ValidTestTitle(localizer)
+                .UniqueTestTitle(store, localizer, disciplineId: command => command.DisciplineId);
         }
     }
 }

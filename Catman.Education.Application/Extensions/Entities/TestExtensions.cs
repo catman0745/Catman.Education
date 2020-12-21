@@ -17,11 +17,11 @@ namespace Catman.Education.Application.Extensions.Entities
         public static Task<Test> WithIdAsync(this IQueryable<Test> tests, Guid id) =>
             tests.SingleAsync(test => test.Id == id);
 
-        public static IQueryable<Test> OfDiscipline(this IQueryable<Test> tests, Discipline discipline) =>
-            tests.Where(test => test.DisciplineId == discipline.Id);
+        public static IQueryable<Test> OfDiscipline(this IQueryable<Test> tests, Guid disciplineId) =>
+            tests.Where(test => test.DisciplineId == disciplineId);
 
-        public static IQueryable<Test> OtherThan(this IQueryable<Test> tests, Test test) =>
-            tests.Where(t => t.Id != test.Id);
+        public static IQueryable<Test> OtherThan(this IQueryable<Test> tests, Guid testId) =>
+            tests.Where(t => t.Id != testId);
 
         public static IQueryable<Test> IncludeQuestionsWithAnswers(this IQueryable<Test> tests, Guid testId) =>
             tests

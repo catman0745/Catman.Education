@@ -3,7 +3,6 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Entities;
-    using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
 
@@ -23,11 +22,6 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         
         protected override async Task<ResourceRequestResult<Group>> HandleAsync(CreateGroupCommand createCommand)
         {
-            if (await _store.Groups.ExistsWithTitleAsync(createCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
-
             var group = _mapper.Map<Group>(createCommand);
             _store.Groups.Add(group);
             await _store.SaveChangesAsync();

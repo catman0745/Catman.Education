@@ -24,11 +24,6 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
         protected override async Task<ResourceRequestResult<Student>> HandleAsync(
             RegisterStudentCommand registerCommand)
         {
-            if (await _store.Users.ExistsWithUsernameAsync(registerCommand.Username))
-            {
-                return ValidationError("username", _localizer.MustBeUnique());
-            }
-
             if (!await _store.Groups.ExistsWithIdAsync(registerCommand.GroupId))
             {
                 return NotFound(_localizer.GroupNotFound(registerCommand.GroupId));

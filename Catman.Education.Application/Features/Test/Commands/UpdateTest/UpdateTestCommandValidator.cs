@@ -6,13 +6,19 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
 
     public class UpdateTestCommandValidator : AbstractValidator<UpdateTestCommand>
     {
-        public UpdateTestCommandValidator(ILocalizer localizer)
+        public UpdateTestCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.Id).NotEmpty(localizer);
             RuleFor(command => command.DisciplineId).NotEmpty(localizer);
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidTestTitle(localizer);
+            RuleFor(command => command.Title)
+                .ValidTestTitle(localizer)
+                .UniqueTestTitle(
+                    store,
+                    localizer,
+                    disciplineId: command => command.DisciplineId,
+                    exceptTestWithId: command => command.Id);
         }
     }
 }

@@ -6,13 +6,15 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
 
     public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentCommand>
     {
-        public UpdateStudentCommandValidator(ILocalizer localizer)
+        public UpdateStudentCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.Id).NotEmpty(localizer);
             RuleFor(command => command.GroupId).NotEmpty(localizer);
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
-            RuleFor(command => command.Username).ValidUsername(localizer);
+            RuleFor(command => command.Username)
+                .ValidUsername(localizer)
+                .UniqueUsername(store, localizer, exceptUserWithId: command => command.Id);
             RuleFor(command => command.Password).ValidPassword(localizer);
             RuleFor(command => command.FullName).ValidName(localizer);
         }

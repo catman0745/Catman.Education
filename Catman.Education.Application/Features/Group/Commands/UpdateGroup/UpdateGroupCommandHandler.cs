@@ -27,12 +27,7 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
                 return NotFound(_localizer.GroupNotFound(updateCommand.Id));
             }
             var group = await _store.Groups.WithIdAsync(updateCommand.Id);
-
-            if (await _store.Groups.OtherThan(group).ExistsWithTitleAsync(updateCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
-
+            
             _mapper.Map(updateCommand, group);
             await _store.SaveChangesAsync();
 

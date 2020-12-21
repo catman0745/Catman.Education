@@ -6,11 +6,11 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
 
     public class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommand>
     {
-        public CreateGroupCommandValidator(ILocalizer localizer)
+        public CreateGroupCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
-            RuleFor(command => command.Title).ValidGroupTitle(localizer);
+            RuleFor(command => command.Title).ValidGroupTitle(localizer).UniqueGroupTitle(store, localizer);
         }
     }
 }

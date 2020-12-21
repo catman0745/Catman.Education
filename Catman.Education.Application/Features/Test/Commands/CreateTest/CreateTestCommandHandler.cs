@@ -27,12 +27,6 @@ namespace Catman.Education.Application.Features.Test.Commands.CreateTest
             {
                 return NotFound(_localizer.DisciplineNotFound(createCommand.DisciplineId));
             }
-            var discipline = await _store.Disciplines.WithIdAsync(createCommand.DisciplineId);
-
-            if (await _store.Tests.OfDiscipline(discipline).ExistsWithTitleAsync(createCommand.Title))
-            {
-                return ValidationError("title", _localizer.MustBeUnique());
-            }
 
             var test = _mapper.Map<Test>(createCommand);
             _store.Tests.Add(test);

@@ -6,12 +6,14 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
 
     public class UpdateGroupCommandValidator : AbstractValidator<UpdateGroupCommand>
     {
-        public UpdateGroupCommandValidator(ILocalizer localizer)
+        public UpdateGroupCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             RuleFor(command => command.Id).NotEmpty(localizer);
 
-            RuleFor(command => command.Title).ValidGroupTitle(localizer);
+            RuleFor(command => command.Title)
+                .ValidGroupTitle(localizer)
+                .UniqueGroupTitle(store, localizer, exceptGroupWithId: command => command.Id);
         }
     }
 }

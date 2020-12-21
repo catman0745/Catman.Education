@@ -28,11 +28,6 @@ namespace Catman.Education.Application.Features.Admin.Commands.UpdateAdmin
             }
             var admin = await _store.Admins.WithIdAsync(updateCommand.Id);
 
-            if (await _store.Users.OtherThan(admin).ExistsWithUsernameAsync(updateCommand.Username))
-            {
-                return ValidationError("username", _localizer.MustBeUnique());
-            }
-
             _mapper.Map(updateCommand, admin);
             await _store.SaveChangesAsync();
 

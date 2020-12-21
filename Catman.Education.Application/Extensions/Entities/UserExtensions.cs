@@ -20,7 +20,7 @@ namespace Catman.Education.Application.Extensions.Entities
         public static Task<User> WithIdAsync(this IQueryable<User> users, Guid id) =>
             users.SingleAsync(user => user.Id == id);
 
-        public static IQueryable<User> OtherThan(this IQueryable<User> users, User user) =>
-            users.Where(u => u.Id != user.Id);
+        public static IQueryable<User> OtherThan(this IQueryable<User> users, Guid userId) =>
+            users.Where(user => user.Id != userId);
     }
 }
