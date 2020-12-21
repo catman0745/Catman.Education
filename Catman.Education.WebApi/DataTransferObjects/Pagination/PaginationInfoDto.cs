@@ -1,7 +1,7 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Pagination
 {
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
     using Microsoft.AspNetCore.Mvc;
 

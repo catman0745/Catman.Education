@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
 {
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
 
     public class RemoveTestCommandValidator : AbstractValidator<RemoveTestCommand>

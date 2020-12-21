@@ -1,6 +1,6 @@
 namespace Catman.Education.Application.Features.Question.Queries.GetQuestion
 {
-    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Extensions.Validation;
     using Catman.Education.Application.Abstractions;
     using FluentValidation;
 

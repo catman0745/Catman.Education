@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Pagination
 {
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
 
     internal class PaginationInfoValidator : AbstractValidator<PaginationInfo>
