@@ -38,6 +38,8 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
         {
             var testingResults = await _store.TestingResults
                 .ApplyFilter(TestingResultsFilter, getQuery)
+                .OrderBy(testingResult => testingResult.TestId)
+                    .ThenBy(testingResult => testingResult.StudentId)
                 .PaginateAsync(getQuery);
 
             return Success(_localizer.TestingResultsRetrieved(testingResults.Count), testingResults);

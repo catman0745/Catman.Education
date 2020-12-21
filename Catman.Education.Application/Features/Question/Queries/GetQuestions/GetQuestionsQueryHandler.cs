@@ -33,7 +33,7 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestions
             var questions = await _store.Questions
                 .ApplyFilter(QuestionsFilter, getQuery)
                 .OrderBy(question => question.TestId)
-                .ThenBy(question => question.Cost)
+                    .ThenBy(question => question.Cost)
                 .PaginateAsync(getQuery);
 
             return Success(_localizer.QuestionsRetrieved(questions.Count), questions);
