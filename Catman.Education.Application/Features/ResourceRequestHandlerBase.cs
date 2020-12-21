@@ -1,10 +1,8 @@
 namespace Catman.Education.Application.Features
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;
     using MediatR;
 
@@ -12,13 +10,6 @@ namespace Catman.Education.Application.Features
         : IRequestHandler<TResourceRequest, ResourceRequestResult<TResource>>
         where TResourceRequest : IRequest<ResourceRequestResult<TResource>>
     {
-        private readonly ILocalizer _localizer;
-
-        protected ResourceRequestHandlerBase(ILocalizer localizer)
-        {
-            _localizer = localizer;
-        }
-        
         private static ResourceRequestResult<TResource> Failure(string message, Error error) =>
             new ResourceRequestResult<TResource>.Failure(message, error);
         
@@ -28,20 +19,13 @@ namespace Catman.Education.Application.Features
         protected static ResourceRequestResult<TResource> NotFound(string message) =>
             Failure(message, new Error.NotFound());
 
-        protected ResourceRequestResult<TResource> TestRetake(Guid testId, Guid studentId) =>
-            Failure(_localizer.TestRetake(testId, studentId), new Error.TestRetake());
-
-        protected ResourceRequestResult<TResource> ValidationError(string propertyName, string errorMessage) =>
-            ValidationError(new Dictionary<string, string>() {[propertyName] = errorMessage});
+        protected static ResourceRequestResult<TResource> TestRetake(string errorMessage) =>
+            Failure(errorMessage, new Error.TestRetake());
         
-        protected ResourceRequestResult<TResource> ValidationError(IDictionary<string, string> errors) =>
-            Failure(_localizer.ValidationError(), new Error.ValidationError(errors));
-
-        protected ResourceRequestResult<TResource> Unauthorized() =>
-            Failure(_localizer.UnauthorizedError(), new Error.Unauthorized());
-
-        protected ResourceRequestResult<TResource> AccessViolation() =>
-            Failure(_localizer.AccessViolationError(), new Error.AccessViolation());
+        protected static ResourceRequestResult<TResource> ValidationError(
+            string errorMessage,
+            IDictionary<string, string> errors) =>
+            Failure(errorMessage, new Error.ValidationError(errors));
 
         public Task<ResourceRequestResult<TResource>> Handle(TResourceRequest request, CancellationToken _) =>
             HandleAsync(request);

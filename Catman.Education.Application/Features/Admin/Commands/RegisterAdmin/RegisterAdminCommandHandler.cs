@@ -13,7 +13,6 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
         private readonly ILocalizer _localizer;
 
         public RegisterAdminCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

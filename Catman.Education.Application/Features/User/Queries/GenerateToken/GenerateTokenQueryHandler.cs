@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.User.Queries.GenerateToken
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
@@ -12,7 +13,6 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
         private readonly ILocalizer _localizer;
 
         public GenerateTokenQueryHandler(IApplicationStore store, ITokenService tokenService, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _tokenService = tokenService;
@@ -29,7 +29,11 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
 
             if (user.Password != tokenQuery.Password)
             {
-                return ValidationError("password", _localizer.IncorrectPassword());
+                var errors = new Dictionary<string, string>()
+                {
+                    [nameof(tokenQuery.Password)] = _localizer.IncorrectPassword()
+                };
+                return ValidationError(_localizer.IncorrectPassword(), errors);
             }
 
             var token = _tokenService.GenerateToken(user);

@@ -13,7 +13,6 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
         private readonly ILocalizer _localizer;
 
         public GetDisciplinesQueryHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

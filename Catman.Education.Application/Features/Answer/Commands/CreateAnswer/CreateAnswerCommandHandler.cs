@@ -14,7 +14,6 @@ namespace Catman.Education.Application.Features.Answer.Commands.CreateAnswer
         private readonly ILocalizer _localizer;
 
         public CreateAnswerCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

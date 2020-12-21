@@ -11,7 +11,6 @@ namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscip
         private readonly ILocalizer _localizer;
 
         public RemoveDisciplineCommandHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

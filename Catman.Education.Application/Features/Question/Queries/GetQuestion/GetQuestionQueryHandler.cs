@@ -12,7 +12,6 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestion
         private readonly ILocalizer _localizer;
 
         public GetQuestionQueryHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

@@ -12,7 +12,6 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTest
         private readonly ILocalizer _localizer;
 
         public GetTestQueryHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

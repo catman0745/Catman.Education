@@ -11,7 +11,6 @@ namespace Catman.Education.Application.Features.Question.Commands.RemoveQuestion
         private readonly ILocalizer _localizer;
 
         public RemoveQuestionCommandHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

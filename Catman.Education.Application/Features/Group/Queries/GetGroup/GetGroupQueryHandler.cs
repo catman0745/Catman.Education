@@ -12,7 +12,6 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroup
         private readonly ILocalizer _localizer;
 
         public GetGroupQueryHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

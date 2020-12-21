@@ -13,7 +13,6 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
         private readonly ILocalizer _localizer;
 
         public UpdateTestCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

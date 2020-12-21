@@ -11,7 +11,6 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
         private readonly ILocalizer _localizer;
 
         public RemoveTestCommandHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

@@ -13,7 +13,6 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
         private readonly ILocalizer _localizer;
         
         public UpdateStudentCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _mapper = mapper;

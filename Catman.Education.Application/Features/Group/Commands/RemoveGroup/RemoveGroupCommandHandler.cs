@@ -11,7 +11,6 @@ namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
         private readonly ILocalizer _localizer;
 
         public RemoveGroupCommandHandler(IApplicationStore store, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _localizer = localizer;

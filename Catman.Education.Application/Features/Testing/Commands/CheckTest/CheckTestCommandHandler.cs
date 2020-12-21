@@ -16,7 +16,6 @@ namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
         private readonly ILocalizer _localizer;
         
         public CheckTestCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
-            : base(localizer)
         {
             _store = store;
             _mapper = mapper;
@@ -36,7 +35,7 @@ namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
 
             if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.TestId, checkCommand.RequestorId))
             {
-                return TestRetake(checkCommand.TestId, checkCommand.RequestorId);
+                return TestRetake(_localizer.TestRetake(checkCommand.TestId, checkCommand.RequestorId));
             }
 
             var answerCheckResults = test.Questions
