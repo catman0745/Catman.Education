@@ -44,12 +44,13 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get all disciplines </summary>
+        /// <summary> Get filtered disciplines </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<DisciplineDto>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetDisciplines()
+        [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetDisciplines([FromQuery] GetDisciplinesDto getDto)
         {
-            var getQuery = new GetDisciplinesQuery();
+            var getQuery = _mapper.Map<GetDisciplinesQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(disciplines =>

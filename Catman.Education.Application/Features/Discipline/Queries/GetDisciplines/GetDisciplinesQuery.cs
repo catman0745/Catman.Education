@@ -7,5 +7,8 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
 
     public class GetDisciplinesQuery : IRequest<ResourceRequestResult<ICollection<Discipline>>>
     {
+        public string Title { get; set; }
+        
+        public int? Grade { get; set; }
     }
 }
