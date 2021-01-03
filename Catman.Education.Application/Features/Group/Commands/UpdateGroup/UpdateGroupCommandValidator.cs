@@ -11,6 +11,7 @@ namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             RuleFor(command => command.Id).NotEmpty(localizer);
 
+            RuleFor(command => command.Grade).ValidGrade(localizer);
             RuleFor(command => command.Title)
                 .ValidGroupTitle(localizer)
                 .UniqueGroupTitle(store, localizer, exceptGroupWithId: command => command.Id);

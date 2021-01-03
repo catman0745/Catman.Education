@@ -10,5 +10,8 @@ namespace Catman.Education.WebApi.DataTransferObjects.Discipline
         
         [JsonPropertyName("title")]
         public string Title { get; set; }
+        
+        [JsonPropertyName("grade")]
+        public int Grade { get; set; }
     }
 }

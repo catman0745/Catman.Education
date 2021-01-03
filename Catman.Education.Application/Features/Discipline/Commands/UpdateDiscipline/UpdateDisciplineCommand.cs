@@ -10,6 +10,8 @@ namespace Catman.Education.Application.Features.Discipline.Commands.UpdateDiscip
         public Guid Id { get; }
         
         public string Title { get; set; }
+        
+        public int Grade { get; set; }
             
         public Guid RequestorId { get; }
 

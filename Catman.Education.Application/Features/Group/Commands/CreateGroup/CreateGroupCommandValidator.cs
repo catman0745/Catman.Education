@@ -10,7 +10,10 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
-            RuleFor(command => command.Title).ValidGroupTitle(localizer).UniqueGroupTitle(store, localizer);
+            RuleFor(command => command.Grade).ValidGrade(localizer);
+            RuleFor(command => command.Title)
+                .ValidGroupTitle(localizer)
+                .UniqueGroupTitle(store, localizer);
         }
     }
 }

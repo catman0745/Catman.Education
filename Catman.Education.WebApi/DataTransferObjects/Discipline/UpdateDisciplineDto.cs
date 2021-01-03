@@ -9,6 +9,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Discipline
     {
         [JsonPropertyName("title")]
         public string Title { get; set; }
+        
+        [JsonPropertyName("grade")]
+        public int Grade { get; set; }
     }
 
     public class UpdateDisciplineDtoValidator : AbstractValidator<UpdateDisciplineDto>
@@ -16,6 +19,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Discipline
         public UpdateDisciplineDtoValidator(ILocalizer localizer)
         {
             RuleFor(dto => dto.Title).ValidDisciplineTitle(localizer);
+            RuleFor(dto => dto.Grade).ValidGrade(localizer);
         }
     }
 }

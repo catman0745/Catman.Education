@@ -11,6 +11,10 @@ namespace Catman.Education.Persistence.EntityConfigurations
             builder.ToTable("disciplines");
 
             builder
+                .HasIndex(discipline => new {discipline.Grade, discipline.Title})
+                .IsUnique();
+
+            builder
                 .Property(discipline => discipline.Id)
                 .HasColumnName("id");
 
@@ -19,6 +23,11 @@ namespace Catman.Education.Persistence.EntityConfigurations
                 .HasColumnName("title")
                 .HasMaxLength(30)
                 .IsRequired();
+
+            builder
+                .Property(discipline => discipline.Grade)
+                .HasColumnName("grade")
+                .HasDefaultValue(1);
         }
     }
 }

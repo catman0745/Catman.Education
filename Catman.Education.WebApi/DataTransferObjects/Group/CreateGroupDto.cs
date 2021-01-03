@@ -9,6 +9,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Group
     {
         [JsonPropertyName("title")]
         public string Title { get; set; }
+        
+        [JsonPropertyName("grade")]
+        public int Grade { get; set; }
     }
 
     public class CreateGroupDtoValidator : AbstractValidator<CreateGroupDto>
@@ -16,6 +19,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Group
         public CreateGroupDtoValidator(ILocalizer localizer)
         {
             RuleFor(dto => dto.Title).ValidGroupTitle(localizer);
+            RuleFor(dto => dto.Grade).ValidGrade(localizer);
         }
     }
 }

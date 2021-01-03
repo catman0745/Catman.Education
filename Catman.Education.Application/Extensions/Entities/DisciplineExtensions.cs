@@ -17,6 +17,9 @@ namespace Catman.Education.Application.Extensions.Entities
         public static Task<Discipline> WithIdAsync(this IQueryable<Discipline> disciplines, Guid id) =>
             disciplines.SingleAsync(discipline => discipline.Id == id);
 
+        public static IQueryable<Discipline> OfGrade(this IQueryable<Discipline> disciplines, int grade) =>
+            disciplines.Where(discipline => discipline.Grade == grade);
+
         public static IQueryable<Discipline> OtherThan(this IQueryable<Discipline> disciplines, Guid disciplineId) =>
             disciplines.Where(discipline => discipline.Id != disciplineId);
     }

@@ -9,6 +9,8 @@ namespace Catman.Education.Application.Entities
         
         public string Title { get; set; }
         
+        public int Grade { get; set; }
+        
         public ICollection<Test> Tests { get; set; }
     }
 }

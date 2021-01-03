@@ -23,6 +23,11 @@ namespace Catman.Education.Persistence.EntityConfigurations
                 .HasColumnName("title")
                 .HasMaxLength(5)
                 .IsRequired();
+
+            builder
+                .Property(group => group.Grade)
+                .HasColumnName("grade")
+                .HasDefaultValue(1);
         }
     }
 }

@@ -17,19 +17,23 @@ namespace Catman.Education.Application.Extensions.Validation
         public static IRuleBuilderOptions<T, string> UniqueDisciplineTitle<T>(
             this IRuleBuilder<T, string> titleRule,
             IApplicationStore store,
-            ILocalizer localizer) =>
+            ILocalizer localizer,
+            Func<T, int> grade) =>
             titleRule
-                .MustAsync(async (title, _) => !await store.Disciplines.ExistsWithTitleAsync(title))
+                .MustAsync(async (request, title, _) => !await store.Disciplines
+                    .OfGrade(grade(request)).ExistsWithTitleAsync(title))
                 .WithMessage(localizer.MustBeUnique());
         
         public static IRuleBuilderOptions<T, string> UniqueDisciplineTitle<T>(
             this IRuleBuilder<T, string> titleRule,
             IApplicationStore store,
             ILocalizer localizer,
+            Func<T, int> grade,
             Func<T, Guid> exceptDisciplineWithId) =>
             titleRule
                 .MustAsync(async (request, title, _) => !await store.Disciplines
                     .OtherThan(exceptDisciplineWithId(request))
+                    .OfGrade(grade(request))
                     .ExistsWithTitleAsync(title))
                 .WithMessage(localizer.MustBeUnique());
     }

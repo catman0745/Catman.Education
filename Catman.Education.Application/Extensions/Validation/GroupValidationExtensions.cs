@@ -14,8 +14,6 @@ namespace Catman.Education.Application.Extensions.Validation
                 .NotEmpty(localizer)
                 .MaximumLength(5, localizer);
         
-        
-        
         public static IRuleBuilderOptions<T, string> UniqueGroupTitle<T>(
             this IRuleBuilder<T, string> titleRule,
             IApplicationStore store,
