@@ -13,8 +13,12 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
     {
         private static IQueryable<Group> GroupFilter(IQueryable<Group> groups, GetGroupsQuery getQuery)
         {
-            var title = getQuery.Title?.ToUpper() ?? string.Empty;
-            return groups.Where(group => group.Title.ToUpper().Contains(title));
+            var title = getQuery.Title?.ToUpper();
+            var grade = getQuery.Grade;
+            
+            return groups
+                .Where(group => string.IsNullOrWhiteSpace(title) || group.Title.ToUpper().Contains(title))
+                .Where(group => grade == null || group.Grade == grade);
         }
         
         private readonly IApplicationStore _store;
@@ -30,7 +34,8 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
         {
             var groups = await _store.Groups
                 .ApplyFilter(GroupFilter, getQuery)
-                .OrderBy(group => group.Title)
+                .OrderBy(group => group.Grade)
+                    .ThenBy(group => group.Title)
                 .ToListAsync();
 
             return Success(_localizer.GroupsRetrieved(groups.Count), groups);
