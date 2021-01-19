@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
 {
     using System;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Results.Common;
     using MediatR;
 

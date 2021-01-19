@@ -1,7 +1,9 @@
 namespace Catman.Education.Application.Abstractions
 {
     using System.Threading.Tasks;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
+    using Catman.Education.Application.Entities.Testing.Questioning;
+    using Catman.Education.Application.Entities.Users;
     using Microsoft.EntityFrameworkCore;
 
     public interface IApplicationStore

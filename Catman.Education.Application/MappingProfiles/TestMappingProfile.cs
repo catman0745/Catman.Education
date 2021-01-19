@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.MappingProfiles
 {
     using AutoMapper;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Features.Test.Commands.CreateTest;
     using Catman.Education.Application.Features.Test.Commands.UpdateTest;
     using Catman.Education.Application.Results.Testing;

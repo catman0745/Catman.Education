@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Results.Common;

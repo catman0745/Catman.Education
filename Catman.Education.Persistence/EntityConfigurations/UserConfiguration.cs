@@ -1,6 +1,6 @@
 namespace Catman.Education.Persistence.EntityConfigurations
 {
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Users;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
 {
     using System.Threading.Tasks;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Results.Common;
 

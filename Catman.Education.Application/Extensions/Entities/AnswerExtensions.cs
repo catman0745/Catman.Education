@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Extensions.Entities
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing.Questioning;
     using Microsoft.EntityFrameworkCore;
 
     internal static class AnswerExtensions

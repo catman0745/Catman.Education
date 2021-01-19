@@ -2,9 +2,9 @@ namespace Catman.Education.Application.Features.Question.Queries.GetQuestions
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Pagination;
     using Catman.Education.Application.Results.Common;
 

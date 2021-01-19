@@ -2,9 +2,9 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 {
     using System.Threading.Tasks;
     using AutoMapper;
-    using Catman.Education.Application.Entities;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Results.Common;
 
     internal class RegisterStudentCommandHandler : ResourceRequestHandlerBase<RegisterStudentCommand, Student>

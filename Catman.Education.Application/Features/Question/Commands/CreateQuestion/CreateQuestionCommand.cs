@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Question.Commands.CreateQuestion
 {
     using System;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.RequestRestrictions;
     using Catman.Education.Application.Results.Common;
     using MediatR;

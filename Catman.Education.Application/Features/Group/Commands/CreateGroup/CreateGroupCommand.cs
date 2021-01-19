@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
 {
     using System;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.RequestRestrictions;
     using Catman.Education.Application.Results.Common;
     using MediatR;

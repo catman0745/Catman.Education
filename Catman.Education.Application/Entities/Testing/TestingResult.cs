@@ -1,6 +1,7 @@
-namespace Catman.Education.Application.Entities
+namespace Catman.Education.Application.Entities.Testing
 {
     using System;
+    using Catman.Education.Application.Entities.Users;
 
     public class TestingResult
     {

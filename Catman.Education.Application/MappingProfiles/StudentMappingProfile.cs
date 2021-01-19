@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.MappingProfiles
 {
     using AutoMapper;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Features.Student.Commands.RegisterStudent;
     using Catman.Education.Application.Features.Student.Commands.UpdateStudent;
 

@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 {
     using System;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.RequestRestrictions;
     using Catman.Education.Application.Results.Common;
     using MediatR;
@@ -18,7 +18,7 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => nameof(Admin);
+        public string RequiredRequestorRole => nameof(Features.Admin);
 
         public RegisterStudentCommand(Guid requestorId)
         {

@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
 {
     using System;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Results.Common;
     using MediatR;
 

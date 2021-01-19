@@ -1,7 +1,8 @@
 namespace Catman.Education.WebApi.MappingProfiles
 {
     using AutoMapper;
-    using Catman.Education.Application.Entities;
+    using Catman.Education.Application.Entities.Testing;
+    using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResults;
     using Catman.Education.Application.Results.Testing;
     using Catman.Education.WebApi.DataTransferObjects.Testing;

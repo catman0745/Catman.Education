@@ -1,7 +1,6 @@
 namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
 {
     using System;
-    using Catman.Education.Application.Entities;
     using Catman.Education.Application.RequestRestrictions;
     using Catman.Education.Application.Results.Common;
     using MediatR;

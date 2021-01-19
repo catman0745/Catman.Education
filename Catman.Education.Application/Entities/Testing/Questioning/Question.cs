@@ -1,4 +1,4 @@
-namespace Catman.Education.Application.Entities
+namespace Catman.Education.Application.Entities.Testing.Questioning
 {
     using System;
     using System.Collections.Generic;
