@@ -8,8 +8,12 @@ namespace Catman.Education.WebApi.Controllers
     using Catman.Education.Application.Features.Testing.Queries.GetTesting;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResult;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResults;
+    using Catman.Education.Application.Models.Answered;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.Testing;
+    using Catman.Education.WebApi.DataTransferObjects.Testing.Answered;
+    using Catman.Education.WebApi.DataTransferObjects.Testing.Check;
+    using Catman.Education.WebApi.DataTransferObjects.Testing.Results;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
     using MediatR;
@@ -77,7 +81,6 @@ namespace Catman.Education.WebApi.Controllers
         }
 
         /// <summary> Check the specified answers for a test with a matching id </summary>
-        /// <param name="correctAnswersIds"> IDs of answers marked as correct </param>
         [HttpPost("{testId}")]
         [Authorize]
         [ProducesResponseType(typeof(ResourceSuccessResponse<TestCheckResultDto>), StatusCodes.Status200OK)]
@@ -86,9 +89,14 @@ namespace Catman.Education.WebApi.Controllers
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CheckAnswers(
             [FromRoute] Guid testId,
-            [FromBody] ICollection<Guid> correctAnswersIds)
+            [FromBody] AnsweredTestDto answeredTestDto)
         {
-            var checkQuery = new CheckTestCommand(testId, correctAnswersIds, UserId);
+            var answeredTest = new AnsweredTest()
+            {
+                TestId = testId,
+                AnsweredQuestions = _mapper.Map<ICollection<AnsweredQuestion>>(answeredTestDto.Questions)
+            };
+            var checkQuery = new CheckTestCommand(answeredTest, UserId);
 
             var result = await _mediator.Send(checkQuery);
             return result.ToActionResult(testCheckResult =>

@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Entities.Testing.Questioning
     using System;
     using System.Collections.Generic;
 
-    public class Question
+    public abstract class Question
     {
         public Guid Id { get; set; }
         
@@ -15,6 +15,6 @@ namespace Catman.Education.Application.Entities.Testing.Questioning
         
         public Test Test { get; set; }
         
-        public ICollection<Answer> Answers { get; set; }
+        public ICollection<QuestionItem> Items { get; set; }
     }
 }

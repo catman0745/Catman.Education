@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Features
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using MediatR;
 
     internal abstract class ResourceRequestHandlerBase<TResourceRequest, TResource>

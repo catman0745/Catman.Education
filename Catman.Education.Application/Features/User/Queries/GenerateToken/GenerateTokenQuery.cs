@@ -1,6 +1,6 @@
 namespace Catman.Education.Application.Features.User.Queries.GenerateToken
 {
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using MediatR;
 
     public class GenerateTokenQuery : IRequest<ResourceRequestResult<string>>

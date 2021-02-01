@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.User.Queries.GenerateToken
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
 
     internal class GenerateTokenQueryHandler : ResourceRequestHandlerBase<GenerateTokenQuery, string>
     {

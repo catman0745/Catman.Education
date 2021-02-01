@@ -22,8 +22,12 @@ namespace Catman.Education.Application.Abstractions
         
         DbSet<Question> Questions { get; }
         
-        DbSet<Answer> Answers { get; }
+        DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; }
+
+        DbSet<QuestionItem> QuestionItems { get; }
         
+        DbSet<MultipleChoiceQuestionAnswerOption> MultipleChoiceQuestionAnswerOptions { get; }
+
         DbSet<TestingResult> TestingResults { get; }
 
         Task SaveChangesAsync();

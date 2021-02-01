@@ -8,7 +8,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTesting
     {
         public GetTestingQueryValidator(ILocalizer localizer)
         {
-            RuleFor(query => query.Id).NotEmpty(localizer);
+            RuleFor(query => query.TestId).NotEmpty(localizer);
         }
     }
 }

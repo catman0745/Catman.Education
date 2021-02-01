@@ -195,6 +195,6 @@
         <value>The result of passing the test with the id "{testId}" by the student with the id "{studentId}" retrieved successfully</value>
     </data>
     <data name="Testing result with testId and studentId not found" xml:space="preserve">
-        <value>The result of passing the test with the id "{tedtId}" by the student with the id "{studentId}" not found</value>
+        <value>The result of passing the test with the id "{testId}" by the student with the id "{studentId}" not found</value>
     </data>
 </root>

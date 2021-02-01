@@ -1,8 +1,8 @@
 namespace Catman.Education.Application.Features.Group.Commands.UpdateGroup
 {
     using System;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class UpdateGroupCommand : IRequest<RequestResult>, IRequestorRoleRestriction

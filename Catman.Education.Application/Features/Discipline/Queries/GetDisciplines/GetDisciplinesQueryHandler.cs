@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Features.Discipline.Queries.GetDiscipline
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Extensions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using Microsoft.EntityFrameworkCore;
 
     internal class GetDisciplinesQueryHandler : ResourceRequestHandlerBase<GetDisciplinesQuery, ICollection<Discipline>>

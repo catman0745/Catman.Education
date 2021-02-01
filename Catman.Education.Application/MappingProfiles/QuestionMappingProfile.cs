@@ -2,15 +2,15 @@ namespace Catman.Education.Application.MappingProfiles
 {
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing.Questioning;
-    using Catman.Education.Application.Features.Question.Commands.CreateQuestion;
-    using Catman.Education.Application.Features.Question.Commands.UpdateQuestion;
+    using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.CreateMultipleChoiceQuestion;
+    using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.UpdateMultipleChoiceQuestion;
 
     public class QuestionMappingProfile : Profile
     {
         public QuestionMappingProfile()
         {
-            CreateMap<CreateQuestionCommand, Question>();
-            CreateMap<UpdateQuestionCommand, Question>()
+            CreateMap<CreateMultipleChoiceQuestionCommand, MultipleChoiceQuestion>();
+            CreateMap<UpdateMultipleChoiceQuestionCommand, MultipleChoiceQuestion>()
                 .ForMember(question => question.Id, options => options.Ignore());
         }
     }

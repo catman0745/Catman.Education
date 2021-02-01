@@ -27,6 +27,11 @@ namespace Catman.Education.Persistence.EntityConfigurations
             builder
                 .Property(question => question.TestId)
                 .HasColumnName("test_id");
+
+            builder
+                .HasMany(question => question.Items)
+                .WithOne(item => item.Question)
+                .HasForeignKey(item => item.QuestionId);
         }
     }
 }

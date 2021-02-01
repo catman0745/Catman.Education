@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Group.Commands.CreateGroup
     using AutoMapper;
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
 
     internal class CreateGroupCommandHandler : ResourceRequestHandlerBase<CreateGroupCommand, Group>
     {

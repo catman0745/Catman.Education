@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace Catman.Education.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationStore))]
-    internal class ApplicationStoreModelSnapshot : ModelSnapshot
+    class ApplicationStoreModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -16,35 +16,7 @@ namespace Catman.Education.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Answer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_correct");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("question_id");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("answers");
-                });
-
-            modelBuilder.Entity("Catman.Education.Application.Entities.Discipline", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Discipline", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,34 +43,7 @@ namespace Catman.Education.Persistence.Migrations
                     b.ToTable("disciplines");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<int>("Grade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(1)
-                        .HasColumnName("grade");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Title")
-                        .IsUnique();
-
-                    b.ToTable("groups");
-                });
-
-            modelBuilder.Entity("Catman.Education.Application.Entities.Question", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +71,31 @@ namespace Catman.Education.Persistence.Migrations
                     b.ToTable("questions");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Test", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.QuestionItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("question_id");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("question_items");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Test", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +120,7 @@ namespace Catman.Education.Persistence.Migrations
                     b.ToTable("tests");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.TestingResult", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.TestingResult", b =>
                 {
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uuid")
@@ -176,7 +145,34 @@ namespace Catman.Education.Persistence.Migrations
                     b.ToTable("testing_results");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.User", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Users.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Grade")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("grade");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
+
+                    b.ToTable("groups");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,16 +206,40 @@ namespace Catman.Education.Persistence.Migrations
                     b.HasDiscriminator<string>("Role").HasValue("User");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Admin", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestion", b =>
                 {
-                    b.HasBaseType("Catman.Education.Application.Entities.User");
+                    b.HasBaseType("Catman.Education.Application.Entities.Testing.Questioning.Question");
+
+                    b.ToTable("multiple_choice_questions");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestionAnswerOption", b =>
+                {
+                    b.HasBaseType("Catman.Education.Application.Entities.Testing.Questioning.QuestionItem");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_correct");
+
+                    b.Property<Guid>("MultipleChoiceQuestionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("multiple_choice_question_id");
+
+                    b.HasIndex("MultipleChoiceQuestionId");
+
+                    b.ToTable("multiple_choice_question_answer_options");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Users.Admin", b =>
+                {
+                    b.HasBaseType("Catman.Education.Application.Entities.Users.User");
 
                     b.HasDiscriminator().HasValue("Admin");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Student", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Users.Student", b =>
                 {
-                    b.HasBaseType("Catman.Education.Application.Entities.User");
+                    b.HasBaseType("Catman.Education.Application.Entities.Users.User");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -236,20 +256,9 @@ namespace Catman.Education.Persistence.Migrations
                     b.HasDiscriminator().HasValue("Student");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Answer", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.Question", b =>
                 {
-                    b.HasOne("Catman.Education.Application.Entities.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Catman.Education.Application.Entities.Question", b =>
-                {
-                    b.HasOne("Catman.Education.Application.Entities.Test", "Test")
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Test", "Test")
                         .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -258,9 +267,20 @@ namespace Catman.Education.Persistence.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Test", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.QuestionItem", b =>
                 {
-                    b.HasOne("Catman.Education.Application.Entities.Discipline", "Discipline")
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Questioning.Question", "Question")
+                        .WithMany("Items")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Test", b =>
+                {
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Discipline", "Discipline")
                         .WithMany("Tests")
                         .HasForeignKey("DisciplineId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,15 +289,15 @@ namespace Catman.Education.Persistence.Migrations
                     b.Navigation("Discipline");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.TestingResult", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.TestingResult", b =>
                 {
-                    b.HasOne("Catman.Education.Application.Entities.Student", "Student")
+                    b.HasOne("Catman.Education.Application.Entities.Users.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Catman.Education.Application.Entities.Test", "Test")
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -288,9 +308,35 @@ namespace Catman.Education.Persistence.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Student", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestion", b =>
                 {
-                    b.HasOne("Catman.Education.Application.Entities.Group", "Group")
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Questioning.Question", null)
+                        .WithOne()
+                        .HasForeignKey("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestion", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestionAnswerOption", b =>
+                {
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Questioning.QuestionItem", null)
+                        .WithOne()
+                        .HasForeignKey("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestionAnswerOption", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestion", "MultipleChoiceQuestion")
+                        .WithMany("AnswerOptions")
+                        .HasForeignKey("MultipleChoiceQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MultipleChoiceQuestion");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Users.Student", b =>
+                {
+                    b.HasOne("Catman.Education.Application.Entities.Users.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -299,19 +345,24 @@ namespace Catman.Education.Persistence.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Discipline", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Discipline", b =>
                 {
                     b.Navigation("Tests");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Question", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.Question", b =>
                 {
-                    b.Navigation("Answers");
+                    b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Catman.Education.Application.Entities.Test", b =>
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Test", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Catman.Education.Application.Entities.Testing.Questioning.MultipleChoiceQuestion", b =>
+                {
+                    b.Navigation("AnswerOptions");
                 });
 #pragma warning restore 612, 618
         }

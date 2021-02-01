@@ -1,76 +1,69 @@
 namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Entities.Testing;
-    using Catman.Education.Application.Results.Common;
-    using Catman.Education.Application.Results.Testing;
+    using Catman.Education.Application.Extensions.Entities;
+    using Catman.Education.Application.Features.Testing.Commands.CheckTest.QuestionCheckers;
+    using Catman.Education.Application.Models.Checked;
+    using Catman.Education.Application.Models.Result;
 
     internal class CheckTestCommandHandler : ResourceRequestHandlerBase<CheckTestCommand, TestCheckResult>
     {
         private readonly IApplicationStore _store;
         private readonly IMapper _mapper;
         private readonly ILocalizer _localizer;
-        
+
         public CheckTestCommandHandler(IApplicationStore store, IMapper mapper, ILocalizer localizer)
         {
             _store = store;
             _mapper = mapper;
             _localizer = localizer;
         }
-
-        protected override async Task<ResourceRequestResult<TestCheckResult>> HandleAsync(
-            CheckTestCommand checkCommand)
+        
+        protected override async Task<ResourceRequestResult<TestCheckResult>> HandleAsync(CheckTestCommand checkCommand)
         {
-            if (!await _store.Tests.ExistsWithIdAsync(checkCommand.TestId))
+            if (!await _store.Tests.ExistsWithIdAsync(checkCommand.AnsweredTest.TestId))
             {
-                return NotFound(_localizer.TestNotFound(checkCommand.TestId));
+                return NotFound(_localizer.TestNotFound(checkCommand.AnsweredTest.TestId));
             }
+            if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.AnsweredTest.TestId, checkCommand.RequestorId))
+            {
+                return TestRetake(_localizer.TestRetake(checkCommand.AnsweredTest.TestId, checkCommand.RequestorId));
+            }
+            
             var test = await _store.Tests
-                .IncludeQuestionsWithAnswers(checkCommand.TestId)
-                .WithIdAsync(checkCommand.TestId);
+                .IncludeQuestionsWithQuestionItems(checkCommand.AnsweredTest.TestId)
+                .WithIdAsync(checkCommand.AnsweredTest.TestId);
 
-            if (await _store.TestingResults.ExistsWithKeyAsync(checkCommand.TestId, checkCommand.RequestorId))
-            {
-                return TestRetake(_localizer.TestRetake(checkCommand.TestId, checkCommand.RequestorId));
-            }
-
-            var answerCheckResults = test.Questions
-                .SelectMany(question => question.Answers)
-                .Select(expectedAnswer => new AnswerCheckResult()
-                {
-                    AnswerId = expectedAnswer.Id,
-                    IsCorrect = expectedAnswer.IsCorrect,
-                    IsChecked = checkCommand.CorrectAnswersIds.Contains(expectedAnswer.Id),
-                    QuestionId = expectedAnswer.QuestionId
-                });
-
-            var testCheckResult = new TestCheckResult()
+            var checkResult = new TestCheckResult()
             {
                 TestId = test.Id,
                 Questions = test.Questions
-                    .GroupJoin(
-                        answerCheckResults,
+                    .Join(
+                        checkCommand.AnsweredTest.AnsweredQuestions,
                         question => question.Id,
-                        answerCheckResult => answerCheckResult.QuestionId,
-                        (question, questionAnswerCheckResults) => new QuestionCheckResult()
-                        {
-                            QuestionId = question.Id,
-                            Cost = question.Cost,
-                            Answers = questionAnswerCheckResults.ToList()
-                        })
+                        answeredQuestion => answeredQuestion.QuestionId,
+                        (question, answeredQuestion) => (Expected: question, Actual: answeredQuestion))
+                    .Select(pair => QuestionChecker.CheckQuestion(pair.Expected, pair.Actual))
                     .ToList()
             };
 
-            var testingResult = new TestingResult() {StudentId = checkCommand.RequestorId};
-            _mapper.Map(testCheckResult, testingResult);
-            _store.TestingResults.Add(testingResult);
-            await _store.SaveChangesAsync();
+            await SaveTestingResult(checkResult, checkCommand.RequestorId);
 
-            return Success(_localizer.TestChecked(test.Id), testCheckResult);
+            return Success(_localizer.TestChecked(test.Id), checkResult);
+        }
+
+        private Task SaveTestingResult(TestCheckResult checkResult, Guid studentId)
+        {
+            var testingResult = new TestingResult { StudentId = studentId };
+            _mapper.Map(checkResult, testingResult);
+            
+            _store.TestingResults.Add(testingResult);
+            return _store.SaveChangesAsync();
         }
     }
 }

@@ -23,7 +23,11 @@ namespace Catman.Education.Persistence
         
         public DbSet<Question> Questions { get; set; }
 
-        public DbSet<Answer> Answers { get; set; }
+        public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
+
+        public DbSet<QuestionItem> QuestionItems { get; set; }
+
+        public DbSet<MultipleChoiceQuestionAnswerOption> MultipleChoiceQuestionAnswerOptions { get; set; }
 
         public DbSet<TestingResult> TestingResults { get; set; }
 

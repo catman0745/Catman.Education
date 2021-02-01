@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroup
 {
     using System;
     using Catman.Education.Application.Entities.Users;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using MediatR;
 
     public class GetGroupQuery : IRequest<ResourceRequestResult<Group>>

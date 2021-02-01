@@ -2,8 +2,8 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
 {
     using System;
     using Catman.Education.Application.Entities.Users;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class RegisterStudentCommand : IRequest<ResourceRequestResult<Student>>, IRequestorRoleRestriction

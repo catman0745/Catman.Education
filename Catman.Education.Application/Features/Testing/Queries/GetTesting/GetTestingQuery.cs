@@ -1,17 +1,17 @@
 namespace Catman.Education.Application.Features.Testing.Queries.GetTesting
 {
     using System;
-    using Catman.Education.Application.Entities.Testing;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
+    using Catman.Education.Application.Models.Testing;
     using MediatR;
 
-    public class GetTestingQuery : IRequest<ResourceRequestResult<Test>>
+    public class GetTestingQuery : IRequest<ResourceRequestResult<Testing>>
     {
-        public Guid Id { get; }
+        public Guid TestId { get; }
 
-        public GetTestingQuery(Guid id)
+        public GetTestingQuery(Guid testId)
         {
-            Id = id;
+            TestId = testId;
         }
     }
 }

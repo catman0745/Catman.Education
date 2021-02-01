@@ -1,28 +1,24 @@
 namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
 {
     using System;
-    using System.Collections.Generic;
+    using Catman.Education.Application.Entities.Users;
+    using Catman.Education.Application.Models.Answered;
+    using Catman.Education.Application.Models.Checked;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results.Common;
-    using Catman.Education.Application.Results.Testing;
     using MediatR;
 
     public class CheckTestCommand : IRequest<ResourceRequestResult<TestCheckResult>>, IRequestorRoleRestriction
     {
-        public Guid TestId { get; }
+        public AnsweredTest AnsweredTest { get; }
         
-        /// <summary> IDs of answers marked as correct </summary>
-        public ICollection<Guid> CorrectAnswersIds { get; }
-
         public Guid RequestorId { get; }
 
         public string RequiredRequestorRole => nameof(Student);
 
-        /// <param name="correctAnswersIds"> IDs of answers marked as correct </param>
-        public CheckTestCommand(Guid testId, ICollection<Guid> correctAnswersIds, Guid requestorId)
+        public CheckTestCommand(AnsweredTest test, Guid requestorId)
         {
-            TestId = testId;
-            CorrectAnswersIds = correctAnswersIds;
+            AnsweredTest = test;
             RequestorId = requestorId;
         }
     }

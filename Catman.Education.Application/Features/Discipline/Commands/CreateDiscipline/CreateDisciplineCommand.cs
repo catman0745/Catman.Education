@@ -2,8 +2,8 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
 {
     using System;
     using Catman.Education.Application.Entities.Testing;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class CreateDisciplineCommand : IRequest<ResourceRequestResult<Discipline>>, IRequestorRoleRestriction

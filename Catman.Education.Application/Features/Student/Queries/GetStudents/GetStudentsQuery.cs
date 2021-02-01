@@ -2,8 +2,8 @@ namespace Catman.Education.Application.Features.Student.Queries.GetStudents
 {
     using System;
     using Catman.Education.Application.Entities.Users;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
-    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class GetStudentsQuery : PaginationInfo, IRequest<ResourceRequestResult<Paginated<Student>>>

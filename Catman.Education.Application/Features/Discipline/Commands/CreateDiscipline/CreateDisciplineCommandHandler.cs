@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
 
     internal class CreateDisciplineCommandHandler : ResourceRequestHandlerBase<CreateDisciplineCommand, Discipline>
     {

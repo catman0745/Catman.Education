@@ -4,7 +4,7 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
     using AutoMapper;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
 
     internal class UpdateStudentCommandHandler : RequestHandlerBase<UpdateStudentCommand>
     {

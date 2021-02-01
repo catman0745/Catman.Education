@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Features.Group.Queries.GetGroups
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Abstractions;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using Microsoft.EntityFrameworkCore;
 
     internal class GetGroupsQueryHandler : ResourceRequestHandlerBase<GetGroupsQuery, ICollection<Group>>

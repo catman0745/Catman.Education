@@ -5,8 +5,8 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Extensions;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
-    using Catman.Education.Application.Results.Common;
 
     internal class GetTestingResultsQueryHandler :
         ResourceRequestHandlerBase<GetTestingResultsQuery, Paginated<TestingResult>>

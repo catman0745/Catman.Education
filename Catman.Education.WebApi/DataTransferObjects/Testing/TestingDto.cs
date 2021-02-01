@@ -6,8 +6,8 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing
 
     public class TestingDto
     {
-        [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        [JsonPropertyName("testId")]
+        public Guid TestId { get; set; }
         
         [JsonPropertyName("title")]
         public string Title { get; set; }

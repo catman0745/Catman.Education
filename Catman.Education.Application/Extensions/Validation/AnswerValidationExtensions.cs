@@ -5,7 +5,7 @@ namespace Catman.Education.Application.Extensions.Validation
 
     public static class AnswerValidationExtensions
     {
-        public static IRuleBuilderOptions<T, string> ValidAnswerText<T>(
+        public static IRuleBuilderOptions<T, string> ValidQuestionItemText<T>(
             this IRuleBuilder<T, string> text,
             ILocalizer localizer) =>
             text

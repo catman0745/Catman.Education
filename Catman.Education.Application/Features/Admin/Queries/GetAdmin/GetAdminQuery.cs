@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Admin.Queries.GetAdmin
 {
     using System;
     using Catman.Education.Application.Entities.Users;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using MediatR;
 
     public class GetAdminQuery : IRequest<ResourceRequestResult<Admin>>

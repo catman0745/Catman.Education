@@ -5,8 +5,8 @@ namespace Catman.Education.Application.Features.User.Queries.GetUsers
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Entities.Users;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
-    using Catman.Education.Application.Results.Common;
 
     internal class GetUsersQueryHandler : ResourceRequestHandlerBase<GetUsersQuery, Paginated<User>>
     {

@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
 {
     using System;
     using Catman.Education.Application.Entities.Testing;
-    using Catman.Education.Application.Results.Common;
+    using Catman.Education.Application.Models.Result;
     using MediatR;
 
     public class GetTestingResultQuery : IRequest<ResourceRequestResult<TestingResult>>

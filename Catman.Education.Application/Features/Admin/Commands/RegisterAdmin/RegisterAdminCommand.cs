@@ -2,8 +2,8 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
 {
     using System;
     using Catman.Education.Application.Entities.Users;
+    using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
-    using Catman.Education.Application.Results.Common;
     using MediatR;
 
     public class RegisterAdminCommand : IRequest<ResourceRequestResult<Admin>>, IRequestorRoleRestriction

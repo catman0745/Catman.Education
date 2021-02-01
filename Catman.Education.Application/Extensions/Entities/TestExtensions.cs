@@ -23,9 +23,9 @@ namespace Catman.Education.Application.Extensions.Entities
         public static IQueryable<Test> OtherThan(this IQueryable<Test> tests, Guid testId) =>
             tests.Where(t => t.Id != testId);
 
-        public static IQueryable<Test> IncludeQuestionsWithAnswers(this IQueryable<Test> tests, Guid testId) =>
+        public static IQueryable<Test> IncludeQuestionsWithQuestionItems(this IQueryable<Test> tests, Guid testId) =>
             tests
                 .Include(test => test.Questions.Where(question => question.TestId == testId))
-                    .ThenInclude(question => question.Answers);
+                    .ThenInclude(question => question.Items);
     }
 }
