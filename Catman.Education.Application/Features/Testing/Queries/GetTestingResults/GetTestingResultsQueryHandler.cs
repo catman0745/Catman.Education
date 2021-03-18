@@ -3,6 +3,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
     using System.Linq;
     using System.Threading.Tasks;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Models.Result;

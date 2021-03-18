@@ -1,7 +1,7 @@
 namespace Catman.Education.WebApi.Middlewares
 {
     using System.Threading.Tasks;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.WebApi.Responses;
     using Microsoft.AspNetCore.Http;
 

@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.Filters
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.WebApi.Responses;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;

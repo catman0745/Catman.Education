@@ -4,6 +4,7 @@ namespace Catman.Education.Application.Features.Admin.Queries.GetAdmin
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
 
     internal class GetAdminQueryHandler : ResourceRequestHandlerBase<GetAdminQuery, Admin>

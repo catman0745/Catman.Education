@@ -3,7 +3,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.Json.Serialization;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public class AnsweredTestDto

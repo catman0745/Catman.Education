@@ -3,7 +3,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
     using System;
     using System.Text.Json.Serialization;
     using Catman.Education.Application.Extensions.Validation;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public class UpdateStudentDto

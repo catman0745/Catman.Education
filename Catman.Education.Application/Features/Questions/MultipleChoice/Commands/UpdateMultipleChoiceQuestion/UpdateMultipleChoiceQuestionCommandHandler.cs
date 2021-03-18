@@ -4,6 +4,7 @@ namespace Catman.Education.Application.Features.Questions.MultipleChoice.Command
     using AutoMapper;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
 
     internal class UpdateMultipleChoiceQuestionCommandHandler : RequestHandlerBase<UpdateMultipleChoiceQuestionCommand>

@@ -1,6 +1,6 @@
 namespace Catman.Education.Application.Features.Student.Queries.GetStudents
 {
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Pagination;
     using FluentValidation;
 

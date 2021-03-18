@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
 {
     using System;
     using System.Text.Json.Serialization;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Validation;
     using Catman.Education.WebApi.Json.Converters;
     using FluentValidation;

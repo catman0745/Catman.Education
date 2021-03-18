@@ -2,7 +2,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.Question
 {
     using System;
     using System.Text.Json.Serialization;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using FluentValidation;
 

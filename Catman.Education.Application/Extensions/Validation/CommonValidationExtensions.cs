@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Extensions.Validation
 {
     using System;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public static class CommonValidationExtensions

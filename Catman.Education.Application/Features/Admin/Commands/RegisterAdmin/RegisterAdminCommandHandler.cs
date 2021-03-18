@@ -4,6 +4,7 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
     using AutoMapper;
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
 
     internal class RegisterAdminCommandHandler : ResourceRequestHandlerBase<RegisterAdminCommand, Admin>

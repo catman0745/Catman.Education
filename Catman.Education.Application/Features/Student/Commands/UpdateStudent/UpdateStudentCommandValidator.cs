@@ -2,6 +2,7 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
 {
     using Catman.Education.Application.Extensions.Validation;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentCommand>

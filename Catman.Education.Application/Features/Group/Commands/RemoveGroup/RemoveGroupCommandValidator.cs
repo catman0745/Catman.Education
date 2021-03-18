@@ -1,7 +1,7 @@
 namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
 {
     using Catman.Education.Application.Extensions.Validation;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public class RemoveGroupCommandValidator : AbstractValidator<RemoveGroupCommand>

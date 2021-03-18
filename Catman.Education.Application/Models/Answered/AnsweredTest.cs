@@ -3,7 +3,7 @@ namespace Catman.Education.Application.Models.Answered
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
 

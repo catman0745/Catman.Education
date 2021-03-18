@@ -2,6 +2,7 @@ namespace Catman.Education.Application.Extensions.Validation
 {
     using System;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Entities;
     using FluentValidation;
 

@@ -1,6 +1,6 @@
 namespace Catman.Education.WebApi.DataTransferObjects.User
 {
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using FluentValidation;
     using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 namespace Catman.Education.Application.Features.QuestionItems.Shared.Commands.UpdateQuestionItem
 {
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
 

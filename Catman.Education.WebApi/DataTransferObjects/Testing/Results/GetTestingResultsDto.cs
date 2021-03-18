@@ -1,7 +1,7 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Testing.Results
 {
     using System;
-    using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using FluentValidation;
     using Microsoft.AspNetCore.Mvc;

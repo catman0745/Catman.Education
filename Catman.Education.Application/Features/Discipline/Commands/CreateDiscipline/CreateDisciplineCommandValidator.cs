@@ -2,6 +2,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.CreateDiscip
 {
     using Catman.Education.Application.Extensions.Validation;
     using Catman.Education.Application.Abstractions;
+    using Catman.Education.Application.Abstractions.Localization;
     using FluentValidation;
 
     public class CreateDisciplineCommandValidator : AbstractValidator<CreateDisciplineCommand>
