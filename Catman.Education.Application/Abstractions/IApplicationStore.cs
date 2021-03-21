@@ -23,6 +23,8 @@ namespace Catman.Education.Application.Abstractions
         DbSet<Question> Questions { get; }
         
         DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; }
+        
+        DbSet<ValueQuestion> ValueQuestions { get; }
 
         DbSet<QuestionItem> QuestionItems { get; }
         

@@ -5,6 +5,7 @@ namespace Catman.Education.WebApi.Json.Converters
     using System.Text.Json.Serialization;
     using Catman.Education.WebApi.DataTransferObjects.Questions.MultipleChoiceQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.Question;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion;
 
     public class QuestionDtoConverter : JsonConverter<QuestionDto>
     {
@@ -25,6 +26,10 @@ namespace Catman.Education.WebApi.Json.Converters
             if (questionDto is MultipleChoiceQuestionDto multipleChoiceQuestionDto)
             {
                 JsonSerializer.Serialize(writer, multipleChoiceQuestionDto);
+            }
+            else if (questionDto is ValueQuestionDto valueQuestionDto)
+            {
+                JsonSerializer.Serialize(writer, valueQuestionDto);
             }
         }
     }

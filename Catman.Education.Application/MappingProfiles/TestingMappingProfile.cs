@@ -13,12 +13,16 @@ namespace Catman.Education.Application.MappingProfiles
         public TestingMappingProfile()
         {
             CreateMap<Question, TestingQuestion>()
-                .Include<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>();
-            CreateMap<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>();
+                .Include<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>()
+                .Include<ValueQuestion, TestingValueQuestion>();
 
             CreateMap<QuestionItem, TestingQuestionItem>()
                 .Include<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
+            
+            CreateMap<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>();
             CreateMap<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
+
+            CreateMap<ValueQuestion, TestingValueQuestion>();
             
             CreateMap<Test, Testing>()
                 .ForMember(testing => testing.TestId, options => options.MapFrom(test => test.Id));

@@ -16,5 +16,12 @@ namespace Catman.Education.Application.Extensions.Validation
             this IRuleBuilder<T, int> cost,
             ILocalizer localizer) =>
             cost.InclusiveBetween(1, 100, localizer);
+
+        public static IRuleBuilder<T, string> ValidQuestionAnswer<T>(
+            this IRuleBuilder<T, string> answer,
+            ILocalizer localizer) =>
+            answer
+                .NotEmpty(localizer)
+                .MaximumLength(100, localizer);
     }
 }
