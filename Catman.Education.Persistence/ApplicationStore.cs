@@ -27,6 +27,8 @@ namespace Catman.Education.Persistence
 
         public DbSet<ValueQuestion> ValueQuestions { get; set; }
 
+        public DbSet<YesNoQuestion> YesNoQuestions { get; set; }
+
         public DbSet<QuestionItem> QuestionItems { get; set; }
 
         public DbSet<MultipleChoiceQuestionAnswerOption> MultipleChoiceQuestionAnswerOptions { get; set; }

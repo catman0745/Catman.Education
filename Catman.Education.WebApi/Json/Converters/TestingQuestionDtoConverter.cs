@@ -29,6 +29,10 @@ namespace Catman.Education.WebApi.Json.Converters
             {
                 JsonSerializer.Serialize(writer, valueQuestionDto);
             }
+            else if (questionDto is TestingYesNoQuestionDto yesNoQuestionDto)
+            {
+                JsonSerializer.Serialize(writer, yesNoQuestionDto);
+            }
         }
     }
 }

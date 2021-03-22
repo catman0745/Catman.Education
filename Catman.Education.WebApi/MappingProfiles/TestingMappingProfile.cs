@@ -23,14 +23,16 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<Testing, TestingDto>();
             CreateMap<TestingQuestion, TestingQuestionDto>()
                 .Include<TestingMultipleChoiceQuestion, TestingMultipleChoiceQuestionDto>()
-                .Include<TestingValueQuestion, TestingValueQuestionDto>();
+                .Include<TestingValueQuestion, TestingValueQuestionDto>()
+                .Include<TestingYesNoQuestion, TestingYesNoQuestionDto>();
             
             CreateMap<TestingQuestionItem, TestingQuestionItemDto>()
                 .Include<TestingMultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOptionDto>();
             
             CreateMap<AnsweredQuestionDto, AnsweredQuestion>()
                 .Include<AnsweredMultipleChoiceQuestionDto, AnsweredMultipleChoiceQuestion>()
-                .Include<AnsweredValueQuestionDto, AnsweredValueQuestion>();
+                .Include<AnsweredValueQuestionDto, AnsweredValueQuestion>()
+                .Include<AnsweredYesNoQuestionDto, AnsweredYesNoQuestion>();
             
             CreateMap<TestingMultipleChoiceQuestion, TestingMultipleChoiceQuestionDto>();
             CreateMap<TestingMultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOptionDto>();
@@ -38,6 +40,9 @@ namespace Catman.Education.WebApi.MappingProfiles
 
             CreateMap<TestingValueQuestion, TestingValueQuestionDto>();
             CreateMap<AnsweredValueQuestionDto, AnsweredValueQuestion>();
+
+            CreateMap<TestingYesNoQuestion, TestingYesNoQuestionDto>();
+            CreateMap<AnsweredYesNoQuestionDto, AnsweredYesNoQuestion>();
 
             CreateMap<TestCheckResult, TestCheckResultDto>();
             CreateMap<QuestionCheckResult, QuestionCheckResultDto>();

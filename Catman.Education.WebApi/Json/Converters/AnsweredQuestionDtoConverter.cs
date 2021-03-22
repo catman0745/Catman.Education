@@ -23,6 +23,7 @@ namespace Catman.Education.WebApi.Json.Converters
             {
                 "MultipleChoice" => DeserializeQuestion<AnsweredMultipleChoiceQuestionDto>(ref reader),
                 "Value" => DeserializeQuestion<AnsweredValueQuestionDto>(ref reader),
+                "YesNo" => DeserializeQuestion<AnsweredYesNoQuestionDto>(ref reader),
                 _ => throw new JsonException($"Unknown question type \"{questionType}\".")
             };
         }

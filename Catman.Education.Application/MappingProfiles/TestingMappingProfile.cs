@@ -14,7 +14,8 @@ namespace Catman.Education.Application.MappingProfiles
         {
             CreateMap<Question, TestingQuestion>()
                 .Include<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>()
-                .Include<ValueQuestion, TestingValueQuestion>();
+                .Include<ValueQuestion, TestingValueQuestion>()
+                .Include<YesNoQuestion, TestingYesNoQuestion>();
 
             CreateMap<QuestionItem, TestingQuestionItem>()
                 .Include<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
@@ -23,6 +24,8 @@ namespace Catman.Education.Application.MappingProfiles
             CreateMap<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
 
             CreateMap<ValueQuestion, TestingValueQuestion>();
+
+            CreateMap<YesNoQuestion, TestingYesNoQuestion>();
             
             CreateMap<Test, Testing>()
                 .ForMember(testing => testing.TestId, options => options.MapFrom(test => test.Id));

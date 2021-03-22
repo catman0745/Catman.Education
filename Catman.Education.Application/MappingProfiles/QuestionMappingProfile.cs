@@ -6,6 +6,8 @@ namespace Catman.Education.Application.MappingProfiles
     using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.UpdateMultipleChoiceQuestion;
     using Catman.Education.Application.Features.Questions.Value.Commands.CreateValueQuestion;
     using Catman.Education.Application.Features.Questions.Value.Commands.UpdateValueQuestion;
+    using Catman.Education.Application.Features.Questions.YesNo.Commands.CreateYesNoQuestion;
+    using Catman.Education.Application.Features.Questions.YesNo.Commands.UpdateYesNoQuestion;
 
     public class QuestionMappingProfile : Profile
     {
@@ -17,6 +19,10 @@ namespace Catman.Education.Application.MappingProfiles
 
             CreateMap<CreateValueQuestionCommand, ValueQuestion>();
             CreateMap<UpdateValueQuestionCommand, ValueQuestion>()
+                .ForMember(question => question.Id, options => options.Ignore());
+
+            CreateMap<CreateYesNoQuestionCommand, YesNoQuestion>();
+            CreateMap<UpdateYesNoQuestionCommand, YesNoQuestion>()
                 .ForMember(question => question.Id, options => options.Ignore());
         }
     }
