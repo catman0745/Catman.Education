@@ -7,7 +7,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
 
     public class AnsweredValueQuestionDto : AnsweredQuestionDto
     {
-        [JsonPropertyName("giverAnswer")]
+        [JsonPropertyName("givenAnswer")]
         public string GivenAnswer { get; set; }
     }
 
