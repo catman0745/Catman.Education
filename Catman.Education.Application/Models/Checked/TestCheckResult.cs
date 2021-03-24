@@ -8,7 +8,7 @@ namespace Catman.Education.Application.Models.Checked
     {
         public Guid TestId { get; set; }
 
-        public int MaxScore => Questions.Sum(question => question.Cost);
+        public int MaxScore { get; set; }
         
         public double ActualScore => Questions.Sum(question => question.Score);
         

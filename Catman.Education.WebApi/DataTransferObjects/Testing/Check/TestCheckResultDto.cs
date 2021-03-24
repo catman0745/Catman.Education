@@ -2,7 +2,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Check
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text.Json.Serialization;
 
     public class TestCheckResultDto
@@ -11,10 +10,10 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Check
         public Guid TestId { get; set; }
 
         [JsonPropertyName("maxScore")]
-        public int MaxScore => Questions.Sum(question => question.Cost);
+        public int MaxScore { get; set; }
         
         [JsonPropertyName("actualScore")]
-        public double ActualScore => Questions.Sum(question => question.Score);
+        public double ActualScore { get; set; }
         
         [JsonPropertyName("questions")]
         public ICollection<QuestionCheckResultDto> Questions { get; set; }

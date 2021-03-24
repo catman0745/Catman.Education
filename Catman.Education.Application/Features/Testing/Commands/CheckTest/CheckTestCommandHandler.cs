@@ -50,7 +50,8 @@ namespace Catman.Education.Application.Features.Testing.Commands.CheckTest
                         answeredQuestion => answeredQuestion.QuestionId,
                         (question, answeredQuestion) => (Expected: question, Actual: answeredQuestion))
                     .Select(pair => QuestionChecker.CheckQuestion(pair.Expected, pair.Actual))
-                    .ToList()
+                    .ToList(),
+                MaxScore = test.Questions.Sum(question => question.Cost)
             };
 
             await SaveTestingResult(checkResult, checkCommand.RequestorId);
