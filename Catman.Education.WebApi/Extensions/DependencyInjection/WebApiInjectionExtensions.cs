@@ -10,6 +10,7 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
     {
         public static IMvcBuilder AddWebApi(this IServiceCollection services) =>
             services
+                .ConfigureJsonSerializer()
                 .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddControllers(options => options.Filters.Add<ValidationFilter>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)

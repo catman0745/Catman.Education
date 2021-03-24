@@ -12,9 +12,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
     {
         [JsonPropertyName("id")]
         public Guid QuestionId { get; set; }
-        
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
     }
 
     public class AnsweredQuestionDtoValidator : AbstractValidator<AnsweredQuestionDto>
@@ -22,7 +19,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
         public AnsweredQuestionDtoValidator(ILocalizer localizer)
         {
             RuleFor(dto => dto.QuestionId).NotEmpty(localizer);
-            RuleFor(dto => dto.Type).NotEmpty(localizer);
         }
     }
 }

@@ -18,8 +18,5 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.Question
         
         [JsonPropertyName("testId")]
         public Guid TestId { get; set; }
-        
-        [JsonPropertyName("type")]
-        public abstract string Type { get; }
     }
 }

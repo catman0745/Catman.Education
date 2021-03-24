@@ -5,9 +5,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion
 
     public class ValueQuestionDto : QuestionDto
     {
-        [JsonPropertyName("type")]
-        public override string Type => "Value";
-        
         [JsonPropertyName("correctAnswer")]
         public string CorrectAnswer { get; set; }
     }

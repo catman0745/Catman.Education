@@ -7,25 +7,19 @@ namespace Catman.Education.WebApi.Json.Converters
 
     public class AnsweredQuestionDtoConverter : JsonConverter<AnsweredQuestionDto>
     {
-        private static TAnsweredQuestion DeserializeQuestion<TAnsweredQuestion>(ref Utf8JsonReader reader) =>
-            (TAnsweredQuestion) JsonSerializer.Deserialize(ref reader, typeof(TAnsweredQuestion));
-        
         public override bool CanConvert(Type typeToConvert) =>
-            typeof(AnsweredQuestionDto).IsAssignableFrom(typeToConvert);
+            typeToConvert == typeof(AnsweredQuestionDto) ||
+            QuestionTypeNamesConfiguration.IsSupportedQuestion(typeToConvert);
 
         public override AnsweredQuestionDto Read(
             ref Utf8JsonReader reader,
             Type typeToConvert,
             JsonSerializerOptions options)
         {
-            var questionType = QuestionType(reader);
-            return questionType switch
-            {
-                "MultipleChoice" => DeserializeQuestion<AnsweredMultipleChoiceQuestionDto>(ref reader),
-                "Value" => DeserializeQuestion<AnsweredValueQuestionDto>(ref reader),
-                "YesNo" => DeserializeQuestion<AnsweredYesNoQuestionDto>(ref reader),
-                _ => throw new JsonException($"Unknown question type \"{questionType}\".")
-            };
+            var questionTypeName = QuestionType(reader);
+            var questionType = QuestionTypeNamesConfiguration.QuestionType(questionTypeName);
+
+            return (AnsweredQuestionDto) JsonSerializer.Deserialize(ref reader, questionType);
         }
 
         private static string QuestionType(Utf8JsonReader reader)
@@ -34,7 +28,7 @@ namespace Catman.Education.WebApi.Json.Converters
             {
                 var propertyName = reader.GetString();
                 
-                reader.Read();
+                reader.Skip();
                 
                 if (propertyName == "type")
                 {
