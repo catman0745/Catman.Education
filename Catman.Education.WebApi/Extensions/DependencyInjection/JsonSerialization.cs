@@ -1,6 +1,7 @@
 namespace Catman.Education.WebApi.Extensions.DependencyInjection
 {
     using Catman.Education.WebApi.DataTransferObjects.Questions.MultipleChoiceQuestion;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.Order;
     using Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.YesNoQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Testing;
@@ -14,6 +15,8 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
         {
             QuestionTypeNamesConfiguration
                 .RegisterQuestion<MultipleChoiceQuestionDto, TestingMultipleChoiceQuestionDto, AnsweredMultipleChoiceQuestionDto>();
+            QuestionTypeNamesConfiguration
+                .RegisterQuestion<OrderQuestionDto, TestingOrderQuestionDto, AnsweredOrderQuestionDto>();
             QuestionTypeNamesConfiguration
                 .RegisterQuestion<ValueQuestionDto, TestingValueQuestionDto, AnsweredValueQuestionDto>();
             QuestionTypeNamesConfiguration

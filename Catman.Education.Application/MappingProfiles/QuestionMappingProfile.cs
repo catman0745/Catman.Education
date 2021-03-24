@@ -4,6 +4,8 @@ namespace Catman.Education.Application.MappingProfiles
     using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.CreateMultipleChoiceQuestion;
     using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.UpdateMultipleChoiceQuestion;
+    using Catman.Education.Application.Features.Questions.Order.Commands.CreateOrderQuestion;
+    using Catman.Education.Application.Features.Questions.Order.Commands.UpdateOrderQuestion;
     using Catman.Education.Application.Features.Questions.Value.Commands.CreateValueQuestion;
     using Catman.Education.Application.Features.Questions.Value.Commands.UpdateValueQuestion;
     using Catman.Education.Application.Features.Questions.YesNo.Commands.CreateYesNoQuestion;
@@ -15,6 +17,10 @@ namespace Catman.Education.Application.MappingProfiles
         {
             CreateMap<CreateMultipleChoiceQuestionCommand, MultipleChoiceQuestion>();
             CreateMap<UpdateMultipleChoiceQuestionCommand, MultipleChoiceQuestion>()
+                .ForMember(question => question.Id, options => options.Ignore());
+
+            CreateMap<CreateOrderQuestionCommand, OrderQuestion>();
+            CreateMap<UpdateOrderQuestionCommand, OrderQuestion>()
                 .ForMember(question => question.Id, options => options.Ignore());
 
             CreateMap<CreateValueQuestionCommand, ValueQuestion>();

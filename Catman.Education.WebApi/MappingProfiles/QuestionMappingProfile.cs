@@ -4,12 +4,15 @@ namespace Catman.Education.WebApi.MappingProfiles
     using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.CreateMultipleChoiceQuestion;
     using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.UpdateMultipleChoiceQuestion;
+    using Catman.Education.Application.Features.Questions.Order.Commands.CreateOrderQuestion;
+    using Catman.Education.Application.Features.Questions.Order.Commands.UpdateOrderQuestion;
     using Catman.Education.Application.Features.Questions.Shared.Queries.GetQuestions;
     using Catman.Education.Application.Features.Questions.Value.Commands.CreateValueQuestion;
     using Catman.Education.Application.Features.Questions.Value.Commands.UpdateValueQuestion;
     using Catman.Education.Application.Features.Questions.YesNo.Commands.CreateYesNoQuestion;
     using Catman.Education.Application.Features.Questions.YesNo.Commands.UpdateYesNoQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.MultipleChoiceQuestion;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.Order;
     using Catman.Education.WebApi.DataTransferObjects.Questions.Question;
     using Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.YesNoQuestion;
@@ -20,6 +23,7 @@ namespace Catman.Education.WebApi.MappingProfiles
         {
             CreateMap<Question, QuestionDto>()
                 .Include<MultipleChoiceQuestion, MultipleChoiceQuestionDto>()
+                .Include<OrderQuestion, OrderQuestionDto>()
                 .Include<ValueQuestion, ValueQuestionDto>()
                 .Include<YesNoQuestion, YesNoQuestionDto>();
             CreateMap<GetQuestionsDto, GetQuestionsQuery>();
@@ -27,6 +31,10 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<MultipleChoiceQuestion, MultipleChoiceQuestionDto>();
             CreateMap<CreateMultipleChoiceQuestionDto, CreateMultipleChoiceQuestionCommand>();
             CreateMap<UpdateMultipleChoiceQuestionDto, UpdateMultipleChoiceQuestionCommand>();
+
+            CreateMap<OrderQuestion, OrderQuestionDto>();
+            CreateMap<CreateOrderQuestionDto, CreateOrderQuestionCommand>();
+            CreateMap<UpdateOrderQuestionDto, UpdateOrderQuestionCommand>();
 
             CreateMap<ValueQuestion, ValueQuestionDto>();
             CreateMap<CreateValueQuestionDto, CreateValueQuestionCommand>();

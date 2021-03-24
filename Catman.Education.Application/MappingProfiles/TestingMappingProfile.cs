@@ -14,14 +14,20 @@ namespace Catman.Education.Application.MappingProfiles
         {
             CreateMap<Question, TestingQuestion>()
                 .Include<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>()
+                .Include<OrderQuestion, TestingOrderQuestion>()
                 .Include<ValueQuestion, TestingValueQuestion>()
                 .Include<YesNoQuestion, TestingYesNoQuestion>();
 
             CreateMap<QuestionItem, TestingQuestionItem>()
-                .Include<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
+                .Include<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>()
+                .Include<OrderQuestionItem, TestingOrderQuestionItem>();
             
             CreateMap<MultipleChoiceQuestion, TestingMultipleChoiceQuestion>();
             CreateMap<MultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOption>();
+
+            CreateMap<OrderQuestion, TestingOrderQuestion>()
+                .ForMember(testingQuestion => testingQuestion.Items, option => option.MapFrom(question => question.OrderItems));
+            CreateMap<OrderQuestionItem, TestingOrderQuestionItem>();
 
             CreateMap<ValueQuestion, TestingValueQuestion>();
 

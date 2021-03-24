@@ -24,6 +24,8 @@ namespace Catman.Education.Application.Abstractions
         
         DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; }
         
+        DbSet<OrderQuestion> OrderQuestions { get; }
+
         DbSet<ValueQuestion> ValueQuestions { get; }
         
         DbSet<YesNoQuestion> YesNoQuestions { get; }
@@ -31,6 +33,8 @@ namespace Catman.Education.Application.Abstractions
         DbSet<QuestionItem> QuestionItems { get; }
         
         DbSet<MultipleChoiceQuestionAnswerOption> MultipleChoiceQuestionAnswerOptions { get; }
+        
+        DbSet<OrderQuestionItem> OrderQuestionItems { get; }
 
         DbSet<TestingResult> TestingResults { get; }
 
