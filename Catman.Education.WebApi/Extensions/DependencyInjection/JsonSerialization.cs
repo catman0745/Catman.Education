@@ -1,6 +1,6 @@
 namespace Catman.Education.WebApi.Extensions.DependencyInjection
 {
-    using Catman.Education.WebApi.DataTransferObjects.Questions.MultipleChoiceQuestion;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.ChoiceQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.Order;
     using Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.YesNoQuestion;
@@ -14,7 +14,7 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
         public static IServiceCollection ConfigureJsonSerializer(this IServiceCollection services)
         {
             QuestionTypeNamesConfiguration
-                .RegisterQuestion<MultipleChoiceQuestionDto, TestingMultipleChoiceQuestionDto, AnsweredMultipleChoiceQuestionDto>();
+                .RegisterQuestion<ChoiceQuestionDto, TestingChoiceQuestionDto, AnsweredChoiceQuestionDto>();
             QuestionTypeNamesConfiguration
                 .RegisterQuestion<OrderQuestionDto, TestingOrderQuestionDto, AnsweredOrderQuestionDto>();
             QuestionTypeNamesConfiguration

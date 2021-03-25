@@ -2,8 +2,8 @@ namespace Catman.Education.WebApi.MappingProfiles
 {
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing.Questioning;
-    using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.CreateMultipleChoiceQuestion;
-    using Catman.Education.Application.Features.Questions.MultipleChoice.Commands.UpdateMultipleChoiceQuestion;
+    using Catman.Education.Application.Features.Questions.Choice.Commands.CreateChoiceQuestion;
+    using Catman.Education.Application.Features.Questions.Choice.Commands.UpdateChoiceQuestion;
     using Catman.Education.Application.Features.Questions.Order.Commands.CreateOrderQuestion;
     using Catman.Education.Application.Features.Questions.Order.Commands.UpdateOrderQuestion;
     using Catman.Education.Application.Features.Questions.Shared.Queries.GetQuestions;
@@ -11,7 +11,7 @@ namespace Catman.Education.WebApi.MappingProfiles
     using Catman.Education.Application.Features.Questions.Value.Commands.UpdateValueQuestion;
     using Catman.Education.Application.Features.Questions.YesNo.Commands.CreateYesNoQuestion;
     using Catman.Education.Application.Features.Questions.YesNo.Commands.UpdateYesNoQuestion;
-    using Catman.Education.WebApi.DataTransferObjects.Questions.MultipleChoiceQuestion;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.ChoiceQuestion;
     using Catman.Education.WebApi.DataTransferObjects.Questions.Order;
     using Catman.Education.WebApi.DataTransferObjects.Questions.Question;
     using Catman.Education.WebApi.DataTransferObjects.Questions.ValueQuestion;
@@ -22,15 +22,15 @@ namespace Catman.Education.WebApi.MappingProfiles
         public QuestionMappingProfile()
         {
             CreateMap<Question, QuestionDto>()
-                .Include<MultipleChoiceQuestion, MultipleChoiceQuestionDto>()
+                .Include<ChoiceQuestion, ChoiceQuestionDto>()
                 .Include<OrderQuestion, OrderQuestionDto>()
                 .Include<ValueQuestion, ValueQuestionDto>()
                 .Include<YesNoQuestion, YesNoQuestionDto>();
             CreateMap<GetQuestionsDto, GetQuestionsQuery>();
             
-            CreateMap<MultipleChoiceQuestion, MultipleChoiceQuestionDto>();
-            CreateMap<CreateMultipleChoiceQuestionDto, CreateMultipleChoiceQuestionCommand>();
-            CreateMap<UpdateMultipleChoiceQuestionDto, UpdateMultipleChoiceQuestionCommand>();
+            CreateMap<ChoiceQuestion, ChoiceQuestionDto>();
+            CreateMap<CreateChoiceQuestionDto, CreateChoiceQuestionCommand>();
+            CreateMap<UpdateChoiceQuestionDto, UpdateChoiceQuestionCommand>();
 
             CreateMap<OrderQuestion, OrderQuestionDto>();
             CreateMap<CreateOrderQuestionDto, CreateOrderQuestionCommand>();

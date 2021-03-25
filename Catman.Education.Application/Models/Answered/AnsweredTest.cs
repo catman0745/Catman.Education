@@ -21,8 +21,8 @@ namespace Catman.Education.Application.Models.Answered
             RuleFor(test => test.TestId).NotEmpty(localizer);
             RuleFor(test => test.AnsweredQuestions).NotEmpty(localizer);
 
-            RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredMultipleChoiceQuestion>())
-                .SetValidator(new AnsweredMultipleChoiceQuestionValidator(localizer));
+            RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredChoiceQuestion>())
+                .SetValidator(new AnsweredChoiceQuestionValidator(localizer));
         }
     }
 }

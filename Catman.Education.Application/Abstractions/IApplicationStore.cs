@@ -22,7 +22,7 @@ namespace Catman.Education.Application.Abstractions
         
         DbSet<Question> Questions { get; }
         
-        DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; }
+        DbSet<ChoiceQuestion> ChoiceQuestions { get; }
         
         DbSet<OrderQuestion> OrderQuestions { get; }
 
@@ -32,7 +32,7 @@ namespace Catman.Education.Application.Abstractions
 
         DbSet<QuestionItem> QuestionItems { get; }
         
-        DbSet<MultipleChoiceQuestionAnswerOption> MultipleChoiceQuestionAnswerOptions { get; }
+        DbSet<ChoiceQuestionAnswerOption> ChoiceQuestionAnswerOptions { get; }
         
         DbSet<OrderQuestionItem> OrderQuestionItems { get; }
 

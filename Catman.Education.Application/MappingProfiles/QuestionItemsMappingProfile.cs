@@ -2,8 +2,8 @@ namespace Catman.Education.Application.MappingProfiles
 {
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing.Questioning;
-    using Catman.Education.Application.Features.QuestionItems.MultipleChoiceQuestionAnswerOptions.Commands.CreateMultipleChoiceQuestionAnswerOption;
-    using Catman.Education.Application.Features.QuestionItems.MultipleChoiceQuestionAnswerOptions.Commands.UpdateMultipleChoiceQuestionAnswerOption;
+    using Catman.Education.Application.Features.QuestionItems.Choice.Commands.CreateChoiceQuestionAnswerOption;
+    using Catman.Education.Application.Features.QuestionItems.Choice.Commands.UpdateChoiceQuestionAnswerOption;
     using Catman.Education.Application.Features.QuestionItems.Order.Commands.CreateOrderQuestionItem;
     using Catman.Education.Application.Features.QuestionItems.Order.Commands.UpdateOrderQuestionItem;
 
@@ -11,9 +11,9 @@ namespace Catman.Education.Application.MappingProfiles
     {
         public QuestionItemsMappingProfile()
         {
-            CreateMap<CreateMultipleChoiceQuestionAnswerOptionCommand, MultipleChoiceQuestionAnswerOption>()
-                .ForMember(answer => answer.MultipleChoiceQuestionId, options => options.MapFrom(command => command.QuestionId));
-            CreateMap<UpdateMultipleChoiceQuestionAnswerOptionCommand, MultipleChoiceQuestionAnswerOption>()
+            CreateMap<CreateChoiceQuestionAnswerOptionCommand, ChoiceQuestionAnswerOption>()
+                .ForMember(answer => answer.ChoiceQuestionId, options => options.MapFrom(command => command.QuestionId));
+            CreateMap<UpdateChoiceQuestionAnswerOptionCommand, ChoiceQuestionAnswerOption>()
                 .ForMember(answer => answer.Id, options => options.Ignore());
 
             CreateMap<CreateOrderQuestionItemCommand, OrderQuestionItem>()

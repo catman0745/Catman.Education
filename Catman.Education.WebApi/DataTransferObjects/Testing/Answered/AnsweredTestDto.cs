@@ -16,8 +16,8 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
     {
         public AnsweredTestDtoValidator(ILocalizer localizer)
         {
-            RuleForEach(test => test.Questions.OfType<AnsweredMultipleChoiceQuestionDto>())
-                .SetValidator(new AnsweredMultipleChoiceQuestionDtoValidator(localizer))
+            RuleForEach(test => test.Questions.OfType<AnsweredChoiceQuestionDto>())
+                .SetValidator(new AnsweredChoiceQuestionDtoValidator(localizer))
                 .OverridePropertyName(nameof(AnsweredTestDto.Questions));
         }
     }

@@ -22,24 +22,24 @@ namespace Catman.Education.WebApi.MappingProfiles
 
             CreateMap<Testing, TestingDto>();
             CreateMap<TestingQuestion, TestingQuestionDto>()
-                .Include<TestingMultipleChoiceQuestion, TestingMultipleChoiceQuestionDto>()
+                .Include<TestingChoiceQuestion, TestingChoiceQuestionDto>()
                 .Include<TestingOrderQuestion, TestingOrderQuestionDto>()
                 .Include<TestingValueQuestion, TestingValueQuestionDto>()
                 .Include<TestingYesNoQuestion, TestingYesNoQuestionDto>();
             
             CreateMap<TestingQuestionItem, TestingQuestionItemDto>()
-                .Include<TestingMultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOptionDto>()
+                .Include<TestingChoiceQuestionAnswerOption, TestingChoiceQuestionAnswerOptionDto>()
                 .Include<TestingOrderQuestionItem, TestingOrderQuestionItemDto>();
             
             CreateMap<AnsweredQuestionDto, AnsweredQuestion>()
-                .Include<AnsweredMultipleChoiceQuestionDto, AnsweredMultipleChoiceQuestion>()
+                .Include<AnsweredChoiceQuestionDto, AnsweredChoiceQuestion>()
                 .Include<AnsweredOrderQuestionDto, AnsweredOrderQuestion>()
                 .Include<AnsweredValueQuestionDto, AnsweredValueQuestion>()
                 .Include<AnsweredYesNoQuestionDto, AnsweredYesNoQuestion>();
             
-            CreateMap<TestingMultipleChoiceQuestion, TestingMultipleChoiceQuestionDto>();
-            CreateMap<TestingMultipleChoiceQuestionAnswerOption, TestingMultipleChoiceQuestionAnswerOptionDto>();
-            CreateMap<AnsweredMultipleChoiceQuestionDto, AnsweredMultipleChoiceQuestion>();
+            CreateMap<TestingChoiceQuestion, TestingChoiceQuestionDto>();
+            CreateMap<TestingChoiceQuestionAnswerOption, TestingChoiceQuestionAnswerOptionDto>();
+            CreateMap<AnsweredChoiceQuestionDto, AnsweredChoiceQuestion>();
 
             CreateMap<TestingOrderQuestion, TestingOrderQuestionDto>();
             CreateMap<TestingOrderQuestionItem, TestingOrderQuestionItemDto>();
