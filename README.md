@@ -8,6 +8,11 @@ School / college API for student testing
 
 **Note**: *if `Catman.Education.WebApi` for example stops validating `DTO`s, the application will continue to function correctly. `Catman.Education.WebApi` does not contain critical checks but simply duplicates some checks from `Catman.Education.Application`.*
 
+### Dependencies
+
+- Databse is `PostgreSQL 12`
+- Runtime is `.Net 5.0`
+
 ### How to run
 
 Set following environment variables:
