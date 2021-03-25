@@ -23,6 +23,12 @@ namespace Catman.Education.Application.Models.Answered
 
             RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredChoiceQuestion>())
                 .SetValidator(new AnsweredChoiceQuestionValidator(localizer));
+            RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredOrderQuestion>())
+                .SetValidator(new AnsweredOrderQuestionValidator(localizer));
+            RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredValueQuestion>())
+                .SetValidator(new AnsweredValueQuestionValidator(localizer));
+            RuleForEach(test => test.AnsweredQuestions.OfType<AnsweredYesNoQuestion>())
+                .SetValidator(new AnsweredYesNoQuestionValidator(localizer));
         }
     }
 }
