@@ -4,6 +4,7 @@ namespace Catman.Education.WebApi.MappingProfiles
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Features.User.Queries.GenerateToken;
     using Catman.Education.Application.Features.User.Queries.GetUsers;
+    using Catman.Education.Application.Models.Auth;
     using Catman.Education.WebApi.DataTransferObjects.User;
 
     public class UserMappingProfile : Profile
@@ -13,6 +14,8 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<GetUsersDto, GetUsersQuery>();
             CreateMap<GenerateTokenDto, GenerateTokenQuery>();
             CreateMap<User, UserDto>();
+
+            CreateMap<UserInfo, UserInfoDto>();
         }
     }
 }

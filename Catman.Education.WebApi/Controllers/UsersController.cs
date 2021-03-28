@@ -60,14 +60,14 @@ namespace Catman.Education.WebApi.Controllers
 
         /// <summary> Generate token for the specified user </summary>
         [HttpPost]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<UserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<UserInfoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GenerateToken([FromBody] GenerateTokenDto tokenDto)
         {
             var tokenQuery = _mapper.Map<GenerateTokenQuery>(tokenDto);
             var result = await _mediator.Send(tokenQuery);
-            return result.ToActionResult(token => Ok(Success(result.Message, token)));
+            return result.ToActionResult(userInfo => Ok(Success(result.Message, userInfo)));
         }
 
         /// <summary> Remove the user with matching id </summary>
