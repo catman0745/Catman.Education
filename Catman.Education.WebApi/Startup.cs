@@ -48,9 +48,9 @@ namespace Catman.Education.WebApi
                 .UseRouting()
                 .UseLocalization()
                 .UseMiddleware<CustomUnauthorizedResponseMiddleware>()
+                .UseClientCors()
                 .UseAuthentication()
                 .UseAuthorization()
-                .UseClientCors()
                 .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
