@@ -14,13 +14,13 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
         public static IServiceCollection ConfigureJsonSerializer(this IServiceCollection services)
         {
             QuestionTypeNamesConfiguration
-                .RegisterQuestion<ChoiceQuestionDto, TestingChoiceQuestionDto, AnsweredChoiceQuestionDto>();
+                .RegisterQuestion<ChoiceQuestionDto, FullyPopulatedChoiceQuestionDto, TestingChoiceQuestionDto, AnsweredChoiceQuestionDto>();
             QuestionTypeNamesConfiguration
-                .RegisterQuestion<OrderQuestionDto, TestingOrderQuestionDto, AnsweredOrderQuestionDto>();
+                .RegisterQuestion<OrderQuestionDto, FullyPopulatedOrderQuestionDto, TestingOrderQuestionDto, AnsweredOrderQuestionDto>();
             QuestionTypeNamesConfiguration
-                .RegisterQuestion<ValueQuestionDto, TestingValueQuestionDto, AnsweredValueQuestionDto>();
+                .RegisterQuestion<ValueQuestionDto, FullyPopulatedValueQuestionDto, TestingValueQuestionDto, AnsweredValueQuestionDto>();
             QuestionTypeNamesConfiguration
-                .RegisterQuestion<YesNoQuestionDto, TestingYesNoQuestionDto, AnsweredYesNoQuestionDto>();
+                .RegisterQuestion<YesNoQuestionDto, FullyPopulatedYesNoQuestionDto, TestingYesNoQuestionDto, AnsweredYesNoQuestionDto>();
             
             return services;
         }

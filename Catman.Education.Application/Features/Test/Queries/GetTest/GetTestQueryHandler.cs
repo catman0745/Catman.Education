@@ -6,6 +6,7 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTest
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class GetTestQueryHandler : ResourceRequestHandlerBase<GetTestQuery, Test>
     {
@@ -24,7 +25,11 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTest
             {
                 return NotFound(_localizer.TestNotFound(getQuery.Id));
             }
-            var test = await _store.Tests.WithIdAsync(getQuery.Id);
+            var test = await _store.Tests
+                .Include(t => t.Questions)
+                    .ThenInclude(q => q.Items)
+                .Include(t => t.Discipline)
+                .WithIdAsync(getQuery.Id);
 
             return Success(_localizer.TestRetrieved(test.Id), test);
         }

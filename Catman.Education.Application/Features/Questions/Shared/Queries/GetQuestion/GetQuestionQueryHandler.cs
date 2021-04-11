@@ -6,6 +6,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Queries.GetQues
     using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class GetQuestionQueryHandler : ResourceRequestHandlerBase<GetQuestionQuery, Question>
     {
@@ -24,7 +25,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Queries.GetQues
             {
                 return NotFound(_localizer.QuestionNotFound(getQuery.Id));
             }
-            var question = await _store.Questions.WithIdAsync(getQuery.Id);
+            var question = await _store.Questions.Include(q => q.Items).WithIdAsync(getQuery.Id);
 
             return Success(_localizer.QuestionRetrieved(question.Id), question);
         }

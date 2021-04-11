@@ -12,6 +12,7 @@ namespace Catman.Education.WebApi.MappingProfiles
         public TestMappingProfile()
         {
             CreateMap<Test, TestDto>();
+            CreateMap<Test, FullyPopulatedTestDto>();
             CreateMap<GetTestsDto, GetTestsQuery>();
             CreateMap<CreateTestDto, CreateTestCommand>();
             CreateMap<UpdateTestDto, UpdateTestCommand>();
