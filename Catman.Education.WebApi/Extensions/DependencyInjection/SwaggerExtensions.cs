@@ -17,6 +17,7 @@ namespace Catman.Education.WebApi.Extensions.DependencyInjection
             IConfiguration configuration) =>
             services.AddSwaggerGen(options =>
             {
+                options.CustomSchemaIds(type => type.ToString());
                 options.ConfigureApiInfo(configuration);
                 options.ConfigureXmlDocumentationPath();
                 options.ConfigureAuthorization();
