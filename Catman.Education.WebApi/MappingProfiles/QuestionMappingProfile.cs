@@ -36,6 +36,7 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<ChoiceQuestion, ChoiceQuestionDto>();
             CreateMap<ChoiceQuestion, FullyPopulatedChoiceQuestionDto>();
             CreateMap<CreateChoiceQuestionDto, CreateChoiceQuestionCommand>();
+            CreateMap<CreateChoiceQuestionDto.AnswerOptionDto, CreateChoiceQuestionCommand.AnswerOption>();
             CreateMap<UpdateChoiceQuestionDto, UpdateChoiceQuestionCommand>();
             CreateMap<UpdateChoiceQuestionDto.AnswerOptionDto, UpdateChoiceQuestionCommand.AnswerOption>();
 

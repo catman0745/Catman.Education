@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.MappingProfiles
 {
+    using System;
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Features.Questions.Choice.Commands.CreateChoiceQuestion;
@@ -15,7 +16,16 @@ namespace Catman.Education.Application.MappingProfiles
     {
         public QuestionMappingProfile()
         {
-            CreateMap<CreateChoiceQuestionCommand, ChoiceQuestion>();
+            CreateMap<CreateChoiceQuestionCommand, ChoiceQuestion>()
+                .AfterMap((_, question) =>
+                {
+                    question.Id = Guid.NewGuid();
+                    foreach (var answer in question.AnswerOptions)
+                    {
+                        answer.QuestionId = question.Id;
+                    }
+                });
+            CreateMap<CreateChoiceQuestionCommand.AnswerOption, ChoiceQuestionAnswerOption>();
             CreateMap<UpdateChoiceQuestionCommand, ChoiceQuestion>()
                 .AfterMap((_, question) =>
                 {
