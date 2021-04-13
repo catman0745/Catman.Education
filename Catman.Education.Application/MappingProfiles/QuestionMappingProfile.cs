@@ -17,7 +17,14 @@ namespace Catman.Education.Application.MappingProfiles
         {
             CreateMap<CreateChoiceQuestionCommand, ChoiceQuestion>();
             CreateMap<UpdateChoiceQuestionCommand, ChoiceQuestion>()
-                .ForMember(question => question.Id, options => options.Ignore());
+                .AfterMap((_, question) =>
+                {
+                    foreach (var answer in question.AnswerOptions)
+                    {
+                        answer.QuestionId = question.Id;
+                    }
+                });
+            CreateMap<UpdateChoiceQuestionCommand.AnswerOption, ChoiceQuestionAnswerOption>();
 
             CreateMap<CreateOrderQuestionCommand, OrderQuestion>();
             CreateMap<UpdateOrderQuestionCommand, OrderQuestion>()

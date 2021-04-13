@@ -1,11 +1,13 @@
 namespace Catman.Education.Application.Features.Questions.Choice.Commands.UpdateChoiceQuestion
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class UpdateChoiceQuestionCommandHandler : RequestHandlerBase<UpdateChoiceQuestionCommand>
     {
@@ -32,6 +34,11 @@ namespace Catman.Education.Application.Features.Questions.Choice.Commands.Update
                 return NotFound(_localizer.QuestionNotFound(updateCommand.Id));
             }
             var question = await _store.ChoiceQuestions.WithIdAsync(updateCommand.Id);
+            
+            var oldAnswers = await _store.ChoiceQuestionAnswerOptions
+                .Where(answer => answer.QuestionId == question.Id)
+                .ToListAsync();
+            _store.ChoiceQuestionAnswerOptions.RemoveRange(oldAnswers);
 
             _mapper.Map(updateCommand, question);
             await _store.SaveChangesAsync();
