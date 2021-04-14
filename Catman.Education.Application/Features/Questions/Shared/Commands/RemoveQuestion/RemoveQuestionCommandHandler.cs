@@ -5,6 +5,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Remove
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class RemoveQuestionCommandHandler : RequestHandlerBase<RemoveQuestionCommand>
     {
@@ -23,7 +24,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Remove
             {
                 return NotFound(_localizer.QuestionNotFound(removeCommand.Id));
             }
-            var question = await _store.Questions.WithIdAsync(removeCommand.Id);
+            var question = await _store.Questions.Include(q => q.Items).WithIdAsync(removeCommand.Id);
 
             _store.Questions.Remove(question);
             await _store.SaveChangesAsync();
