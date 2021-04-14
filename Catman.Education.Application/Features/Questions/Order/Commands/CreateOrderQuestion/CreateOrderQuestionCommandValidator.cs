@@ -19,7 +19,7 @@ namespace Catman.Education.Application.Features.Questions.Order.Commands.CreateO
         public CreateOrderQuestionCommandValidator(ILocalizer localizer)
         {
             Include(new CreateQuestionCommandValidator<OrderQuestion>(localizer));
-            RuleForEach(question => question.Items).SetValidator(new ItemValidator(localizer));
+            RuleForEach(question => question.OrderItems).SetValidator(new ItemValidator(localizer));
         }
     }
 }

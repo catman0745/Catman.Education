@@ -19,7 +19,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.Order
         }
         
         [JsonPropertyName("items")]
-        public ICollection<ItemDto> Items { get; set; }
+        public ICollection<ItemDto> OrderItems { get; set; }
     }
 
     public class CreateOrderQuestionDtoValidator : AbstractValidator<CreateOrderQuestionDto>
@@ -35,7 +35,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.Order
         public CreateOrderQuestionDtoValidator(ILocalizer localizer)
         {
             Include(new CreateQuestionDtoValidator(localizer));
-            RuleForEach(question => question.Items).SetValidator(new ItemDtoValidator(localizer));
+            RuleForEach(question => question.OrderItems).SetValidator(new ItemDtoValidator(localizer));
         }
     }
 }

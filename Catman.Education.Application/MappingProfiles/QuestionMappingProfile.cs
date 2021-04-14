@@ -39,7 +39,7 @@ namespace Catman.Education.Application.MappingProfiles
             CreateMap<CreateOrderQuestionCommand, OrderQuestion>()
                 .AfterMap((_, question) =>
                 {
-                    foreach (var item in question.Items)
+                    foreach (var item in question.OrderItems)
                     {
                         item.Question = question;
                     }

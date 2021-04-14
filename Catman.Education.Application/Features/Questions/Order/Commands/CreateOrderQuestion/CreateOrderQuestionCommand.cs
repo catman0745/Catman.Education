@@ -14,7 +14,7 @@ namespace Catman.Education.Application.Features.Questions.Order.Commands.CreateO
             public byte OrderIndex { get; set; }
         }
         
-        public ICollection<Item> Items { get; set; }
+        public ICollection<Item> OrderItems { get; set; }
         
         public CreateOrderQuestionCommand(Guid requestorId)
             : base(requestorId)
