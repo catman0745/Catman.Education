@@ -31,7 +31,7 @@ namespace Catman.Education.WebApi.Controllers
 
         /// <summary> Get the test with matching id </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<FullyPopulatedTestDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<TestDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTest([FromRoute] Guid id)
         {
@@ -40,14 +40,14 @@ namespace Catman.Education.WebApi.Controllers
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(test =>
             {
-                var dto = _mapper.Map<FullyPopulatedTestDto>(test);
+                var dto = _mapper.Map<TestDto>(test);
                 return Ok(Success(result.Message, dto));
             });
         }
 
         /// <summary> Get filtered and paginated tests </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<Paginated<TestDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<Paginated<TestInfoDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTests([FromQuery] GetTestsDto getDto)
         {
@@ -56,7 +56,7 @@ namespace Catman.Education.WebApi.Controllers
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(tests =>
             {
-                var dtos = _mapper.Map<PaginatedDto<TestDto>>(tests);
+                var dtos = _mapper.Map<PaginatedDto<TestInfoDto>>(tests);
                 return Ok(Success(result.Message, dtos));
             });
         }

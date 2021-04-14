@@ -1,17 +1,16 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Test
 {
-    using System;
+    using System.Collections.Generic;
     using System.Text.Json.Serialization;
+    using Catman.Education.WebApi.DataTransferObjects.Discipline;
+    using Catman.Education.WebApi.DataTransferObjects.Questions.Question;
 
-    public class TestDto
+    public class TestDto : TestInfoDto
     {
-        [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        [JsonPropertyName("discipline")]
+        public DisciplineDto Discipline { get; set; }
         
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-        
-        [JsonPropertyName("disciplineId")]
-        public Guid DisciplineId { get; set; }
+        [JsonPropertyName("questions")]
+        public ICollection<QuestionDto> Questions { get; set; }
     }
 }

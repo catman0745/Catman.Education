@@ -26,34 +26,27 @@ namespace Catman.Education.WebApi.MappingProfiles
                 .Include<OrderQuestion, OrderQuestionDto>()
                 .Include<ValueQuestion, ValueQuestionDto>()
                 .Include<YesNoQuestion, YesNoQuestionDto>();
-            CreateMap<Question, FullyPopulatedQuestionDto>()
-                .Include<ChoiceQuestion, FullyPopulatedChoiceQuestionDto>()
-                .Include<OrderQuestion, FullyPopulatedOrderQuestionDto>()
-                .Include<ValueQuestion, FullyPopulatedValueQuestionDto>()
-                .Include<YesNoQuestion, FullyPopulatedYesNoQuestionDto>();
             CreateMap<GetQuestionsDto, GetQuestionsQuery>();
             
             CreateMap<ChoiceQuestion, ChoiceQuestionDto>();
-            CreateMap<ChoiceQuestion, FullyPopulatedChoiceQuestionDto>();
+            CreateMap<ChoiceQuestionAnswerOption, ChoiceQuestionDto.AnswerOptionDto>();
             CreateMap<CreateChoiceQuestionDto, CreateChoiceQuestionCommand>();
             CreateMap<CreateChoiceQuestionDto.AnswerOptionDto, CreateChoiceQuestionCommand.AnswerOption>();
             CreateMap<UpdateChoiceQuestionDto, UpdateChoiceQuestionCommand>();
             CreateMap<UpdateChoiceQuestionDto.AnswerOptionDto, UpdateChoiceQuestionCommand.AnswerOption>();
 
             CreateMap<OrderQuestion, OrderQuestionDto>();
-            CreateMap<OrderQuestion, FullyPopulatedOrderQuestionDto>();
+            CreateMap<OrderQuestionItem, OrderQuestionDto.OrderItemDto>();
             CreateMap<CreateOrderQuestionDto, CreateOrderQuestionCommand>();
             CreateMap<CreateOrderQuestionDto.ItemDto, CreateOrderQuestionCommand.Item>();
             CreateMap<UpdateOrderQuestionDto, UpdateOrderQuestionCommand>();
             CreateMap<UpdateOrderQuestionDto.ItemDto, UpdateOrderQuestionCommand.Item>();
 
             CreateMap<ValueQuestion, ValueQuestionDto>();
-            CreateMap<ValueQuestion, FullyPopulatedValueQuestionDto>();
             CreateMap<CreateValueQuestionDto, CreateValueQuestionCommand>();
             CreateMap<UpdateValueQuestionDto, UpdateValueQuestionCommand>();
 
             CreateMap<YesNoQuestion, YesNoQuestionDto>();
-            CreateMap<YesNoQuestion, FullyPopulatedYesNoQuestionDto>();
             CreateMap<CreateYesNoQuestionDto, CreateYesNoQuestionCommand>();
             CreateMap<UpdateYesNoQuestionDto, UpdateYesNoQuestionCommand>();
         }

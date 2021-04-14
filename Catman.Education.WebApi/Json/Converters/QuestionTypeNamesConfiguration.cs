@@ -15,7 +15,7 @@ namespace Catman.Education.WebApi.Json.Converters
         private static readonly IDictionary<string, Type> TypeNameToAnsweredType = new Dictionary<string, Type>();
         private static readonly IDictionary<Type, string> TypeToTypeName = new Dictionary<Type, string>();
 
-        public static void RegisterQuestion<TDto, TFullyPopulatedDto, TTestingDto, TAnsweredDto>()
+        public static void RegisterQuestion<TDto, TTestingDto, TAnsweredDto>()
             where TDto : QuestionDto
             where TTestingDto : TestingQuestionDto
             where TAnsweredDto : AnsweredQuestionDto
@@ -25,7 +25,6 @@ namespace Catman.Education.WebApi.Json.Converters
             TypeNameToAnsweredType[typeName] = typeof(TAnsweredDto);
 
             TypeToTypeName[typeof(TDto)] = typeName;
-            TypeToTypeName[typeof(TFullyPopulatedDto)] = typeName;
             TypeToTypeName[typeof(TTestingDto)] = typeName;
         }
 

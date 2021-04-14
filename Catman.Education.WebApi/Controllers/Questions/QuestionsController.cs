@@ -29,7 +29,7 @@ namespace Catman.Education.WebApi.Controllers.Questions
 
         /// <summary> Get the question with matching id </summary>
         [HttpGet("{id}", Name = nameof(GetQuestion))]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<FullyPopulatedQuestionDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<QuestionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetQuestion([FromRoute] Guid id)
         {
@@ -38,7 +38,7 @@ namespace Catman.Education.WebApi.Controllers.Questions
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(question =>
             {
-                var dto = _mapper.Map<FullyPopulatedQuestionDto>(question);
+                var dto = _mapper.Map<QuestionDto>(question);
                 return Ok(Success(result.Message, dto));
             });
         }

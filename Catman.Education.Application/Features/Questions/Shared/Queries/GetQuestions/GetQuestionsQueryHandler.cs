@@ -8,6 +8,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Queries.GetQues
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
+    using Microsoft.EntityFrameworkCore;
 
     internal class GetQuestionsQueryHandler : ResourceRequestHandlerBase<GetQuestionsQuery, Paginated<Question>>
     {
@@ -31,6 +32,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Queries.GetQues
             GetQuestionsQuery getQuery)
         {
             var questions = await _store.Questions
+                .Include(question => question.Items)
                 .ApplyFilter(QuestionsFilter, getQuery)
                 .OrderBy(question => question.TestId)
                 .ThenBy(question => question.Cost)
