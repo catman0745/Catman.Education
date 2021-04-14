@@ -45,6 +45,7 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<CreateOrderQuestionDto, CreateOrderQuestionCommand>();
             CreateMap<CreateOrderQuestionDto.ItemDto, CreateOrderQuestionCommand.Item>();
             CreateMap<UpdateOrderQuestionDto, UpdateOrderQuestionCommand>();
+            CreateMap<UpdateOrderQuestionDto.ItemDto, UpdateOrderQuestionCommand.Item>();
 
             CreateMap<ValueQuestion, ValueQuestionDto>();
             CreateMap<ValueQuestion, FullyPopulatedValueQuestionDto>();

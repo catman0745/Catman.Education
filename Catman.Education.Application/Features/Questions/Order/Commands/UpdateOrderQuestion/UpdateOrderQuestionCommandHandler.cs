@@ -1,11 +1,13 @@
 namespace Catman.Education.Application.Features.Questions.Order.Commands.UpdateOrderQuestion
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class UpdateOrderQuestionCommandHandler : RequestHandlerBase<UpdateOrderQuestionCommand>
     {
@@ -32,6 +34,9 @@ namespace Catman.Education.Application.Features.Questions.Order.Commands.UpdateO
                 return NotFound(_localizer.QuestionNotFound(updateCommand.Id));
             }
             var question = await _store.OrderQuestions.WithIdAsync(updateCommand.Id);
+
+            var oldItems = await _store.OrderQuestionItems.Where(item => item.QuestionId == question.Id).ToListAsync();
+            _store.OrderQuestionItems.RemoveRange(oldItems);
 
             _mapper.Map(updateCommand, question);
             await _store.SaveChangesAsync();
