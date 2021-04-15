@@ -14,8 +14,8 @@ namespace Catman.Education.WebApi.DataTransferObjects.Questions.Order
             [JsonPropertyName("text")]
             public string Text { get; set; }
             
-            [JsonPropertyName("index")]
-            public int Index { get; set; }
+            [JsonPropertyName("orderIndex")]
+            public int OrderIndex { get; set; }
         }
         
         [JsonPropertyName("items")]
