@@ -13,7 +13,7 @@ namespace Catman.Education.WebApi.Controllers.Questions
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Microsoft.AspNetCore.Components.Route("api/questions/order")]
+    [Route("api/questions/order")]
     public class OrderQuestionsController : ApiControllerBase
     {
         private readonly IMediator _mediator;

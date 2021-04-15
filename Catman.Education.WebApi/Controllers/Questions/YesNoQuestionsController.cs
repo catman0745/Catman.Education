@@ -13,7 +13,7 @@ namespace Catman.Education.WebApi.Controllers.Questions
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Microsoft.AspNetCore.Components.Route("api/questions/yesno")]
+    [Route("api/questions/yesno")]
     public class YesNoQuestionsController : ApiControllerBase
     {
         private readonly IMediator _mediator;

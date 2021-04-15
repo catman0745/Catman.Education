@@ -13,7 +13,7 @@ namespace Catman.Education.WebApi.Controllers.Questions
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Microsoft.AspNetCore.Components.Route("api/questions/value")]
+    [Route("api/questions/value")]
     public class ValueQuestionsController : ApiControllerBase
     {
         private readonly IMediator _mediator;
