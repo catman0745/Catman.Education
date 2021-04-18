@@ -18,7 +18,8 @@ namespace Catman.Education.WebApi.MappingProfiles
         public TestingMappingProfile()
         {
             CreateMap<GetTestingResultsDto, GetTestingResultsQuery>();
-            CreateMap<TestingResult, TestingResultDto>();
+            CreateMap<TestingResult, TestingResultDto>()
+                .ForMember(dto => dto.TestTitle, options => options.MapFrom(entity => entity.Test.Title));
 
             CreateMap<Testing, TestingDto>();
             CreateMap<TestingQuestion, TestingQuestionDto>()

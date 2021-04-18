@@ -8,6 +8,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
     using Catman.Education.Application.Extensions;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
+    using Microsoft.EntityFrameworkCore;
 
     internal class GetTestingResultsQueryHandler :
         ResourceRequestHandlerBase<GetTestingResultsQuery, Paginated<TestingResult>>
@@ -37,6 +38,7 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
             GetTestingResultsQuery getQuery)
         {
             var testingResults = await _store.TestingResults
+                .Include(result => result.Test)
                 .ApplyFilter(TestingResultsFilter, getQuery)
                 .OrderBy(testingResult => testingResult.TestId)
                     .ThenBy(testingResult => testingResult.StudentId)

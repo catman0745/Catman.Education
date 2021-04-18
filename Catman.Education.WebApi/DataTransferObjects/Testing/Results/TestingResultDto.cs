@@ -11,6 +11,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Results
         [JsonPropertyName("testId")]
         public Guid TestId { get; set; }
         
+        [JsonPropertyName("testTitle")]
+        public string TestTitle { get; set; }
+        
         [JsonPropertyName("maxScore")]
         public int MaxScore { get; set; }
         
