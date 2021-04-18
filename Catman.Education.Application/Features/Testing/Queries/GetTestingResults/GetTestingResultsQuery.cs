@@ -8,6 +8,8 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
 
     public class GetTestingResultsQuery : PaginationInfo, IRequest<ResourceRequestResult<Paginated<TestingResult>>>
     {
+        public Guid? DisciplineId { get; set; }
+    
         public Guid? TestId { get; set; }
         
         public Guid? StudentId { get; set; }

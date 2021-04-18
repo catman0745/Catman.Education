@@ -17,10 +17,12 @@ namespace Catman.Education.Application.Features.Testing.Queries.GetTestingResult
             IQueryable<TestingResult> testingResults,
             GetTestingResultsQuery getQuery)
         {
+            var disciplineId = getQuery.DisciplineId;
             var testId = getQuery.TestId;
             var studentId = getQuery.StudentId;
 
             return testingResults
+                .Where(testingResult => disciplineId == null || testingResult.Test.DisciplineId == disciplineId)
                 .Where(testingResult => testId == null || testingResult.TestId == testId)
                 .Where(testingResult => studentId == null || testingResult.StudentId == studentId);
         }

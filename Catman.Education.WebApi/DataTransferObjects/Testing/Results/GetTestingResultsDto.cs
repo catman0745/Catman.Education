@@ -8,6 +8,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Results
 
     public class GetTestingResultsDto : PaginationInfoDto
     {
+        [FromQuery(Name = "disciplineId")]
+        public Guid? DisciplineId { get; set; }
+    
         [FromQuery(Name = "testId")]
         public Guid? TestId { get; set; }
         
