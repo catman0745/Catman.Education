@@ -29,7 +29,7 @@ namespace Catman.Education.Application.Features.Testing.Commands.CheckTest.Quest
                     (expectedAnswer, actualAnswer) => (Expected: expectedAnswer, Actual: actualAnswer))
                 .Count(answer => answer.Expected.IsCorrect == answer.Actual.IsSelected);
 
-            var score = matchesCount * (double) question.Cost / question.AnswerOptions.Count;
+            var score = Math.Round(matchesCount * (double) question.Cost / question.AnswerOptions.Count, 2);
             return CheckResult(question, score);
         }
     }

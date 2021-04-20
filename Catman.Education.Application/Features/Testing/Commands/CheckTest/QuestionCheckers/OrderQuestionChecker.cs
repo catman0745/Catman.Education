@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Testing.Commands.CheckTest.QuestionCheckers
 {
+    using System;
     using System.Linq;
     using Catman.Education.Application.Entities.Testing.Questioning;
     using Catman.Education.Application.Models.Answered;
@@ -17,7 +18,7 @@ namespace Catman.Education.Application.Features.Testing.Commands.CheckTest.Quest
                 .Zip(answeredQuestion.OrderedItemIds)
                 .Count(pair => pair.First == pair.Second);
 
-            var score = matchesCount * (double) question.Cost / question.OrderItems.Count;
+            var score = Math.Round(matchesCount * (double) question.Cost / question.OrderItems.Count, 2);
             return CheckResult(question, score);
         }
     }
