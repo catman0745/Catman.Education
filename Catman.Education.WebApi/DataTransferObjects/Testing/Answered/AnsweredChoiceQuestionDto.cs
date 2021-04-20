@@ -19,7 +19,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Testing.Answered
         {
             Include(new AnsweredQuestionDtoValidator(localizer));
 
-            RuleFor(dto => dto.SelectedAnswerOptionIds).NotEmpty(localizer);
             RuleForEach(dto => dto.SelectedAnswerOptionIds).NotEmpty(localizer);
         }
     }

@@ -17,7 +17,6 @@ namespace Catman.Education.Application.Models.Answered
         {
             Include(new AnsweredQuestionValidator(localizer));
 
-            RuleFor(question => question.SelectedAnswerOptionIds).NotEmpty(localizer);
             RuleForEach(question => question.SelectedAnswerOptionIds).NotEmpty(localizer);
         }
     }

@@ -1,7 +1,6 @@
 namespace Catman.Education.Application.Models.Answered
 {
     using Catman.Education.Application.Abstractions.Localization;
-    using Catman.Education.Application.Extensions.Validation;
     using FluentValidation;
     
     public class AnsweredValueQuestion : AnsweredQuestion
@@ -14,8 +13,6 @@ namespace Catman.Education.Application.Models.Answered
         public AnsweredValueQuestionValidator(ILocalizer localizer)
         {
             Include(new AnsweredQuestionValidator(localizer));
-
-            RuleFor(question => question.GivenAnswer).ValidQuestionAnswer(localizer);
         }
     }
 }
