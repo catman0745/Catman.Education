@@ -5,6 +5,7 @@ namespace Catman.Education.WebApi.Controllers
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.Testing.Commands.CheckTest;
+    using Catman.Education.Application.Features.Testing.Queries.GetStudentPerformance;
     using Catman.Education.Application.Features.Testing.Queries.GetTesting;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResult;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResults;
@@ -44,6 +45,22 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(test =>
             {
                 var dto = _mapper.Map<TestingDto>(test);
+                return Ok(Success(result.Message, dto));
+            });
+        }
+
+        /// <summary> Get performance statistics for the student with matching id </summary>
+        [HttpGet("results/performance/{studentId}")]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<StudentPerformanceDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetStudentPerformance([FromRoute] Guid studentId)
+        {
+            var getQuery = new GetStudentPerformanceQuery(studentId);
+
+            var result = await _mediator.Send(getQuery);
+            return result.ToActionResult(studentPerformance =>
+            {
+                var dto = _mapper.Map<StudentPerformanceDto>(studentPerformance);
                 return Ok(Success(result.Message, dto));
             });
         }

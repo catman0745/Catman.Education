@@ -1,5 +1,6 @@
 namespace Catman.Education.WebApi.MappingProfiles
 {
+    using System.Linq;
     using AutoMapper;
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResults;
@@ -17,6 +18,15 @@ namespace Catman.Education.WebApi.MappingProfiles
     {
         public TestingMappingProfile()
         {
+            CreateMap<StudentPerformance, StudentPerformanceDto>()
+                .ForMember(dto => dto.StudentId, options => options.MapFrom(entity => entity.Student.Id))
+                .ForMember(
+                    dto => dto.DisciplinesPerformance,
+                    options => options.MapFrom(entity => entity.DisciplinesPerformance
+                        .ToDictionary(keyValuePair => keyValuePair.Key.Id, keyValuePair => keyValuePair.Value))
+                    );
+            CreateMap<StudentPerformance.DisciplinePerformance, StudentPerformanceDto.DisciplinePerformanceDto>();
+            
             CreateMap<GetTestingResultsDto, GetTestingResultsQuery>();
             CreateMap<TestingResult, TestingResultDto>()
                 .ForMember(dto => dto.TestTitle, options => options.MapFrom(entity => entity.Test.Title));
