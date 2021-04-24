@@ -5,6 +5,7 @@ namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscip
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class RemoveDisciplineCommandHandler : RequestHandlerBase<RemoveDisciplineCommand>
     {
@@ -23,7 +24,11 @@ namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscip
             {
                 return NotFound(_localizer.DisciplineNotFound(removeCommand.Id));
             }
-            var discipline = await _store.Disciplines.WithIdAsync(removeCommand.Id);
+            var discipline = await _store.Disciplines
+                .Include(d => d.Tests)
+                    .ThenInclude(test => test.Questions)
+                        .ThenInclude(question => question.Items)
+                .WithIdAsync(removeCommand.Id);
 
             _store.Disciplines.Remove(discipline);
             await _store.SaveChangesAsync();

@@ -5,6 +5,7 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class RemoveTestCommandHandler : RequestHandlerBase<RemoveTestCommand>
     {
@@ -23,7 +24,10 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
             {
                 return NotFound(_localizer.TestNotFound(removeCommand.Id));
             }
-            var test = await _store.Tests.WithIdAsync(removeCommand.Id);
+            var test = await _store.Tests
+                .Include(t => t.Questions)
+                    .ThenInclude(q => q.Items)
+                .WithIdAsync(removeCommand.Id);
 
             _store.Tests.Remove(test);
             await _store.SaveChangesAsync();
