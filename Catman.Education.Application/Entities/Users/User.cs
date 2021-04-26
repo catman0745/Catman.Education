@@ -2,7 +2,7 @@ namespace Catman.Education.Application.Entities.Users
 {
     using System;
 
-    public class User
+    public abstract class User
     {
         public Guid Id { get; set; }
         
@@ -10,6 +10,6 @@ namespace Catman.Education.Application.Entities.Users
         
         public string Password { get; set; }
         
-        public string Role { get; set; }
+        public abstract string Role { get; }
     }
 }
