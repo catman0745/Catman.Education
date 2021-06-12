@@ -27,7 +27,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
         {
             RuleFor(dto => dto.Username).ValidUsername(localizer);
             RuleFor(dto => dto.Password).ValidPassword(localizer);
-            RuleFor(dto => dto.FullName).ValidName(localizer);
+            RuleFor(dto => dto.FullName).ValidFullName(localizer);
             RuleFor(dto => dto.GroupId).NotEmpty(localizer);
         }
     }

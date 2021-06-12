@@ -23,6 +23,12 @@ namespace Catman.Education.Persistence.EntityConfigurations
                 .HasColumnName("username")
                 .HasMaxLength(30)
                 .IsRequired();
+        
+            builder
+                .Property(user => user.FullName)
+                .HasColumnName("full_name")
+                .HasMaxLength(40)
+                .IsRequired();
 
             builder
                 .Property(user => user.Password)

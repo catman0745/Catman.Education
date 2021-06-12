@@ -10,6 +10,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Admin
         [JsonPropertyName("username")]
         public string Username { get; set; }
         
+        [JsonPropertyName("fullName")]
+        public string FullName { get; set; }
+        
         [JsonPropertyName("password")]
         public string Password { get; set; }
     }
@@ -19,6 +22,7 @@ namespace Catman.Education.WebApi.DataTransferObjects.Admin
         public UpdateAdminDtoValidator(ILocalizer localizer)
         {
             RuleFor(dto => dto.Username).ValidUsername(localizer);
+            RuleFor(dto => dto.FullName).ValidFullName(localizer);
             RuleFor(dto => dto.Password).ValidPassword(localizer);
         }
     }

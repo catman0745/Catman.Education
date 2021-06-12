@@ -14,7 +14,7 @@ namespace Catman.Education.Application.Features.Student.Commands.RegisterStudent
             
             RuleFor(command => command.Username).ValidUsername(localizer).UniqueUsername(store, localizer);
             RuleFor(command => command.Password).ValidPassword(localizer);
-            RuleFor(command => command.FullName).ValidName(localizer);
+            RuleFor(command => command.FullName).ValidFullName(localizer);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
     {
         public string Username { get; set; }
         
+        public string FullName { get; set; }
+        
         public string Password { get; set; }
 
         public Guid RequestorId { get; }

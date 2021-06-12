@@ -9,12 +9,6 @@ namespace Catman.Education.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder.ToTable("students");
-        
-            builder
-                .Property(student => student.FullName)
-                .HasColumnName("full_name")
-                .HasMaxLength(40)
-                .IsRequired();
 
             builder
                 .Property(student => student.GroupId)

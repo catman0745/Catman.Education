@@ -12,6 +12,7 @@ namespace Catman.Education.Application.Features.Admin.Commands.RegisterAdmin
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
             
             RuleFor(command => command.Username).ValidUsername(localizer).UniqueUsername(store, localizer);
+            RuleFor(command => command.FullName).ValidFullName(localizer);
             RuleFor(command => command.Password).ValidPassword(localizer);
         }
     }

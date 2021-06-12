@@ -41,5 +41,12 @@ namespace Catman.Education.Application.Extensions.Validation
                     .OtherThan(exceptUserWithId(request))
                     .ExistsWithUsernameAsync(username))
                 .WithMessage(localizer.MustBeUnique());
+        
+        public static IRuleBuilderOptions<T, string> ValidFullName<T>(
+            this IRuleBuilder<T, string> fullName,
+            ILocalizer localizer) =>
+            fullName
+                .NotEmpty(localizer)
+                .MaximumLength(40, localizer);
     }
 }
