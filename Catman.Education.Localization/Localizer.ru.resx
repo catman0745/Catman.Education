@@ -62,8 +62,8 @@
     <data name="Admin with id updated" xml:space="preserve">
         <value>Админ с id "{id}" обновлён</value>
     </data>
-    <data name="Admin with id retrieved" xml:space="preserve">
-        <value>Получен админ с id "{id}"</value>
+    <data name="Admins retrieved" xml:space="preserve">
+        <value>Получено несколько ({count}) админов</value>
     </data>
     <data name="Discipline with id created" xml:space="preserve">
         <value>Создана дисциплина с id "{id}"</value>
@@ -133,24 +133,6 @@
     </data>
     <data name="Questions retrieved" xml:space="preserve">
         <value>Получено несколько ({count}) вопросов</value>
-    </data>
-    <data name="Answer with id created" xml:space="preserve">
-        <value>Создан ответ с id "{id}"</value>
-    </data>
-    <data name="Answer with id not found" xml:space="preserve">
-        <value>Ответ  с id "{id}" не найден</value>
-    </data>
-    <data name="Answer with id removed" xml:space="preserve">
-        <value>Ответ  с id "{id}" удалён</value>
-    </data>
-    <data name="Answer with id retrieved" xml:space="preserve">
-        <value>Получен ответ с id "{id}"</value>
-    </data>
-    <data name="Answer with id updated" xml:space="preserve">
-        <value>Ответ с id "{id}" обновлён</value>
-    </data>
-    <data name="Answers retrieved" xml:space="preserve">
-        <value>Получено несколько ({count}) ответов</value>
     </data>
     <data name="Validation error" xml:space="preserve">
         <value>На этапе валидации возникли ошибки</value>

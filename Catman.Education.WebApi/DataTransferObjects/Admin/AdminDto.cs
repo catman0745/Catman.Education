@@ -1,14 +1,8 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Admin
 {
-    using System;
-    using System.Text.Json.Serialization;
+    using Catman.Education.WebApi.DataTransferObjects.User;
 
-    public class AdminDto
+    public class AdminDto : UserDto
     {
-        [JsonPropertyName("id")]
-        public Guid Id { get; set; }
-        
-        [JsonPropertyName("username")]
-        public string Username { get; set; }
     }
 }

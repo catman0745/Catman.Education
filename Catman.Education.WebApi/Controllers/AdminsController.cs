@@ -5,8 +5,9 @@ namespace Catman.Education.WebApi.Controllers
     using AutoMapper;
     using Catman.Education.Application.Features.Admin.Commands.RegisterAdmin;
     using Catman.Education.Application.Features.Admin.Commands.UpdateAdmin;
-    using Catman.Education.Application.Features.Admin.Queries.GetAdmin;
+    using Catman.Education.Application.Features.Admin.Queries.GetAdmins;
     using Catman.Education.WebApi.DataTransferObjects.Admin;
+    using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
     using MediatR;
@@ -25,18 +26,18 @@ namespace Catman.Education.WebApi.Controllers
             _mapper = mapper;
         }
 
-        /// <summary> Get the admin with matching id </summary>
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<AdminDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
+        /// <summary> Get paginated admins </summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<AdminDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAdmins([FromQuery] GetAdminsDto getDto)
         {
-            var getQuery = new GetAdminQuery(id);
+            var getQuery = _mapper.Map<GetAdminsQuery>(getDto);
 
             var result = await _mediator.Send(getQuery);
-            return result.ToActionResult(admin =>
+            return result.ToActionResult(paginated =>
             {
-                var dto = _mapper.Map<AdminDto>(admin);
+                var dto = _mapper.Map<PaginatedDto<AdminDto>>(paginated);
                 return Ok(Success(result.Message, dto));
             });
         }
@@ -57,7 +58,7 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(admin =>
             {
                 var dto = _mapper.Map<AdminDto>(admin);
-                return CreatedAtAction(nameof(Get), new {admin.Id}, Success(result.Message, dto));
+                return Ok(Success(result.Message, dto));
             });
         }
 

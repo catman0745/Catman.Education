@@ -5,7 +5,6 @@ namespace Catman.Education.WebApi.Controllers
     using AutoMapper;
     using Catman.Education.Application.Features.Student.Commands.RegisterStudent;
     using Catman.Education.Application.Features.Student.Commands.UpdateStudent;
-    using Catman.Education.Application.Features.Student.Queries.GetStudent;
     using Catman.Education.Application.Features.Student.Queries.GetStudents;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.Student;
@@ -25,22 +24,6 @@ namespace Catman.Education.WebApi.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-        }
-        
-        /// <summary> Get the student with matching id </summary>
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<StudentDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetStudent([FromRoute] Guid id)
-        {
-            var getQuery = new GetStudentQuery(id);
-
-            var result = await _mediator.Send(getQuery);
-            return result.ToActionResult(student =>
-            {
-                var dto = _mapper.Map<StudentDto>(student);
-                return Ok(Success(result.Message, dto));
-            });
         }
 
         /// <summary> Get filtered and paginated students </summary>
@@ -75,7 +58,7 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(student =>
             {
                 var dto = _mapper.Map<StudentDto>(student);
-                return CreatedAtAction(nameof(GetStudent), new {student.Id}, Success(result.Message, dto));
+                return Ok(Success(result.Message, dto));
             });
         }
 

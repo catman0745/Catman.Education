@@ -8,8 +8,8 @@ namespace Catman.Education.Localization
         public string AdminRegistered(Guid id) =>
             _localizer["Admin with id registered"].InjectId(id);
 
-        public string AdminRetrieved(Guid id) =>
-            _localizer["Admin with id retrieved"].InjectId(id);
+        public string AdminsRetrieved(int count) =>
+            _localizer["Admins retrieved"].InjectCount(count);
 
         public string AdminUpdated(Guid id) =>
             _localizer["Admin with id updated"].InjectId(id);

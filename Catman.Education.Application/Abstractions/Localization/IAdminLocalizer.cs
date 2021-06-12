@@ -6,7 +6,7 @@ namespace Catman.Education.Application.Abstractions.Localization
     {
         string AdminRegistered(Guid id);
 
-        string AdminRetrieved(Guid id);
+        string AdminsRetrieved(int count);
 
         string AdminUpdated(Guid id);
         

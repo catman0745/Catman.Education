@@ -6,8 +6,6 @@ namespace Catman.Education.WebApi.Controllers
     using Catman.Education.Application.Features.User.Commands.RemoveUser;
     using Catman.Education.Application.Features.User.Queries.GenerateToken;
     using Catman.Education.Application.Features.User.Queries.GetUser;
-    using Catman.Education.Application.Features.User.Queries.GetUsers;
-    using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.User;
     using Catman.Education.WebApi.Extensions;
     using Catman.Education.WebApi.Responses;
@@ -25,22 +23,6 @@ namespace Catman.Education.WebApi.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-        }
-
-        /// <summary> Get filtered and paginated users </summary>
-        [HttpGet]
-        [ProducesResponseType(typeof(ResourceSuccessResponse<PaginatedDto<UserDto>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Get([FromQuery] GetUsersDto getDto)
-        {
-            var getQuery = _mapper.Map<GetUsersQuery>(getDto);
-
-            var result = await _mediator.Send(getQuery);
-            return result.ToActionResult(paginated =>
-            {
-                var dto = _mapper.Map<PaginatedDto<UserDto>>(paginated);
-                return Ok(Success(result.Message, dto));
-            });
         }
 
         /// <summary> Get the user with matching id </summary>

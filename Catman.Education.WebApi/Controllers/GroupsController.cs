@@ -44,12 +44,12 @@ namespace Catman.Education.WebApi.Controllers
             });
         }
 
-        /// <summary> Get filtered groups </summary>
+        /// <summary> Get all groups </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<GroupDto>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get([FromQuery] GetGroupsDto getDto)
+        public async Task<IActionResult> Get()
         {
-            var getQuery = _mapper.Map<GetGroupsQuery>(getDto);
+            var getQuery = new GetGroupsQuery();
 
             var result = await _mediator.Send(getQuery);
             return result.ToActionResult(groups => 

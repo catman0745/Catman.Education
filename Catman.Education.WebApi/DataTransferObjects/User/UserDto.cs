@@ -2,7 +2,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.User
 {
     using System;
     using System.Text.Json.Serialization;
+    using Catman.Education.WebApi.Json.Converters;
 
+    [JsonConverter(typeof(UserDtoConverter))]
     public class UserDto
     {
         [JsonPropertyName("id")]

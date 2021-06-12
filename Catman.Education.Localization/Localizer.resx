@@ -62,8 +62,8 @@
     <data name="Admin with id updated" xml:space="preserve">
         <value>Admin with id "{id}" updated successfully</value>
     </data>
-    <data name="Admin with id retrieved" xml:space="preserve">
-        <value>Admin with id "{id}" retrieved successfully</value>
+    <data name="Admins retrieved" xml:space="preserve">
+        <value>Several ({count}) admins retrieved successfully</value>
     </data>
     <data name="Discipline with id created" xml:space="preserve">
         <value>Discipline with id "{id}" created successfully</value>
@@ -133,24 +133,6 @@
     </data>
     <data name="Questions retrieved" xml:space="preserve">
         <value>Several ({count}) questions retrieved</value>
-    </data>
-    <data name="Answer with id created" xml:space="preserve">
-        <value>Answer with id "{id}" created successfully</value>
-    </data>
-    <data name="Answer with id updated" xml:space="preserve">
-        <value>Answer with id "{id}" updated successfully</value>
-    </data>
-    <data name="Answer with id removed" xml:space="preserve">
-        <value>Answer with id "{id}" removed successfully</value>
-    </data>
-    <data name="Answer with id retrieved" xml:space="preserve">
-        <value>Answer with id "{id}" retrieved successfully</value>
-    </data>
-    <data name="Answers retrieved" xml:space="preserve">
-        <value>Several ({count}) answers retrieved successfully</value>
-    </data>
-    <data name="Answer with id not found" xml:space="preserve">
-        <value>Answer with id "{id}" not found</value>
     </data>
     <data name="Validation error" xml:space="preserve">
         <value>Validation errors occured</value>

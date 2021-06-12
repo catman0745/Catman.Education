@@ -1,12 +1,12 @@
-namespace Catman.Education.Application.Features.User.Queries.GetUsers
+namespace Catman.Education.Application.Features.Admin.Queries.GetAdmins
 {
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Pagination;
     using FluentValidation;
 
-    public class GetUsersQueryValidator : AbstractValidator<GetUsersQuery>
+    public class GetAdminsQueryValidator : AbstractValidator<GetAdminsQuery>
     {
-        public GetUsersQueryValidator(ILocalizer localizer)
+        public GetAdminsQueryValidator(ILocalizer localizer)
         {
             Include(new PaginationInfoValidator(localizer));
         }
