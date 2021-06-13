@@ -12,8 +12,6 @@ namespace Catman.Education.Application.Abstractions.Localization
 
         string AccessViolationError();
 
-        string AccessViolationError(string requiredRole);
-
         string UsernameRegexValidationErrorMessage();
     }
 }

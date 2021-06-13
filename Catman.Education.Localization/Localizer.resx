@@ -179,4 +179,16 @@
     <data name="Testing result with testId and studentId not found" xml:space="preserve">
         <value>The result of passing the test with the id "{testId}" by the student with the id "{studentId}" not found</value>
     </data>
+    <data name="Teacher with id registered" xml:space="preserve">
+        <value>Teacher with id "{id}" registered successfully</value>
+    </data>
+    <data name="Teachers retrieved" xml:space="preserve">
+        <value>Several ({count}) teachers retrieved successfully</value>
+    </data>
+    <data name="Teacher with id updated" xml:space="preserve">
+        <value>Teacher with id "{id}" updated successfylly</value>
+    </data>
+    <data name="Teacher with id not found" xml:space="preserve">
+        <value>Teacher with id "{id}" not found</value>
+    </data>
 </root>

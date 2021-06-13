@@ -1,6 +1,7 @@
 namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
 {
     using System;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
     using MediatR;
@@ -11,7 +12,7 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
 
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => nameof(Admin);
+        public string RequiredRequestorRole => nameof(Teacher);
 
         public RemoveTestCommand(Guid id, Guid requestorId)
         {

@@ -1,6 +1,7 @@
 namespace Catman.Education.Application.Features.Discipline.Commands.RemoveDiscipline
 {
     using System;
+    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
     using MediatR;

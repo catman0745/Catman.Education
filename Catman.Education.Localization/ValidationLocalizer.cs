@@ -19,9 +19,6 @@ namespace Catman.Education.Localization
         public string AccessViolationError() =>
             _localizer["Access violation error"];
 
-        public string AccessViolationError(string requiredRole) =>
-            _localizer["Access violation role error"].InjectRole(requiredRole);
-
         public string UsernameRegexValidationErrorMessage() =>
             _localizer["Username regex validation error message"];
     }

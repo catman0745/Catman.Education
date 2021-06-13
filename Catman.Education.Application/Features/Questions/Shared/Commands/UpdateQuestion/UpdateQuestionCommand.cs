@@ -18,7 +18,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Update
 
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => nameof(Admin);
+        public string RequiredRequestorRole => nameof(Teacher);
 
         public UpdateQuestionCommand(Guid id, Guid requestorId)
         {

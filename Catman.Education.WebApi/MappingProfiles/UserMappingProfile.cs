@@ -6,6 +6,7 @@ namespace Catman.Education.WebApi.MappingProfiles
     using Catman.Education.Application.Models.Auth;
     using Catman.Education.WebApi.DataTransferObjects.Admin;
     using Catman.Education.WebApi.DataTransferObjects.Student;
+    using Catman.Education.WebApi.DataTransferObjects.Teacher;
     using Catman.Education.WebApi.DataTransferObjects.User;
 
     public class UserMappingProfile : Profile
@@ -15,7 +16,8 @@ namespace Catman.Education.WebApi.MappingProfiles
             CreateMap<GenerateTokenDto, GenerateTokenQuery>();
             CreateMap<User, UserDto>()
                 .Include<Admin, AdminDto>()
-                .Include<Student, StudentDto>();
+                .Include<Student, StudentDto>()
+                .Include<Teacher, TeacherDto>();
 
             CreateMap<UserInfo, UserInfoDto>();
         }

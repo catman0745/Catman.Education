@@ -1,20 +1,25 @@
-namespace Catman.Education.Application.Features.Group.Commands.RemoveGroup
+namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
 {
     using System;
-    using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
     using MediatR;
 
-    public class RemoveGroupCommand : IRequest<RequestResult>, IRequestorRoleRestriction
+    public class UpdateTeacherCommand : IRequest<RequestResult>, IRequestorRoleRestriction
     {
         public Guid Id { get; }
         
+        public string Username { get; set; }
+        
+        public string FullName { get; set; }
+        
+        public string Password { get; set; }
+
         public Guid RequestorId { get; }
 
         public string RequiredRequestorRole => nameof(Admin);
 
-        public RemoveGroupCommand(Guid id, Guid requestorId)
+        public UpdateTeacherCommand(Guid id, Guid requestorId)
         {
             Id = id;
             RequestorId = requestorId;

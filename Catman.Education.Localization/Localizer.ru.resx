@@ -179,4 +179,16 @@
     <data name="Testing result with testId and studentId not found" xml:space="preserve">
         <value>Результат прохождения теста с id "{testId}" студентом с id "{studentId}" не найден</value>
     </data>
+    <data name="Teacher with id registered" xml:space="preserve">
+        <value>Зарегистрирован преподаватель с id "{id}"</value>
+    </data>
+    <data name="Teachers retrieved" xml:space="preserve">
+        <value>Получено несколько ({count}) преподавателей</value>
+    </data>
+    <data name="Teacher with id updated" xml:space="preserve">
+        <value>Преподаватель с id "{id}" обновлён</value>
+    </data>
+    <data name="Teacher with id not found" xml:space="preserve">
+        <value>Преподаватель с id "{id}" не найден</value>
+    </data>
 </root>

@@ -12,7 +12,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Remove
 
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => nameof(Admin);
+        public string RequiredRequestorRole => nameof(Teacher);
 
         public RemoveQuestionCommand(Guid id, Guid requestorId)
         {

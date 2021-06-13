@@ -41,7 +41,7 @@ namespace Catman.Education.Application.PipelineBehaviors
             return requestor.Role == restrictedRequest.RequiredRequestorRole
                 ? RequestValidationResult.Valid()
                 : RequestValidationResult.Invalid(
-                    _localizer.AccessViolationError(restrictedRequest.RequiredRequestorRole),
+                    _localizer.AccessViolationError(),
                     new Error.AccessViolation());
         }
     }

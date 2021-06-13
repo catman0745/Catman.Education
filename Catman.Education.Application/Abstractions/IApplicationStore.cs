@@ -12,6 +12,8 @@ namespace Catman.Education.Application.Abstractions
         
         DbSet<Student> Students { get; }
         
+        DbSet<Teacher> Teachers { get; }
+
         DbSet<Admin> Admins { get; }
 
         DbSet<Group> Groups { get; }

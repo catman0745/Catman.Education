@@ -3,15 +3,17 @@ using System;
 using Catman.Education.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Catman.Education.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationStore))]
-    partial class ApplicationStoreModelSnapshot : ModelSnapshot
+    [Migration("20210613120803_AddTeacher")]
+    partial class AddTeacher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

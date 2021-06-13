@@ -19,7 +19,7 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Create
 
         public Guid RequestorId { get; }
 
-        public string RequiredRequestorRole => nameof(Admin);
+        public string RequiredRequestorRole => nameof(Teacher);
 
         protected CreateQuestionCommand(Guid requestorId)
         {
