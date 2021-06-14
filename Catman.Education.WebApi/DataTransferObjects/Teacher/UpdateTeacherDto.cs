@@ -1,5 +1,7 @@
 namespace Catman.Education.WebApi.DataTransferObjects.Teacher
 {
+    using System;
+    using System.Collections.Generic;
     using System.Text.Json.Serialization;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Validation;
@@ -15,12 +17,17 @@ namespace Catman.Education.WebApi.DataTransferObjects.Teacher
         
         [JsonPropertyName("password")]
         public string Password { get; set; }
+        
+        [JsonPropertyName("taughtDisciplines")]
+        public ICollection<Guid> TaughtDisciplinesIds { get; set; }
     }
 
     public class UpdateTeacherDtoValidator : AbstractValidator<UpdateTeacherDto>
     {
         public UpdateTeacherDtoValidator(ILocalizer localizer)
         {
+            RuleForEach(dto => dto.TaughtDisciplinesIds).NotEmpty(localizer);
+            
             RuleFor(dto => dto.Username).ValidUsername(localizer);
             RuleFor(dto => dto.FullName).ValidFullName(localizer);
             RuleFor(dto => dto.Password).ValidPassword(localizer);

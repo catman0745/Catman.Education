@@ -16,5 +16,8 @@ namespace Catman.Education.Localization
         
         public string TeacherNotFound(Guid id) =>
             _localizer["Teacher with id not found"].InjectId(id);
+
+        public string TeacherDisciplinesRetrieved(Guid teacherId) =>
+            _localizer["Teacher disciplines with teacherId retrieved"].InjectId(teacherId);
     }
 }

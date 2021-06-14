@@ -1,11 +1,13 @@
 namespace Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class RegisterTeacherCommandHandler : ResourceRequestHandlerBase<RegisterTeacherCommand, Teacher>
     {
@@ -24,7 +26,11 @@ namespace Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher
             RegisterTeacherCommand registerCommand)
         {
             var teacher = _mapper.Map<Teacher>(registerCommand);
-            _store.Teachers.Add(teacher);
+            teacher.TaughtDisciplines = await _store.Disciplines
+                .Where(discipline => registerCommand.TaughtDisciplinesIds.Contains(discipline.Id))
+                .ToListAsync();
+            
+            _store.Teachers.Add(teacher);            
             await _store.SaveChangesAsync();
 
             return Success(_localizer.TeacherRegistered(teacher.Id), teacher);

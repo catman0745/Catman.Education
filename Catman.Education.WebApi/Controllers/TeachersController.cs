@@ -1,10 +1,12 @@
 namespace Catman.Education.WebApi.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher;
     using Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher;
+    using Catman.Education.Application.Features.Teacher.Queries.GetTaughtDisciplinesIds;
     using Catman.Education.Application.Features.Teacher.Queries.GetTeachers;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.Teacher;
@@ -77,6 +79,18 @@ namespace Catman.Education.WebApi.Controllers
 
             var result = await _mediator.Send(updateCommand);
             return result.ToActionResult(() => Ok(Success(result.Message)));
+        }
+
+        /// <summary> Retrieve the IDs of all disciplines taught by the teacher with the specified teacherId </summary>
+        [HttpGet("{teacherId}/disciplines")]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<Guid>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetTaughtDisciplinesIds([FromRoute] Guid teacherId)
+        {
+            var getTaughtDisciplinesIdsQuery = new GetTaughtDisciplinesIdsQuery(teacherId);
+
+            var result = await _mediator.Send(getTaughtDisciplinesIdsQuery);
+            return result.ToActionResult(taughtDisciplinesIds => Ok(Success(result.Message, taughtDisciplinesIds)));
         }
     }
 }

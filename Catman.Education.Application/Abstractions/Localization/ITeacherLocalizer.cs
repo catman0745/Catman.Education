@@ -11,5 +11,7 @@ namespace Catman.Education.Application.Abstractions.Localization
         string TeacherRegistered(Guid id);
         
         string TeachersRetrieved(int count);
+
+        string TeacherDisciplinesRetrieved(Guid teacherId);
     }
 }

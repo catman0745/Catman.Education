@@ -13,5 +13,8 @@ namespace Catman.Education.Application.Extensions.Entities
 
         public static Task<Teacher> WithIdAsync(this IQueryable<Teacher> teachers, Guid id) =>
             teachers.SingleAsync(teacher => teacher.Id == id);
+
+        public static IQueryable<Teacher> IncludeDisciplines(this IQueryable<Teacher> teachers) =>
+            teachers.Include(teacher => teacher.TaughtDisciplines);
     }
 }

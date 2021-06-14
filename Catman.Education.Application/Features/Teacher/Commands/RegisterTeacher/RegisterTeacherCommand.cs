@@ -1,6 +1,7 @@
 namespace Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher
 {
     using System;
+    using System.Collections.Generic;
     using Catman.Education.Application.Entities.Users;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
@@ -13,6 +14,8 @@ namespace Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher
         public string FullName { get; set; }
         
         public string Password { get; set; }
+        
+        public ICollection<Guid> TaughtDisciplinesIds { get; set; }
         
         public Guid RequestorId { get; }
 

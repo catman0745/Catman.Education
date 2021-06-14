@@ -10,6 +10,7 @@ namespace Catman.Education.Application.Features.Teacher.Commands.RegisterTeacher
         public RegisterTeacherCommandValidator(IApplicationStore store, ILocalizer localizer)
         {
             RuleFor(command => command.RequestorId).NotEmpty(localizer);
+            RuleForEach(command => command.TaughtDisciplinesIds).NotEmpty(localizer);
             
             RuleFor(command => command.Username).ValidUsername(localizer).UniqueUsername(store, localizer);
             RuleFor(command => command.FullName).ValidFullName(localizer);

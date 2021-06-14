@@ -1,11 +1,13 @@
 namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Models.Result;
+    using Microsoft.EntityFrameworkCore;
 
     internal class UpdateTeacherCommandHandler : RequestHandlerBase<UpdateTeacherCommand>
     {
@@ -26,9 +28,16 @@ namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
             {
                 return NotFound(_localizer.TeacherNotFound(updateCommand.Id));
             }
-            var teacher = await _store.Teachers.WithIdAsync(updateCommand.Id);
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(updateCommand.Id);
 
             _mapper.Map(updateCommand, teacher);
+
+            teacher.TaughtDisciplines = await _store.Disciplines
+                .Where(discipline => updateCommand.TaughtDisciplinesIds.Contains(discipline.Id))
+                .ToListAsync();
+            
             await _store.SaveChangesAsync();
 
             return Success(_localizer.TeacherUpdated(teacher.Id));

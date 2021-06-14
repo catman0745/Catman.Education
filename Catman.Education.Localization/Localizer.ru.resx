@@ -191,4 +191,7 @@
     <data name="Teacher with id not found" xml:space="preserve">
         <value>Преподаватель с id "{id}" не найден</value>
     </data>
+    <data name="Teacher disciplines with teacherId retrieved" xml:space="preserve">
+        <value>Получены дисциплины, преподаваемые преподавателем с id "{id}"</value>
+    </data>
 </root>

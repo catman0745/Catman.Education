@@ -1,6 +1,7 @@
 namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
 {
     using System;
+    using System.Collections.Generic;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.RequestRestrictions;
     using MediatR;
@@ -14,6 +15,8 @@ namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
         public string FullName { get; set; }
         
         public string Password { get; set; }
+        
+        public ICollection<Guid> TaughtDisciplinesIds { get; set; }
 
         public Guid RequestorId { get; }
 
