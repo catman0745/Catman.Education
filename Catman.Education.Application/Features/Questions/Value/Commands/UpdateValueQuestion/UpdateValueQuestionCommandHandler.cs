@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Questions.Value.Commands.UpdateValueQuestion
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Abstractions;
@@ -22,16 +23,25 @@ namespace Catman.Education.Application.Features.Questions.Value.Commands.UpdateV
         
         protected override async Task<RequestResult> HandleAsync(UpdateValueQuestionCommand updateCommand)
         {
-            if (!await _store.Tests.ExistsWithIdAsync(updateCommand.TestId))
-            {
-                return NotFound(_localizer.TestNotFound(updateCommand.TestId));
-            }
-            
             if (!await _store.ValueQuestions.ExistsWithIdAsync(updateCommand.Id))
             {
                 return NotFound(_localizer.QuestionNotFound(updateCommand.Id));
             }
             var question = await _store.ValueQuestions.WithIdAsync(updateCommand.Id);
+            
+            if (!await _store.Tests.ExistsWithIdAsync(updateCommand.TestId))
+            {
+                return NotFound(_localizer.TestNotFound(updateCommand.TestId));
+            }
+            var test = await _store.Tests.WithIdAsync(updateCommand.TestId);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(updateCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
+            }
 
             _mapper.Map(updateCommand, question);
             await _store.SaveChangesAsync();

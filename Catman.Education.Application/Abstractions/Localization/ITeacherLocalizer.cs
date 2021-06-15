@@ -13,5 +13,7 @@ namespace Catman.Education.Application.Abstractions.Localization
         string TeachersRetrieved(int count);
 
         string TeacherDisciplinesRetrieved(Guid teacherId);
+
+        string TeacherHasNoAccessToDiscipline(Guid disciplineId);
     }
 }

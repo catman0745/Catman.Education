@@ -11,5 +11,7 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
         public string Title { get; set; }
         
         public Guid? DisciplineId { get; set; }
+        
+        public Guid? ForTeacherWithId { get; set; }
     }
 }

@@ -194,4 +194,7 @@
     <data name="Teacher disciplines with teacherId retrieved" xml:space="preserve">
         <value>Disciplines taught by teacher with id "{id}" retrieved successfully</value>
     </data>
+    <data name="Teacher has no access to discipline with id" xml:space="preserve">
+        <value>Teacher has no access to the discipline with id "{id}"</value>
+    </data>
 </root>

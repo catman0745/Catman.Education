@@ -35,6 +35,16 @@ namespace Catman.Education.Application.Features.Questions.Choice.Commands.Update
             }
             var question = await _store.ChoiceQuestions.WithIdAsync(updateCommand.Id);
             
+            var test = await _store.Tests.WithIdAsync(updateCommand.TestId);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(updateCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
+            }
+            
             var oldAnswers = await _store.ChoiceQuestionAnswerOptions
                 .Where(answer => answer.QuestionId == question.Id)
                 .ToListAsync();

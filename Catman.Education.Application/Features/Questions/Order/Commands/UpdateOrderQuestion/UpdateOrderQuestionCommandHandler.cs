@@ -24,16 +24,25 @@ namespace Catman.Education.Application.Features.Questions.Order.Commands.UpdateO
         
         protected override async Task<RequestResult> HandleAsync(UpdateOrderQuestionCommand updateCommand)
         {
-            if (!await _store.Tests.ExistsWithIdAsync(updateCommand.TestId))
-            {
-                return NotFound(_localizer.TestNotFound(updateCommand.TestId));
-            }
-            
             if (!await _store.OrderQuestions.ExistsWithIdAsync(updateCommand.Id))
             {
                 return NotFound(_localizer.QuestionNotFound(updateCommand.Id));
             }
             var question = await _store.OrderQuestions.WithIdAsync(updateCommand.Id);
+            
+            if (!await _store.Tests.ExistsWithIdAsync(updateCommand.TestId))
+            {
+                return NotFound(_localizer.TestNotFound(updateCommand.TestId));
+            }
+            var test = await _store.Tests.WithIdAsync(updateCommand.TestId);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(updateCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
+            }
 
             var oldItems = await _store.OrderQuestionItems.Where(item => item.QuestionId == question.Id).ToListAsync();
             _store.OrderQuestionItems.RemoveRange(oldItems);

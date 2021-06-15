@@ -21,6 +21,9 @@ namespace Catman.Education.Application.Features
 
         protected static ResourceRequestResult<TResource> TestRetake(string errorMessage) =>
             Failure(errorMessage, new Error.TestRetake());
+
+        protected static ResourceRequestResult<TResource> AccessViolation(string errorMessage) =>
+            Failure(errorMessage, new Error.AccessViolation());
         
         protected static ResourceRequestResult<TResource> ValidationError(
             string errorMessage,

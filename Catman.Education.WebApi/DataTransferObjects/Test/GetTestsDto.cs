@@ -13,6 +13,9 @@ namespace Catman.Education.WebApi.DataTransferObjects.Test
         
         [FromQuery(Name = "disciplineId")]
         public Guid? DisciplineId { get; set; }
+        
+        [FromQuery(Name = "teacherId")]
+        public Guid? ForTeacherWithId { get; set; }
     }
 
     public class GetTestsDtoValidator : AbstractValidator<PaginationInfoDto>

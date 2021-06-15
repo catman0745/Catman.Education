@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Questions.Shared.Commands.RemoveQuestion
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Catman.Education.Application.Abstractions;
     using Catman.Education.Application.Abstractions.Localization;
@@ -24,7 +25,18 @@ namespace Catman.Education.Application.Features.Questions.Shared.Commands.Remove
             {
                 return NotFound(_localizer.QuestionNotFound(removeCommand.Id));
             }
-            var question = await _store.Questions.Include(q => q.Items).WithIdAsync(removeCommand.Id);
+            var question = await _store.Questions
+                .Include(q => q.Items)
+                .Include(q => q.Test)
+                .WithIdAsync(removeCommand.Id);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(removeCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != question.Test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(question.Test.DisciplineId));
+            }
 
             _store.Questions.Remove(question);
             await _store.SaveChangesAsync();

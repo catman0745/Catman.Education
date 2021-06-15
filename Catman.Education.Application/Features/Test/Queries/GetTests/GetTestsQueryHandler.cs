@@ -8,6 +8,7 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
     using Catman.Education.Application.Entities.Testing;
     using Catman.Education.Application.Models.Result;
     using Catman.Education.Application.Pagination;
+    using Microsoft.EntityFrameworkCore;
 
     internal class GetTestsQueryHandler : ResourceRequestHandlerBase<GetTestsQuery, Paginated<Test>>
     {
@@ -15,10 +16,14 @@ namespace Catman.Education.Application.Features.Test.Queries.GetTests
         {
             var title = getQuery.Title?.ToUpper() ?? string.Empty;
             var disciplineId = getQuery.DisciplineId;
+            var teacherId = getQuery.ForTeacherWithId;
 
             return tests
                 .Where(test => test.Title.ToUpper().Contains(title))
-                .Where(test => disciplineId == null || test.DisciplineId == disciplineId);
+                .Where(test => disciplineId == null || test.DisciplineId == disciplineId)
+                .Include(test => test.Discipline)
+                    .ThenInclude(discipline => discipline.Teachers)
+                .Where(test => teacherId == null || test.Discipline.Teachers.Any(teacher => teacher.Id == teacherId));
         }
         
         private readonly IApplicationStore _store;

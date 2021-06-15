@@ -18,6 +18,9 @@ namespace Catman.Education.Application.Features
         protected static RequestResult NotFound(string message) =>
             Failure(message, new Error.NotFound());
 
+        protected static RequestResult AccessViolation(string message) =>
+            Failure(message, new Error.AccessViolation());
+
         public Task<RequestResult> Handle(TRequest request, CancellationToken _) =>
             HandleAsync(request);
 

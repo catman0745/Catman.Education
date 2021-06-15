@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Catman.Education.Application.Extensions.Entities;
     using Catman.Education.Application.Abstractions;
@@ -24,10 +25,19 @@ namespace Catman.Education.Application.Features.Test.Commands.RemoveTest
             {
                 return NotFound(_localizer.TestNotFound(removeCommand.Id));
             }
+            
             var test = await _store.Tests
                 .Include(t => t.Questions)
                     .ThenInclude(q => q.Items)
                 .WithIdAsync(removeCommand.Id);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(removeCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
+            }
 
             _store.Tests.Remove(test);
             await _store.SaveChangesAsync();

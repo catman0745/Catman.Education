@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Questions.Order.Commands.CreateOrderQuestion
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Abstractions;
@@ -28,6 +29,15 @@ namespace Catman.Education.Application.Features.Questions.Order.Commands.CreateO
             if (!await _store.Tests.ExistsWithIdAsync(createCommand.TestId))
             {
                 return NotFound(_localizer.TestNotFound(createCommand.TestId));
+            }
+            var test = await _store.Tests.WithIdAsync(createCommand.TestId);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(createCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
             }
 
             var question = _mapper.Map<OrderQuestion>(createCommand);

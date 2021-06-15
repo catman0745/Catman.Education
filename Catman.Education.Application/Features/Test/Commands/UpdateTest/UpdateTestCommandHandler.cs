@@ -1,5 +1,6 @@
 namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Catman.Education.Application.Extensions.Entities;
@@ -32,6 +33,14 @@ namespace Catman.Education.Application.Features.Test.Commands.UpdateTest
                 return NotFound(_localizer.TestNotFound(updateCommand.Id));
             }
             var test = await _store.Tests.WithIdAsync(updateCommand.Id);
+            
+            var teacher = await _store.Teachers
+                .IncludeDisciplines()
+                .WithIdAsync(updateCommand.RequestorId);
+            if (teacher.TaughtDisciplines.All(discipline => discipline.Id != test.DisciplineId))
+            {
+                return AccessViolation(_localizer.TeacherHasNoAccessToDiscipline(test.DisciplineId));
+            }
 
             _mapper.Map(updateCommand, test);
             await _store.SaveChangesAsync();
