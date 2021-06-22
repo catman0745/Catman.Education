@@ -49,7 +49,7 @@
 	                                                             FROM users u
 	                                                             LEFT JOIN students s ON s.id = u.id
 	                                                             WHERE u.id = users.id
-                                                             )",
+                                                             );",
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);
@@ -62,7 +62,7 @@
                 "Npgsql.EntityFrameworkCore.PostgreSQL" => @"UPDATE students
                                                              SET full_name = users.full_name
                                                              FROM users
-                                                             WHERE students.id = users.id",
+                                                             WHERE students.id = users.id;",
                 _ => throw new Exception("Unexpected provider")
             };
             migrationBuilder.Sql(sqlCommand);

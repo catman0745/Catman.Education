@@ -124,7 +124,7 @@ namespace Catman.Education.Persistence.Migrations
     {
         private const string PostgreSqlCommand = @"UPDATE users
                                                    SET full_name = username
-                                                   WHERE ""Discriminator"" = 'Student'";
+                                                   WHERE ""Discriminator"" = 'Student';";
         
         public static void Up(MigrationBuilder migrationBuilder)
         {
@@ -145,13 +145,13 @@ namespace Catman.Education.Persistence.Migrations
                                                                    WHERE ""Discriminator"" = 'Student');
                                                      UPDATE users
                                                      SET group_id = '07450745-0745-0745-0745-074507450745'
-                                                     WHERE ""Discriminator"" = 'Student'";
+                                                     WHERE ""Discriminator"" = 'Student';";
 
         private const string DownPostgreSqlCommand = @"UPDATE users
                                                        SET group_id = NULL
                                                        WHERE group_id = '07450745-0745-0745-0745-074507450745';
                                                        DELETE FROM groups
-                                                       WHERE id = '07450745-0745-0745-0745-074507450745'";
+                                                       WHERE id = '07450745-0745-0745-0745-074507450745';";
         
         public static void Up(MigrationBuilder migrationBuilder)
         {
