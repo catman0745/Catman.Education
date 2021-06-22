@@ -26,6 +26,8 @@ Set following environment variables:
 | `ASPNETCORE_ENVIRONMENT` | Environment type (usually `Development`, `Staging` or `Production`) | |
 | `CATMAN_EDUCATION_CLIENT_ORIGIN` | Allowed client origin (leave empty to allow any) | |
 
+#### Run development version locally
+
 Restore dependencies:
 
 ```
@@ -42,4 +44,36 @@ Start the API (default port is `5000`):
 
 ```
 dotnet run -p Catman.Education.WebApi
+```
+
+#### Deploy on server
+
+Publish application:
+
+```
+dotnet publish -o ./publish --no-self-contained -c Release
+```
+
+Create migration script:
+
+```
+# Create a script containing all migrations:
+dotnet ef migrations script -i -o "publish/migration.sql" -p Catman.Education.Persistence -s Catman.Education.WebApi
+
+# Create a script containing all migrations after "SpecificMigration":
+dotnet ef migrations script "SpecificMigration" -o "publish/migration.sql" -p Catman.Education.Persistence -s Catman.Education.WebApi
+```
+
+Send the `publish` folder to the server.
+
+Apply migration:
+
+```
+psql -d <db_name> -f /path/to/migration.sql
+```
+
+Launch WebApi:
+
+```
+/path/to/Catman.Education.WebApi
 ```
