@@ -11,9 +11,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
         [JsonPropertyName("username")]
         public string Username { get; set; }
         
-        [JsonPropertyName("password")]
-        public string Password { get; set; }
-        
         [JsonPropertyName("fullName")]
         public string FullName { get; set; }
         
@@ -26,7 +23,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Student
         public UpdateStudentDtoValidator(ILocalizer localizer)
         {
             RuleFor(dto => dto.Username).ValidUsername(localizer);
-            RuleFor(dto => dto.Password).ValidPassword(localizer);
             RuleFor(dto => dto.FullName).ValidFullName(localizer);
             RuleFor(dto => dto.GroupId).NotEmpty(localizer);
         }

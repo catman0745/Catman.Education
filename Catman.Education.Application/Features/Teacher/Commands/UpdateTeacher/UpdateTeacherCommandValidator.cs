@@ -17,7 +17,6 @@ namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
                 .ValidUsername(localizer)
                 .UniqueUsername(store, localizer, exceptUserWithId: command => command.Id);
             RuleFor(command => command.FullName).ValidFullName(localizer);
-            RuleFor(command => command.Password).ValidPassword(localizer);
         }
     }
 }

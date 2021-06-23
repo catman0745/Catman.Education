@@ -14,8 +14,6 @@ namespace Catman.Education.Application.Features.Teacher.Commands.UpdateTeacher
         
         public string FullName { get; set; }
         
-        public string Password { get; set; }
-        
         public ICollection<Guid> TaughtDisciplinesIds { get; set; }
 
         public Guid RequestorId { get; }

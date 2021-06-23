@@ -12,8 +12,6 @@ namespace Catman.Education.Application.Features.Student.Commands.UpdateStudent
         
         public string Username { get; set; }
         
-        public string Password { get; set; }
-        
         public string FullName { get; set; }
         
         public Guid GroupId { get; set; }

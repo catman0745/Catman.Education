@@ -12,9 +12,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Admin
         
         [JsonPropertyName("fullName")]
         public string FullName { get; set; }
-        
-        [JsonPropertyName("password")]
-        public string Password { get; set; }
     }
 
     public class UpdateAdminDtoValidator : AbstractValidator<UpdateAdminDto>
@@ -23,7 +20,6 @@ namespace Catman.Education.WebApi.DataTransferObjects.Admin
         {
             RuleFor(dto => dto.Username).ValidUsername(localizer);
             RuleFor(dto => dto.FullName).ValidFullName(localizer);
-            RuleFor(dto => dto.Password).ValidPassword(localizer);
         }
     }
 }
