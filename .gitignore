@@ -4,3 +4,6 @@
 **/obj
 
 **/logs
+
+/publish
+/deploy.sh
