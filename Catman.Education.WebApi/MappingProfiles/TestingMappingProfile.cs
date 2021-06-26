@@ -9,6 +9,7 @@ namespace Catman.Education.WebApi.MappingProfiles
     using Catman.Education.Application.Models.Testing;
     using Catman.Education.Application.Models.Testing.QuestionItems;
     using Catman.Education.Application.Models.Testing.Questions;
+    using Catman.Education.Application.Models.Testing.TestInfo;
     using Catman.Education.WebApi.DataTransferObjects.Testing;
     using Catman.Education.WebApi.DataTransferObjects.Testing.Answered;
     using Catman.Education.WebApi.DataTransferObjects.Testing.Check;
@@ -18,6 +19,12 @@ namespace Catman.Education.WebApi.MappingProfiles
     {
         public TestingMappingProfile()
         {
+            CreateMap<ITestInfo, TestInfoDto>()
+                .Include<AvailableTestInfo, TestInfoDto>()
+                .Include<TakenTestInfo, TestInfoDto>();
+            CreateMap<AvailableTestInfo, TestInfoDto>();
+            CreateMap<TakenTestInfo, TestInfoDto>();
+            
             CreateMap<StudentPerformance, StudentPerformanceDto>()
                 .ForMember(dto => dto.StudentId, options => options.MapFrom(entity => entity.Student.Id))
                 .ForMember(

@@ -9,6 +9,7 @@ namespace Catman.Education.WebApi.Controllers
     using Catman.Education.Application.Features.Testing.Queries.GetTesting;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResult;
     using Catman.Education.Application.Features.Testing.Queries.GetTestingResults;
+    using Catman.Education.Application.Features.Testing.Queries.GetTestsInfo;
     using Catman.Education.Application.Models.Answered;
     using Catman.Education.WebApi.DataTransferObjects.Pagination;
     using Catman.Education.WebApi.DataTransferObjects.Testing;
@@ -46,6 +47,26 @@ namespace Catman.Education.WebApi.Controllers
             {
                 var dto = _mapper.Map<TestingDto>(test);
                 return Ok(Success(result.Message, dto));
+            });
+        }
+
+        /// <summary>
+        ///     Get a personalized test list that includes available tests and the results of those already taken.
+        /// </summary>
+        [HttpGet("discipline/{disciplineId:guid}/student/{studentId:guid}")]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<ICollection<TestInfoDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetTestsInfo(
+            [FromRoute] Guid disciplineId,
+            [FromRoute] Guid studentId)
+        {
+            var query = new GetTestsInfoQuery(disciplineId, studentId);
+
+            var result = await _mediator.Send(query);
+            return result.ToActionResult(testsInfo =>
+            {
+                var dtos = _mapper.Map<ICollection<TestInfoDto>>(testsInfo);
+                return Ok(Success(result.Message, dtos));
             });
         }
 
