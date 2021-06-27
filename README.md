@@ -2,6 +2,11 @@
 
 School / college API for student testing
 
+### Live demo
+
+[React UI](https://github.com/catman0745/catman-edu-webui) live demo: [Catman.Education](https://catman-education.xyz).
+API demo base URL: [catman-education.xyz/api](https://catman-education.xyz/api).
+
 ### Architectural notes
 
 `Catman.Education.Application` is the core of the API. The core **must** be responsible for all kinds of checks, validations and domain rules. The core **must not rely** on other tiers to do this. But that does not mean that other tiers cannot do it either (e.g. `Catman.Education.WebApi` does a simple `DTO` validation and authorization to reduce the load on the application).
