@@ -52,6 +52,25 @@ namespace Catman.Education.WebApi.Controllers
             return result.ToActionResult(userInfo => Ok(Success(result.Message, userInfo)));
         }
 
+        /// <summary> Get the owner of the token </summary>
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(typeof(ResourceSuccessResponse<UserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetTokenOwner()
+        {
+            var ownerQuery = new GetUserQuery(UserId);
+            
+            var result = await _mediator.Send(ownerQuery);
+            return result.ToActionResult(user =>
+            {
+                var ownerDto = _mapper.Map<UserDto>(user);
+                return Ok(Success(result.Message, ownerDto));
+            });
+        }
+        
+
         /// <summary> Remove the user with matching id </summary>
         [HttpDelete("{id}")]
         [Authorize]
